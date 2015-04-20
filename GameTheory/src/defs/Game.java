@@ -1,13 +1,22 @@
 package defs;
 
-public class Game {
+import interfaces.*;
+
+public class Game implements PlayableGame {
+	//Members
+	String name = "MyFirstGame";
 	
-	String name = "";
-	
-	public Game(String name) {
-		this.name = name;
+	//Konstruktoren
+	public Game() {
 	}
 	
+	//Methoden
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	@Override
 	public String toString() {
 		return this.name;
