@@ -1,5 +1,8 @@
 package defs;
 
+/* 
+ * Spezifische Spielklasse
+ */
 public class MyFirstGame extends Game {
 	// Members
 

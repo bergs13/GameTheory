@@ -2,6 +2,9 @@ package defs;
 
 import interfaces.*;
 
+/* 
+ * Basisklasse für alle Spiele (Implementiert 'spielbar')
+ */
 public class Game implements PlayableGame {
 	//Members
 	String name = "MyFirstGame";
