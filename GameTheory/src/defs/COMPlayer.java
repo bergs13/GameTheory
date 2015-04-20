@@ -4,13 +4,13 @@ package defs;
  * Computergesteuerter Spieler
  */
 public class COMPlayer extends Player {
-	//Members
-	
-	
-	//Konstruktoren
+	// Members
+
+	// Konstruktoren
 	public COMPlayer() {
+		super();
 	}
-	
-	//Methoden
-	
+
+	// Methoden
+
 }

@@ -7,7 +7,7 @@ public class MyFirstGame extends Game {
 	// Members
 
 	// Konstruktoren
-	public MyFirstGame(){
+	public MyFirstGame() {
 		super();
 	}
 

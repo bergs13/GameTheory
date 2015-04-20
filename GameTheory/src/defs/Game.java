@@ -6,20 +6,22 @@ import interfaces.*;
  * Basisklasse für alle Spiele (Implementiert 'spielbar')
  */
 public class Game implements PlayableGame {
-	//Members
+	// Members
 	String name = "MyFirstGame";
-	
-	//Konstruktoren
+
+	// Konstruktoren
 	public Game() {
 	}
-	
-	//Methoden
+
+	// Methoden
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	@Override
 	public String toString() {
 		return this.name;
