@@ -7,10 +7,11 @@ import interfaces.*;
  */
 public class Game implements PlayableGame {
 	// Members
-	String name = "MyFirstGame";
+	private String name = "";
 
 	// Konstruktoren
-	public Game() {
+	public Game(String name) {
+		this.name = name;
 	}
 
 	// Methoden

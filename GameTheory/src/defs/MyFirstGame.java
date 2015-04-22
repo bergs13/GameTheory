@@ -8,7 +8,7 @@ public class MyFirstGame extends Game {
 
 	// Konstruktoren
 	public MyFirstGame() {
-		super();
+		super("My first game");
 	}
 
 	// Methoden
