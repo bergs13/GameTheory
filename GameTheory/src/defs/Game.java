@@ -1,11 +1,10 @@
 package defs;
 
-import interfaces.*;
 
 /* 
- * Basisklasse für alle Spiele (Implementiert 'spielbar')
+ * Basisklasse fÃ¼r alle Spiele 
  */
-public class Game implements PlayableGame {
+public class Game  {
 	// Members
 	private String name = "";
 

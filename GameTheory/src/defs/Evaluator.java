@@ -11,4 +11,8 @@ public class Evaluator {
 	}
 
 	// Methoden
+        public int heuristicValue(){
+        
+            return 1;  
+        }
 }

@@ -1,14 +1,25 @@
 package defs;
 
 /*
- * Klasse für die Algorithmen (Als statische Methoden)
+ * Klasse fï¿½r die Algorithmen (Als statische Methoden)
  */
 public class Algorithms {
-	// Methoden
-	// Statische Methoden
-	public static void alphaBeta() {
-	}
 
-	public static void miniMax() {
-	}
+    // Methoden
+    // Statische Methoden
+    public static int alphaBeta(Evaluator evaluator, GameState gstate) {
+        Evaluator eval = evaluator;
+        if (gstate.isTerminalState()) {
+            return eval.heuristicValue();
+        }
+        return 1;
+    }
+
+    public static int miniMax(Evaluator evaluator, GameState gstate) {
+        Evaluator eval = evaluator;
+        if (gstate.isTerminalState()) {
+            return eval.heuristicValue();
+        }
+        return 1;
+    }
 }

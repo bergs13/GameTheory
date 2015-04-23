@@ -1,11 +1,11 @@
 package defs;
 
-import interfaces.UsablePlayer;
 
 /*
- * Basisklasse für den Spieler
+ * Basisklasse fï¿½r den Spieler
  */
-public class Player implements UsablePlayer {
+public class Player  {
+    
 	public Player() {
 	}
 }
