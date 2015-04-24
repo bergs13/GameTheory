@@ -1,13 +1,20 @@
 package defs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Thunderchild
  */
 public class GameState {
 
-    public GameState() {
+    private List<Object> moves;
+    private List<Object> states;
 
+    public GameState(List moves, List states) {
+        this.moves = moves;
+        this.states = states;
     }
 
     public void setStartState() {
@@ -31,7 +38,9 @@ public class GameState {
     }
 
     public void doMove() {
-
+        if (moves == null) {
+            moves = new ArrayList();
+        }
     }
 
     public void undoMove() {
@@ -78,11 +87,17 @@ public class GameState {
 
     }
 
-    public void getMoveHistory() {
-
+    public List getMoveHistory() {
+        if (moves == null) {
+            moves = new ArrayList();
+        }
+        return moves;
     }
 
-    public void getStateHistory() {
-
+    public List getStateHistory() {
+        if (states == null) {
+            states = new ArrayList();
+        }
+        return states;
     }
 }
