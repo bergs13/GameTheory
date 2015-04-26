@@ -1,7 +1,8 @@
 package defs;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.ListIterator;
+
 
 /**
  *
@@ -9,54 +10,52 @@ import java.util.List;
  */
 public class GameState {
 
-    private List<Object> moves;
-    private List<Object> states;
+    private ArrayList<Move> moveHistory;
+    private ArrayList<Move> childMoves;
+    private ArrayList<GameState> stateHistory;
+    private ArrayList<GameState> childStates;
+    private ListIterator<Move> moveIterator = childMoves.listIterator();
 
-    public GameState(List moves, List states) {
-        this.moves = moves;
-        this.states = states;
+    public GameState(){
+        
     }
-
+    public GameState(ArrayList moves, ArrayList states, Move move) {
+        this.moveHistory = moves;
+        this.stateHistory = states;
+    }
+    //Set Startstate when start node
     public void setStartState() {
-
+        this.moveHistory = new ArrayList();
+        this.stateHistory = new ArrayList();
     }
-
-    public void getAllMoves() {
-
+    //all valid moves
+    public ArrayList getAllMoves() {
+       return childMoves;
     }
-
-    public void possibleMove() {
-
-    }
-
-    public boolean hasNextMove() {
+    //Is move valid
+    public boolean possibleMove(Move move) {
         return true;
     }
-
-    public void getNextMove() {
-
-    }
-
-    public void doMove() {
-        if (moves == null) {
-            moves = new ArrayList();
+        
+    //execute a move
+    public void doMove(Move move) {
+        if (possibleMove(move)){
+            
+        }
+        else{
+            //do move
         }
     }
-
+    //undo move that lead to this state
     public void undoMove() {
 
     }
-
-    public void getAllChildStates() {
-
-    }
-
-    public void hasNextChild() {
-
-    }
-
-    public void getNextChild() {
-
+    //
+    public ArrayList getChildStates() {
+        if(childStates == null){
+            createChildStates();
+        }
+        return childStates;
     }
 
     public void getChild() {
@@ -72,7 +71,7 @@ public class GameState {
     }
 
     public boolean isTerminal() {
-        return true;
+        return !getChildStates().isEmpty();
     }
 
     public void firstPlayerToWin() {
@@ -87,17 +86,17 @@ public class GameState {
 
     }
 
-    public List getMoveHistory() {
-        if (moves == null) {
-            moves = new ArrayList();
-        }
-        return moves;
+    public ArrayList getMoveHistory() {
+        
+        return moveHistory;
     }
 
-    public List getStateHistory() {
-        if (states == null) {
-            states = new ArrayList();
-        }
-        return states;
+    public ArrayList getStateHistory() {
+        
+        return stateHistory;
+    }
+
+    private void createChildStates() {
+        childStates = new ArrayList();
     }
 }
