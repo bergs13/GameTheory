@@ -1,8 +1,6 @@
 package defs;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
-
 
 /**
  *
@@ -14,8 +12,7 @@ public class GameState {
     private ArrayList<Move> childMoves;
     private ArrayList<GameState> stateHistory;
     private ArrayList<GameState> childStates;
-    private ListIterator<Move> moveIterator = childMoves.listIterator();
-
+    private Player playerToMove;
     public GameState(){
         
     }
@@ -24,27 +21,27 @@ public class GameState {
         this.stateHistory = states;
     }
     //Set Startstate when start node
-    public void setStartState() {
+    public void setStartState(Player firstPlayer) {
         this.moveHistory = new ArrayList();
         this.stateHistory = new ArrayList();
+        this.playerToMove = firstPlayer;
+        playerToMove.setGamestate(this);
     }
     //all valid moves
     public ArrayList getAllMoves() {
-       return childMoves;
+       if (childMoves == null){
+           findPossibleMoves();
+       }
+        return childMoves;
     }
     //Is move valid
     public boolean possibleMove(Move move) {
-        return true;
+        return getAllMoves().contains(move);
     }
         
     //execute a move
     public void doMove(Move move) {
-        if (possibleMove(move)){
-            
-        }
-        else{
-            //do move
-        }
+       
     }
     //undo move that lead to this state
     public void undoMove() {
@@ -96,7 +93,11 @@ public class GameState {
         return stateHistory;
     }
 
-    private void createChildStates() {
+    public void createChildStates() {
         childStates = new ArrayList();
+    }
+
+    public void findPossibleMoves() {
+        childMoves = new ArrayList();
     }
 }
