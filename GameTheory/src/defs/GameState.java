@@ -48,7 +48,7 @@ public class GameState {
 
     }
     //
-    public ArrayList getChildStates() {
+    public ArrayList<GameState> getChildStates() {
         if(childStates == null){
             createChildStates();
         }
