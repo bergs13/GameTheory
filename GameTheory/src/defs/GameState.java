@@ -8,22 +8,22 @@ import java.util.ArrayList;
  */
 public class GameState {
 
-    private ArrayList<Move> moveHistory;
+    private Move playedMove;
     private ArrayList<Move> childMoves;
-    private ArrayList<GameState> stateHistory;
+    private GameState parentState;
     private ArrayList<GameState> childStates;
     private Player playerToMove;
+    
     public GameState(){
         
     }
-    public GameState(ArrayList moves, ArrayList states, Move move) {
-        this.moveHistory = moves;
-        this.stateHistory = states;
+    public GameState(GameState parentState, Move move) {
+        this.parentState = parentState;
+        this.playedMove = move;
     }
     //Set Startstate when start node
     public void setStartState(Player firstPlayer) {
-        this.moveHistory = new ArrayList();
-        this.stateHistory = new ArrayList();
+        this.parentState = null;
         this.playerToMove = firstPlayer;
         playerToMove.setGamestate(this);
     }
@@ -40,12 +40,14 @@ public class GameState {
     }
         
     //execute a move
-    public void doMove(Move move) {
-       
+    public GameState doMove(Move move) 
+    {
+       GameState gstate = new GameState(this, move);
+        return gstate;
     }
     //undo move that lead to this state
-    public void undoMove() {
-
+    public GameState undoMove() {
+        return parentState;
     }
     //
     public ArrayList<GameState> getChildStates() {
@@ -83,15 +85,15 @@ public class GameState {
 
     }
 
-    public ArrayList getMoveHistory() {
-        
-        return moveHistory;
-    }
-
-    public ArrayList getStateHistory() {
-        
-        return stateHistory;
-    }
+//    public ArrayList getMoveHistory() {
+//        
+//        return moveHistory;
+//    }
+//
+//    public ArrayList getStateHistory() {
+//        
+//        return stateHistory;
+//    }
 
     public void createChildStates() {
         childStates = new ArrayList();

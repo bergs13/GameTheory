@@ -15,13 +15,14 @@ import java.util.ArrayList;
  * @author Thunderchild
  */
 public class NimGameState extends GameState{
-    private int matches;
+    public int matches;
     
     public NimGameState() {
     }
 
-    public NimGameState(ArrayList moves, ArrayList states, Move move) {
-        super(moves, states, move);
+    public NimGameState(GameState parentState, Move move) {
+        super(parentState, move);
+        move.executeMove(matches);
     }
 
     @Override
@@ -32,16 +33,6 @@ public class NimGameState extends GameState{
     @Override
     public void createChildStates() {
         super.createChildStates(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList getStateHistory() {
-        return super.getStateHistory(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArrayList getMoveHistory() {
-        return super.getMoveHistory(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -85,13 +76,13 @@ public class NimGameState extends GameState{
     }
 
     @Override
-    public void undoMove() {
-        super.undoMove(); //To change body of generated methods, choose Tools | Templates.
+    public GameState undoMove() {
+        return super.undoMove(); 
     }
 
     @Override
-    public void doMove(Move move) {
-        super.doMove(move); //To change body of generated methods, choose Tools | Templates.
+    public GameState doMove(Move move) {
+        return super.doMove(move); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -109,5 +100,18 @@ public class NimGameState extends GameState{
         super.setStartState(firstPlayer); //To change body of generated methods, choose Tools | Templates.
     }
     
+    private class NimMove extends Move{
+        int matchesRemoved;
+        public NimMove(Object move) {
+            super(move);
+            matchesRemoved = (int)move;
+        }
+
+        public void executeMove(int state) {
+            state =- matchesRemoved;
+        }         
+    }
+        
+        
     
 }

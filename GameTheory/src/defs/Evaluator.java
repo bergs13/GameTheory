@@ -11,27 +11,27 @@ public class Evaluator {
     }
 
     // Methoden
-    public int heuristicValue() {
+    public int heuristicValue(GameState gameState) {
         return gameNodeValue;
     }
 
-    public int simpleHeuristicValue() {
+    public int simpleHeuristicValue(GameState gameState) {
         return gameNodeValue;
     }
 
-    public int getMinValue() {
+    public int getMinValue(GameState gameState) {
         return gameNodeValue;
     }
 
-    public int getMaxValue() {
+    public int getMaxValue(GameState gameState) {
         return gameNodeValue;
     }
 
-    public int exactValue() {
+    public int exactValue(GameState gameState) {
         return gameNodeValue;
     }
 
-    public int evaluate() {
+    public int evaluate(GameState gameState) {
         return gameNodeValue;
     }
 
