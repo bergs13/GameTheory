@@ -1,11 +1,11 @@
 import defs.*;
+import defs.general.Evaluator;
+import defs.general.GameState;
 
 public class Program {
 
 	public static void main(String[] args) {
 		System.out.println("the programm.");
-		MyFirstGame g = new MyFirstGame();
-		System.out.println(g.toString());
 	}
         public static int alphaBeta(Evaluator evaluator, GameState gstate, int depth, int alpha, int beta) {
         if (gstate.isTerminal()|| depth == 0) {

@@ -1,4 +1,5 @@
-package defs;
+package defs.general;
+
 
 /*
  * Basisklasse f�r den Spieler
