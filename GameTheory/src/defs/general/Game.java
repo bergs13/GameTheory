@@ -1,14 +1,13 @@
 package defs.general;
 
-
 /* 
  * Basisklasse für alle Spiele 
  */
-public class Game  {
+public class Game {
 	// Members
 	private String name = "";
-        private Player firstPlayer;
-        private Player secondPlayer;
+	protected Player firstPlayer = new HumanPlayer();
+	protected Player secondPlayer = new COMPlayer();
 
 	// Konstruktoren
 	public Game(String name) {
@@ -28,12 +27,13 @@ public class Game  {
 	public String toString() {
 		return this.name;
 	}
-        public boolean setupGame(){
-            GameState gameState = new GameState();
-            gameState.setStartState(firstPlayer);
-            return true;
-        }
-        public void play(){
-            
-        }
+
+	public boolean setupGame() {
+		GameState gameState = new GameState();
+		gameState.setStartState(firstPlayer);
+		return true;
+	}
+	public void play() {
+
+	}
 }

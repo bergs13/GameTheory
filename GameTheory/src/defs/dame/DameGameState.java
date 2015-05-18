@@ -139,6 +139,12 @@ public class DameGameState extends GameState implements
 	@Override
 	public void moveStone(int sourceRowIndex, int sourceColumnIndex,
 			int targetRowIndex, int targetColumnIndex) {
+
+		// Testausgabe
+		System.out.println("" + sourceRowIndex + ";" + sourceColumnIndex + ";"
+				+ targetRowIndex + ";" + targetColumnIndex);
+		// Testausgabe
+
 		// Move the value of the source cell to the target cell
 		Cell<Character> sourceCell = null;
 		Cell<Character> targetCell = null;
@@ -166,11 +172,13 @@ public class DameGameState extends GameState implements
 		}
 
 		// Only if both cells found
-		targetCell.setCellValue(sourceCell.getCellValue());
-		sourceCell.setCellValue(' ');
+		if (null != sourceCell && null != targetCell) {
+			targetCell.setCellValue(sourceCell.getCellValue());
+			sourceCell.setCellValue(' ');
 
-		// Notify view for update
-		setChanged();
-		notifyObservers(DameGameStateEventConstants.STONEMOVED);
+			// Notify view for update
+			setChanged();
+			notifyObservers(DameGameStateEventConstants.STONEMOVED);
+		}
 	}
 }

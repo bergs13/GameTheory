@@ -6,17 +6,32 @@
 package defs.dame;
 
 import defs.general.Game;
+import defs.general.Table;
 
 /**
  *
  * @author Thunderchild
  */
-public class DameGame extends Game{
+public class DameGame extends Game {
+	DameGameState dameGameState = null;
+	DameEvaluator evaluator = new DameEvaluator();
 
-    DameEvaluator evaluator = new DameEvaluator();
-    
-    public DameGame(String name) {
-        super(name);
-    }
-    
+	public DameGame() {
+		super("Dame-Spiel");
+		this.dameGameState = new DameGameState();
+		setupGame();
+	}
+
+	@Override
+	public boolean setupGame() {
+		// initialize table and set as start state
+		Table<Character> table = new Table<Character>();
+		this.dameGameState.setStartState(firstPlayer, table);
+		return true;
+	}
+	
+	public DameGameState getDameGameState()
+	{
+		return this.dameGameState;
+	}
 }
