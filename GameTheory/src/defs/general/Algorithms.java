@@ -1,4 +1,4 @@
-package defs;
+package defs.general;
 
 /*
  * Klasse f�r die Algorithmen (Als statische Methoden)

@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package NimGame;
+package defs.nim;
 
-import defs.GameState;
-import defs.Move;
-import defs.Player;
+import defs.general.GameState;
+import defs.general.Move;
+import defs.general.Player;
+
 import java.util.ArrayList;
 
 /**

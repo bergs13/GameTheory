@@ -3,18 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package defs;
+package defs.nim;
+
+import defs.general.Game;
 
 /**
  *
  * @author Thunderchild
  */
-public class Move {
+public class NimGame extends Game{
+
+    NimEvaluator evaluator = new NimEvaluator();
     
-    public Move(Object move){
-        
+    public NimGame(String name) {
+        super(name);
     }
-    public void executeMove(Object state){
-        
-    }
+    
 }

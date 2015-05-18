@@ -1,4 +1,4 @@
-package defs;
+package defs.general;
 
 /* 
  * Basisklasse für Evaluatoren
