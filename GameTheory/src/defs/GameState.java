@@ -25,7 +25,7 @@ public class GameState {
     public void setStartState(Player firstPlayer) {
         this.parentState = null;
         this.playerToMove = firstPlayer;
-        playerToMove.setGamestate(this);
+        
     }
     //all valid moves
     public ArrayList getAllMoves() {
@@ -43,7 +43,7 @@ public class GameState {
     public GameState doMove(Move move) 
     {
        GameState gstate = new GameState(this, move);
-        return gstate;
+       return gstate;
     }
     //undo move that lead to this state
     public GameState undoMove() {
@@ -84,16 +84,6 @@ public class GameState {
     public void draw() {
 
     }
-
-//    public ArrayList getMoveHistory() {
-//        
-//        return moveHistory;
-//    }
-//
-//    public ArrayList getStateHistory() {
-//        
-//        return stateHistory;
-//    }
 
     public void createChildStates() {
         childStates = new ArrayList();

@@ -28,9 +28,12 @@ public class Game  {
 	public String toString() {
 		return this.name;
 	}
-        public boolean startGame(){
+        public boolean setupGame(){
             GameState gameState = new GameState();
             gameState.setStartState(firstPlayer);
             return true;
+        }
+        public void play(){
+            
         }
 }

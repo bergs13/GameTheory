@@ -107,18 +107,4 @@ public class NimGameState extends GameState {
         this.matches = startMatches;
     }
 
-    private class NimMove extends Move {
-
-        int matchesRemoved;
-
-        public NimMove(Object move) {
-            super(move);
-            matchesRemoved = -(int) move;
-        }
-
-        public void executeMove(NimGameState state) {
-            state.matches = -matchesRemoved;
-        }
-    }
-
 }
