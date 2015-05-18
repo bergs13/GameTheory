@@ -5,18 +5,25 @@
  */
 package NimGame;
 
-import defs.Game;
+import defs.Move;
 
 /**
  *
  * @author Thunderchild
  */
-public class NimGame extends Game{
+public class NimMove extends Move{
+    int value;
 
-    NimEvaluator evaluator = new NimEvaluator();
-    
-    public NimGame(String name) {
-        super(name);
+    public NimMove(Object move) {
+        super(move);
+        value = (int)move;
     }
+
+    public void executeMove(int state) {
+        state =- value;
+    }
+    
+    
+    
     
 }

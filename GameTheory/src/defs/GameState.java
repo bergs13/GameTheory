@@ -102,4 +102,13 @@ public class GameState {
     public void findPossibleMoves() {
         childMoves = new ArrayList();
     }
+
+    public ArrayList<Move> getChildMoves() {
+        return childMoves;
+    }
+
+    public void setChildMoves(ArrayList<Move> childMoves) {
+        this.childMoves = childMoves;
+    }
+    
 }

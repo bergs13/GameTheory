@@ -13,7 +13,6 @@ import defs.GameState;
  * @author Thunderchild
  */
 public class NimEvaluator extends Evaluator{
-
     
     @Override
     public int evaluate(GameState gameState) {
@@ -23,5 +22,4 @@ public class NimEvaluator extends Evaluator{
         }
         else return -1;
     }
-    
 }

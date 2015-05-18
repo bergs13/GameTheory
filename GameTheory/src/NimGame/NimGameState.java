@@ -14,25 +14,32 @@ import java.util.ArrayList;
  *
  * @author Thunderchild
  */
-public class NimGameState extends GameState{
+public class NimGameState extends GameState {
+
     public int matches;
-    
+
     public NimGameState() {
     }
 
     public NimGameState(GameState parentState, Move move) {
         super(parentState, move);
-        move.executeMove(matches);
+        this.matches = ((NimGameState)parentState).matches;
+        ((NimMove)move).executeMove(this.matches);
     }
 
     @Override
     public void findPossibleMoves() {
-        super.findPossibleMoves(); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 1; i <= Math.min(3, matches); i++) {
+            super.getChildMoves().add(new NimMove(i));
+        }
+
     }
 
     @Override
     public void createChildStates() {
-        super.createChildStates(); //To change body of generated methods, choose Tools | Templates.
+        for(Move move : this.getAllMoves()) {
+            super.getChildStates().add(new GameState(this, move));
+        }
     }
 
     @Override
@@ -77,7 +84,7 @@ public class NimGameState extends GameState{
 
     @Override
     public GameState undoMove() {
-        return super.undoMove(); 
+        return super.undoMove();
     }
 
     @Override
@@ -91,27 +98,27 @@ public class NimGameState extends GameState{
     }
 
     @Override
-    public ArrayList getAllMoves() {
-        return super.getAllMoves(); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Move> getAllMoves() {
+        return super.getAllMoves();
     }
 
-    @Override
-    public void setStartState(Player firstPlayer) {
-        super.setStartState(firstPlayer); //To change body of generated methods, choose Tools | Templates.
+    public void setStartState(Player firstPlayer, int startMatches) {
+        super.setStartState(firstPlayer);
+        this.matches = startMatches;
     }
-    
-    private class NimMove extends Move{
+
+    private class NimMove extends Move {
+
         int matchesRemoved;
+
         public NimMove(Object move) {
             super(move);
-            matchesRemoved = (int)move;
+            matchesRemoved = -(int) move;
         }
 
-        public void executeMove(int state) {
-            state =- matchesRemoved;
-        }         
+        public void executeMove(NimGameState state) {
+            state.matches = -matchesRemoved;
+        }
     }
-        
-        
-    
+
 }

@@ -7,6 +7,8 @@ package defs;
 public class Game  {
 	// Members
 	private String name = "";
+        private Player firstPlayer;
+        private Player secondPlayer;
 
 	// Konstruktoren
 	public Game(String name) {
@@ -26,4 +28,9 @@ public class Game  {
 	public String toString() {
 		return this.name;
 	}
+        public boolean startGame(){
+            GameState gameState = new GameState();
+            gameState.setStartState(firstPlayer);
+            return true;
+        }
 }
