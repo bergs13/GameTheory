@@ -79,7 +79,7 @@ public class NimGameState extends GameState {
     }
 
     @Override
-    public ArrayList getChildStates() {
+    public ArrayList<GameState> getChildStates() {
         return super.getChildStates(); //To change body of generated methods, choose Tools | Templates.
     }
 
