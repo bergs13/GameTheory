@@ -20,7 +20,7 @@ import java.util.List;
 public class DameMove extends Move {
 
     int[] movement;
-    Cell pieceToCapture = null;
+    private Cell pieceToCapture = null;
 
     public DameMove(Object move) {
         super(move);
@@ -64,5 +64,8 @@ public class DameMove extends Move {
 
     public void capturePiece(Cell cell) {
         this.pieceToCapture = cell;
+    }
+    public boolean capturePiece(){
+        return (pieceToCapture != null);
     }
 }

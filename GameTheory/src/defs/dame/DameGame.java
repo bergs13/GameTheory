@@ -25,7 +25,7 @@ public class DameGame extends Game {
 	@Override
 	public boolean setupGame() {
 		// initialize table and set as start state
-		Table<Character> table = new Table<Character>();
+		Table<DameGameStateEventConstants.Piece> table = new Table<DameGameStateEventConstants.Piece>();
 		this.dameGameState.setStartState(firstPlayer, table);
 		return true;
 	}
