@@ -5,8 +5,14 @@
  */
 package defs.dame;
 
+import defs.general.Cell;
+import defs.general.Column;
 import defs.general.Evaluator;
 import defs.general.GameState;
+import defs.general.Row;
+import defs.general.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,12 +20,35 @@ import defs.general.GameState;
  */
 public class DameEvaluator extends Evaluator {
 
-	@Override
-	public int evaluate(GameState gameState) {
-		// DameGameState gstate = (DameGameState)gameState;
-		// if(gstate.matches % 4 == 0){
-		// return 1;
-		// }
-		return -1;
-	}
+    private Table table = null;
+
+    @Override
+    public int evaluate(GameState gameState) {
+        table = ((DameGameState) gameState).getGameTable();
+        int result = 0;
+        result = this.getOwnPieces() - this.getOpponentsPieces();
+        return result;
+    }
+
+    private int getOwnPieces() {
+        List<Row> rows = table.getRows();
+        for (Row row : rows) {
+            List<Cell> cells = row.getCells();
+            for (Cell cell : cells) {
+                cell.getCellValue();
+            }
+        }
+        return 0;
+    }
+
+    private int getOpponentsPieces() {
+        List<Row> rows = table.getRows();
+        for (Row row : rows) {
+            List<Cell> cells = row.getCells();
+            for (Cell cell : cells) {
+                cell.getCellValue();
+            }
+        }
+        return 0;
+    }
 }
