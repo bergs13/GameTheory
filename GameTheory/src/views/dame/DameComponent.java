@@ -15,6 +15,8 @@ import javax.swing.JTextField;
 
 import defs.dame.DameGameState;
 import defs.dame.DameGameStateEventConstants;
+import defs.dame.DameGameStateEventConstants.Piece;
+import defs.general.Table;
 
 @SuppressWarnings("serial")
 public class DameComponent extends JComponent implements Observer {
@@ -68,7 +70,7 @@ public class DameComponent extends JComponent implements Observer {
 		panel.add(moveButton);
 		this.add(panel);
 		// game field
-
+		Table<Piece> table = this.dameGameState.getGameTable();
 		// // paint vertex components
 		// Dimension size;
 		// Point p;

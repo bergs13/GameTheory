@@ -7,10 +7,11 @@ package defs.dame;
 
 import defs.general.Cell;
 import defs.general.Column;
-import defs.dame.DameGameState;
+import defs.dame.DameGameStateEventConstants.Piece;
 import defs.general.Move;
 import defs.general.Row;
 import defs.general.Table;
+
 import java.util.List;
 
 /**
@@ -20,14 +21,14 @@ import java.util.List;
 public class DameMove extends Move {
 
     int[] movement;
-    private Cell pieceToCapture = null;
+    private Cell<Piece> pieceToCapture = null;
 
     public DameMove(Object move) {
         super(move);
         movement = (int[])move;
     }
 
-    public void executeMove(Table stateTable) {
+    public void executeMove(Table<Character> stateTable) {
         
         // Move the movement of the source cell to the target cell
         Cell<Character> sourceCell = null;
@@ -62,7 +63,7 @@ public class DameMove extends Move {
         }
     }
 
-    public void capturePiece(Cell cell) {
+    public void capturePiece(Cell<Piece> cell) {
         this.pieceToCapture = cell;
     }
     public boolean capturePiece(){

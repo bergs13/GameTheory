@@ -37,11 +37,11 @@ public class Table<T> {
         return this.rows;
     }
 
-    public Cell getCellByRowAndColumn(int rowIndex, int columnIndex) {
-        for (Row row : rows) {
+    public Cell<T> getCellByRowAndColumn(int rowIndex, int columnIndex) {
+        for (Row<T> row : rows) {
             if (rows.indexOf(row) == rowIndex) {
                 List<Column<T>> columns = row.getColumns();
-                for (Column column : columns) {
+                for (Column<T> column : columns) {
                     if (columns.indexOf(column) == columnIndex) {
                         return row.getCellByColumn(column);
                     }

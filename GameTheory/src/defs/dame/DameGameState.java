@@ -5,6 +5,7 @@
  */
 package defs.dame;
 
+import defs.dame.DameGameStateEventConstants.Piece;
 import defs.general.Cell;
 import defs.general.Column;
 import defs.general.GameState;
@@ -22,9 +23,9 @@ import java.util.List;
  * @author Thunderchild
  */
 public class DameGameState extends GameState implements
-        UsableAsDameViewModel<DameGameStateEventConstants.Piece> {
+        UsableAsDameViewModel<Piece> {
 
-    private Table<DameGameStateEventConstants.Piece> gameTable = null;
+    private Table<Piece> gameTable = null;
 
     public DameGameState() {
     }
@@ -39,15 +40,15 @@ public class DameGameState extends GameState implements
     @Override
     public void findPossibleMoves() {
         boolean canCapturePiece= false;
-        List<Row<DameGameStateEventConstants.Piece>> rows = gameTable.getRows();
-        for (Row row : rows) {
-            List<Column> columns = row.getColumns();
-            for (Column column : columns) {
-                Cell currentCell = row.getCellByColumn(column);
+        List<Row<Piece>> rows = gameTable.getRows();
+        for (Row<Piece> row : rows) {
+            List<Column<Piece>> columns = row.getColumns();
+            for (Column<Piece> column : columns) {
+                Cell<Piece> currentCell = row.getCellByColumn(column);
                 //if(currentCell.getCellValue() == ownpiec)
                 for (int i = -1; i <= 1; i++) {
                     for (int j = -1; j <= 1; j++) {
-                        Cell cell = gameTable.getCellByRowAndColumn(rows.indexOf(row) + i, columns.indexOf(column) + j);
+                        Cell<Piece> cell = gameTable.getCellByRowAndColumn(rows.indexOf(row) + i, columns.indexOf(column) + j);
                         if (cell != null && cell.getCellValue() == DameGameStateEventConstants.Piece.EMPTY) {
                             int[] movement = {rows.indexOf(row), rows.indexOf(column), i, j};
                             super.getChildMoves().add(new Move(movement));
@@ -153,7 +154,7 @@ public class DameGameState extends GameState implements
         return super.getAllMoves();
     }
 
-    public void setStartState(Player firstPlayer, Table<DameGameStateEventConstants.Piece> gameTable) {
+    public void setStartState(Player firstPlayer, Table<Piece> gameTable) {
         super.setStartState(firstPlayer);
         this.gameTable = gameTable;
 

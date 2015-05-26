@@ -7,12 +7,12 @@ import views.dame.DameFrame;
 public class Program {
 	public static void main(String[] args) {
 		DameGame dameGame = new DameGame();
-                Table<Integer> table = new Table();
+                Table<Integer> table = new Table<Integer>();
                 for (int i =0; i<8;i++){
-                    Row row = new Row(table);
+                    Row<Integer> row = new Row<Integer>(table);
                     table.addRow(row);
                     for(int j = 0; j>8; j++){
-                        row.addColumn(null, table);
+                        //row.addColumn(null, table);
                     }
         }
 		DameFrame dameFrame = new DameFrame(new DameComponent(
