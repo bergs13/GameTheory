@@ -1,12 +1,9 @@
 package views.dame;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -16,10 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import defs.dame.DameConstants.*;
-import defs.dame.DameConstants;
+import defs.dame.DameConstants.DameEventConstants;
+import defs.dame.DameConstants.Piece;
 import defs.dame.DameGameState;
-import defs.general.GenericCell;
 import defs.general.GenericColumn;
 import defs.general.GenericRow;
 import defs.general.GenericTable;
@@ -28,6 +24,7 @@ import defs.general.GenericTable;
 public class DameComponent extends JComponent implements Observer {
 	// Members
 	DameGameState dameGameState = null;
+	DameGameFieldPanel dameGameFieldPanel = new DameGameFieldPanel();
 
 	// Constructors
 	public DameComponent(DameGameState dameGameState) {
@@ -48,13 +45,32 @@ public class DameComponent extends JComponent implements Observer {
 		super.paintComponent(g);
 
 		// paint own stuff
+
 		// set layout and create content panel
 		this.setLayout(new GridLayout(0, 1));
 		JPanel contentPanel = new JPanel(new GridLayout(0, 1));
+
 		// add move panel with input boxes and button for move to content panel
 		contentPanel.add(getMovePanel());
+
 		// add game field panel for displaying the game field to content panel
-		contentPanel.add(getGameFieldPanel((Graphics2D) g));
+		// GenericTable<Piece> table = this.dameGameState.getGameTable();
+		// Table for testing
+		GenericTable<Piece> table = new GenericTable<Piece>();
+		GenericRow<Piece> row1 = new GenericRow<Piece>();
+		row1.addColumn(new GenericColumn<Piece>(), Piece.BLACK);
+		row1.addColumn(new GenericColumn<Piece>(), Piece.WHITE);
+		row1.addColumn(new GenericColumn<Piece>(), Piece.EMPTY);
+		table.addRow(row1);
+		GenericRow<Piece> row2 = new GenericRow<Piece>();
+		row2.addColumn(new GenericColumn<Piece>(), Piece.EMPTY);
+		row2.addColumn(new GenericColumn<Piece>(), Piece.BLACK);
+		row2.addColumn(new GenericColumn<Piece>(), Piece.WHITE);
+		table.addRow(row2);
+		// Table for testing
+		dameGameFieldPanel.setTable(table);
+		contentPanel.add(dameGameFieldPanel);
+		//dameGameFieldPanel.repaint();
 		// add content panel to component
 		this.add(contentPanel);
 	}
@@ -85,68 +101,6 @@ public class DameComponent extends JComponent implements Observer {
 		});
 		movePanel.add(moveButton);
 		return movePanel;
-	}
-
-	private JPanel getGameFieldPanel(Graphics2D g2d) {
-		// Layout und Variablen für ganzes Spielfeld
-		JPanel gameFieldPanel = new JPanel(new GridLayout(0, 1));
-		int rowIndex;
-		int colIndex;
-		int x;
-		int y;
-		// Spielfeld zeichnen (Zellen der Tabelle)
-		// GenericTable<Piece> table = this.dameGameState.getGameTable();
-		// Table for testing
-		GenericTable<Piece> table = new GenericTable<Piece>();
-		GenericRow<Piece> row1 = new GenericRow<Piece>();
-		row1.addColumn(new GenericColumn<Piece>(), Piece.BLACK);
-		row1.addColumn(new GenericColumn<Piece>(), Piece.WHITE);
-		row1.addColumn(new GenericColumn<Piece>(), Piece.EMPTY);
-		table.addRow(row1);
-		GenericRow<Piece> row2 = new GenericRow<Piece>();
-		row2.addColumn(new GenericColumn<Piece>(), Piece.BLACK);
-		row2.addColumn(new GenericColumn<Piece>(), Piece.WHITE);
-		row2.addColumn(new GenericColumn<Piece>(), Piece.EMPTY);
-		table.addRow(row2);
-		// Table for testing
-		List<GenericRow<Piece>> rows = table.getRows();
-		for (GenericRow<Piece> row : rows) {
-			// Index Row
-			rowIndex = rows.indexOf(row);
-			List<GenericColumn<Piece>> columns = row.getColumns();
-			for (GenericColumn<Piece> column : columns) {
-				// Index Column
-				colIndex = columns.indexOf(column);
-
-				// Aktuelle Zelle und aktuellen Wert ermitteln
-				GenericCell<Piece> columnCell = row.getCellByColumn(column);
-				Piece cellValue = columnCell.getCellValue();
-
-				// Position für das Quadrat der aktuellen Zelle setzen
-				x = 0 + colIndex * DameConstants.SQUARESIDESIZE;
-				y = 0 + rowIndex * DameConstants.SQUARESIDESIZE;
-
-				// Quadrat für aktuelle Zelle zeichnen
-				// Defaultfarbe schwarz (Für leer und schwarz)
-				g2d.setColor(Color.BLACK);
-				// Leere Zelle
-				if (cellValue == Piece.EMPTY) {
-					// Leer (Nicht ausgefüllt)
-					g2d.drawRect(x, y, DameConstants.SQUARESIDESIZE,
-							DameConstants.SQUARESIDESIZE);
-				} else {
-					// Farbe für weiss anpassen
-					if (cellValue == Piece.WHITE) {
-						// Farbe weiss (für weiss...)
-						g2d.setColor(Color.WHITE);
-					}
-					// Ausgfüllt (sowohl schwarz als auch weiss)
-					g2d.fillRect(x, y, DameConstants.SQUARESIDESIZE,
-							DameConstants.SQUARESIDESIZE);
-				}
-			}
-		}
-		return gameFieldPanel;
 	}
 
 	// Observer methods
