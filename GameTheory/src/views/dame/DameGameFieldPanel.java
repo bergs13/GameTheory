@@ -81,8 +81,13 @@ public class DameGameFieldPanel extends JPanel {
 						g2d.setColor(Color.BLACK);
 					}
 					// Ausgfüllter Kreis (sowohl schwarz als auch weiss)
-					g2d.fillOval(x, y, DameConstants.SQUARESIDESIZE,
-							DameConstants.SQUARESIDESIZE);
+					g2d.fillOval(
+							x
+									+ ((DameConstants.SQUARESIDESIZE - DameConstants.PIECEDIAMETER) / 2),
+							y
+									+ ((DameConstants.SQUARESIDESIZE - DameConstants.PIECEDIAMETER) / 2),
+							DameConstants.PIECEDIAMETER,
+							DameConstants.PIECEDIAMETER);
 				}
 
 			}

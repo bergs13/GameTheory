@@ -7,6 +7,8 @@ package defs.dame;
 
 import defs.dame.DameConstants.Piece;
 import defs.general.Game;
+import defs.general.GenericColumn;
+import defs.general.GenericRow;
 import defs.general.GenericTable;
 
 /**
@@ -27,12 +29,38 @@ public class DameGame extends Game {
 	public boolean setupGame() {
 		// initialize table and set as start state
 		GenericTable<Piece> table = new GenericTable<Piece>();
+		// Alle leer
+		for (int i = 0; i < 5; i++) {
+			GenericRow<Piece> row = new GenericRow<Piece>();
+			for (int j = 0; j < 5; j++) {
+				GenericColumn<Piece> column = new GenericColumn<Piece>();
+				Piece cellValue = Piece.EMPTY;
+				if (i < 2) {
+					cellValue = Piece.BLACK;
+				} else if (i == 2) {
+					if (j < 2) {
+						cellValue = Piece.BLACK;
+					} else if (j > 2) {
+						cellValue = Piece.WHITE;
+					}
+				} else if (i > 2) {
+					cellValue = Piece.WHITE;
+				}
+				row.addColumn(column, cellValue);
+			}
+			table.addRow(row);
+		}
+		// S S S S S
+		// S S S S S
+		// S S . W W
+		// W W W W W
+		// W W W W W
+
 		this.dameGameState.setStartState(firstPlayer, table);
 		return true;
 	}
-	
-	public DameGameState getDameGameState()
-	{
+
+	public DameGameState getDameGameState() {
 		return this.dameGameState;
 	}
 }

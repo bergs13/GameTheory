@@ -16,8 +16,6 @@ import javax.swing.JTextField;
 import defs.dame.DameConstants.DameEventConstants;
 import defs.dame.DameConstants.Piece;
 import defs.dame.DameGameState;
-import defs.general.GenericColumn;
-import defs.general.GenericRow;
 import defs.general.GenericTable;
 
 @SuppressWarnings("serial")
@@ -48,29 +46,15 @@ public class DameComponent extends JComponent implements Observer {
 
 		// set layout and create content panel
 		this.setLayout(new GridLayout(0, 1));
-		JPanel contentPanel = new JPanel(new GridLayout(0, 1));
+		JPanel contentPanel = new JPanel(new GridLayout(0, 2));
 
 		// add move panel with input boxes and button for move to content panel
 		contentPanel.add(getMovePanel());
 
 		// add game field panel for displaying the game field to content panel
-		// GenericTable<Piece> table = this.dameGameState.getGameTable();
-		// Table for testing
-		GenericTable<Piece> table = new GenericTable<Piece>();
-		GenericRow<Piece> row1 = new GenericRow<Piece>();
-		row1.addColumn(new GenericColumn<Piece>(), Piece.BLACK);
-		row1.addColumn(new GenericColumn<Piece>(), Piece.WHITE);
-		row1.addColumn(new GenericColumn<Piece>(), Piece.EMPTY);
-		table.addRow(row1);
-		GenericRow<Piece> row2 = new GenericRow<Piece>();
-		row2.addColumn(new GenericColumn<Piece>(), Piece.EMPTY);
-		row2.addColumn(new GenericColumn<Piece>(), Piece.BLACK);
-		row2.addColumn(new GenericColumn<Piece>(), Piece.WHITE);
-		table.addRow(row2);
-		// Table for testing
-		dameGameFieldPanel.setTable(table);
+		dameGameFieldPanel.setTable(this.dameGameState.getGameTable());
 		contentPanel.add(dameGameFieldPanel);
-		//dameGameFieldPanel.repaint();
+		// dameGameFieldPanel.repaint();
 		// add content panel to component
 		this.add(contentPanel);
 	}

@@ -13,7 +13,8 @@ public class DameConstants {
 	}
 
 	// Constants for the game field
-	public static final int SQUARESIDESIZE = 50;
+	public static final int SQUARESIDESIZE = 100;
+	public static final int PIECEDIAMETER = 88;
 	public static final Color LIGHTFIELDCOLOR = new Color(255, 178, 102);
 	public static final Color DARKFIELDCOLOR = new Color(153, 76, 0);
 }
