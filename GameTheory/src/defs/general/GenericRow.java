@@ -10,14 +10,14 @@ public class GenericRow<T> {
 	private List<GenericCell<T>> cells = null;
 
 	// Constructors
-	public GenericRow(GenericTable<T> table) {
-		this.table = table;
+	public GenericRow() {
 		this.columns = new ArrayList<GenericColumn<T>>();
 		this.cells = new ArrayList<GenericCell<T>>();
 	}
 
 	// Methods
 	public void addColumn(GenericColumn<T> column, T cellValue) {
+		column.setRow(this);
 		this.columns.add(column);
 		this.cells.add(new GenericCell<T>(this, column, cellValue));
 	}
@@ -55,6 +55,10 @@ public class GenericRow<T> {
 		return this.table;
 	}
 
+	public void setTable(GenericTable<T> table) {
+		this.table = table;
+	}
+
 	public List<GenericColumn<T>> getColumns() {
 		return this.columns;
 	}
@@ -62,19 +66,15 @@ public class GenericRow<T> {
 	public List<GenericCell<T>> getCells() {
 		return this.cells;
 	}
-	
-	public GenericCell<T> getCellByColumn(GenericColumn<T> column)
-	{
-		if(null == column)
-		{
+
+	public GenericCell<T> getCellByColumn(GenericColumn<T> column) {
+		if (null == column) {
 			return null;
 		}
-		
+
 		GenericCell<T> foundCell = null;
-		for(GenericCell<T> cell : this.cells)
-		{
-			if(cell.getColumn() == column)
-			{
+		for (GenericCell<T> cell : this.cells) {
+			if (cell.getColumn() == column) {
 				foundCell = cell;
 				break;
 			}

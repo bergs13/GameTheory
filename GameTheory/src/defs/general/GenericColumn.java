@@ -5,12 +5,15 @@ public class GenericColumn<T> {
 	private GenericRow<T> row = null;
 
 	// Constructors
-	public GenericColumn(GenericRow<T> row) {
-		this.row = row;
+	public GenericColumn() {
 	}
 
 	// Methods
 	public GenericRow<T> getRow() {
 		return this.row;
+	}
+
+	public void setRow(GenericRow<T> row) {
+		this.row = row;
 	}
 }

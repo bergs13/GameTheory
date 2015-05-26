@@ -1,9 +1,12 @@
 package views.dame;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -13,8 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import defs.dame.DameGameState;
 import defs.dame.DameConstants.*;
+import defs.dame.DameConstants;
+import defs.dame.DameGameState;
 import defs.general.GenericCell;
 import defs.general.GenericColumn;
 import defs.general.GenericRow;
@@ -44,36 +48,15 @@ public class DameComponent extends JComponent implements Observer {
 		super.paintComponent(g);
 
 		// paint own stuff
+		// set layout and create content panel
 		this.setLayout(new GridLayout(0, 1));
 		JPanel contentPanel = new JPanel(new GridLayout(0, 1));
-		// move panel with input boxes and button for move
+		// add move panel with input boxes and button for move to content panel
 		contentPanel.add(getMovePanel());
-		// game field panel for displaying the game field
-		contentPanel.add(getGameFieldPanel());
+		// add game field panel for displaying the game field to content panel
+		contentPanel.add(getGameFieldPanel((Graphics2D) g));
+		// add content panel to component
 		this.add(contentPanel);
-		// // paint vertex components
-		// Dimension size;
-		// Point p;
-		// for (VertexComponent<V> comp : this.vertexVertexComponents.values())
-		// {
-		// size = comp.getPreferredSize();
-		// p = comp.getCircleCenterLocation();
-		// comp.setBounds(p.x - GraphFormat.LOCATIONCENTERMODIFIER, p.y
-		// - GraphFormat.LOCATIONCENTERMODIFIER, size.width,
-		// size.height);
-		// comp.getVertexComponentModel().updateGraphFormat(
-		// model.getGraphFormat());
-		// this.add(comp);
-		// }
-		// // paint edges
-		// Graphics2D graphPanelGraphics = (Graphics2D) g;
-		// Iterator<Edge<E>> itE = model.getGraph().edges();
-		// while (itE.hasNext()) {
-		// if (null != graphPanelGraphics) {
-		// EdgePainter.paintEdge(model.getGraphFormat(), itE.next(),
-		// (Graphics2D) g);
-		// }
-		// }
 	}
 
 	private JPanel getMovePanel() {
@@ -104,19 +87,62 @@ public class DameComponent extends JComponent implements Observer {
 		return movePanel;
 	}
 
-	private JPanel getGameFieldPanel() {
+	private JPanel getGameFieldPanel(Graphics2D g2d) {
+		// Layout und Variablen für ganzes Spielfeld
 		JPanel gameFieldPanel = new JPanel(new GridLayout(0, 1));
-		GenericTable<Piece> table = this.dameGameState.getGameTable();
-		for (GenericRow<Piece> row : table.getRows()) {
-			for (GenericColumn<Piece> column : row.getColumns()) {
+		int rowIndex;
+		int colIndex;
+		int x;
+		int y;
+		// Spielfeld zeichnen (Zellen der Tabelle)
+		// GenericTable<Piece> table = this.dameGameState.getGameTable();
+		// Table for testing
+		GenericTable<Piece> table = new GenericTable<Piece>();
+		GenericRow<Piece> row1 = new GenericRow<Piece>();
+		row1.addColumn(new GenericColumn<Piece>(), Piece.BLACK);
+		row1.addColumn(new GenericColumn<Piece>(), Piece.WHITE);
+		row1.addColumn(new GenericColumn<Piece>(), Piece.EMPTY);
+		table.addRow(row1);
+		GenericRow<Piece> row2 = new GenericRow<Piece>();
+		row2.addColumn(new GenericColumn<Piece>(), Piece.BLACK);
+		row2.addColumn(new GenericColumn<Piece>(), Piece.WHITE);
+		row2.addColumn(new GenericColumn<Piece>(), Piece.EMPTY);
+		table.addRow(row2);
+		// Table for testing
+		List<GenericRow<Piece>> rows = table.getRows();
+		for (GenericRow<Piece> row : rows) {
+			// Index Row
+			rowIndex = rows.indexOf(row);
+			List<GenericColumn<Piece>> columns = row.getColumns();
+			for (GenericColumn<Piece> column : columns) {
+				// Index Column
+				colIndex = columns.indexOf(column);
+
+				// Aktuelle Zelle und aktuellen Wert ermitteln
 				GenericCell<Piece> columnCell = row.getCellByColumn(column);
 				Piece cellValue = columnCell.getCellValue();
-				if (cellValue == Piece.BLACK) {
 
-				} else if (cellValue == Piece.WHITE) {
+				// Position für das Quadrat der aktuellen Zelle setzen
+				x = 0 + colIndex * DameConstants.SQUARESIDESIZE;
+				y = 0 + rowIndex * DameConstants.SQUARESIDESIZE;
 
-				} else if (cellValue == Piece.EMPTY) {
-
+				// Quadrat für aktuelle Zelle zeichnen
+				// Defaultfarbe schwarz (Für leer und schwarz)
+				g2d.setColor(Color.BLACK);
+				// Leere Zelle
+				if (cellValue == Piece.EMPTY) {
+					// Leer (Nicht ausgefüllt)
+					g2d.drawRect(x, y, DameConstants.SQUARESIDESIZE,
+							DameConstants.SQUARESIDESIZE);
+				} else {
+					// Farbe für weiss anpassen
+					if (cellValue == Piece.WHITE) {
+						// Farbe weiss (für weiss...)
+						g2d.setColor(Color.WHITE);
+					}
+					// Ausgfüllt (sowohl schwarz als auch weiss)
+					g2d.fillRect(x, y, DameConstants.SQUARESIDESIZE,
+							DameConstants.SQUARESIDESIZE);
 				}
 			}
 		}

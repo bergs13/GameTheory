@@ -52,7 +52,7 @@ public class DameGameState extends GameState implements
 								.getCellByRowAndColumn(rows.indexOf(row) + i,
 										columns.indexOf(column) + j);
 						if (cell != null
-								&& cell.getCellValue() == DameConstants.Piece.EMPTY) {
+								&& cell.getCellValue() == Piece.EMPTY) {
 							int[] movement = { rows.indexOf(row),
 									rows.indexOf(column), i, j };
 							super.getChildMoves().add(new Move(movement));
@@ -176,7 +176,7 @@ public class DameGameState extends GameState implements
 
 	// UsableAsDameViewModel<Character> (interface) methods
 	@Override
-	public GenericTable<DameConstants.Piece> getGameTable() {
+	public GenericTable<Piece> getGameTable() {
 		return this.gameTable;
 	}
 
@@ -190,14 +190,14 @@ public class DameGameState extends GameState implements
 		// Testausgabe
 
 		// Move the value of the source cell to the target cell
-		GenericCell<DameConstants.Piece> sourceCell = null;
-		GenericCell<DameConstants.Piece> targetCell = null;
-		List<GenericRow<DameConstants.Piece>> rows = this.gameTable.getRows();
-		for (GenericRow<DameConstants.Piece> row : rows) {
+		GenericCell<Piece> sourceCell = null;
+		GenericCell<Piece> targetCell = null;
+		List<GenericRow<Piece>> rows = this.gameTable.getRows();
+		for (GenericRow<Piece> row : rows) {
 			if (rows.indexOf(row) == sourceRowIndex) {
-				List<GenericColumn<DameConstants.Piece>> sourceRowColumns = row
+				List<GenericColumn<Piece>> sourceRowColumns = row
 						.getColumns();
-				for (GenericColumn<DameConstants.Piece> sourceRowColumn : sourceRowColumns) {
+				for (GenericColumn<Piece> sourceRowColumn : sourceRowColumns) {
 					if (sourceRowColumns.indexOf(sourceRowColumn) == sourceColumnIndex) {
 						// source row and column combination identified
 						// find cell for column in source row
@@ -205,9 +205,9 @@ public class DameGameState extends GameState implements
 					}
 				}
 			} else if (rows.indexOf(row) == targetRowIndex) {
-				List<GenericColumn<DameConstants.Piece>> targetRowColumns = row
+				List<GenericColumn<Piece>> targetRowColumns = row
 						.getColumns();
-				for (GenericColumn<DameConstants.Piece> targetRowColumn : targetRowColumns) {
+				for (GenericColumn<Piece> targetRowColumn : targetRowColumns) {
 					if (targetRowColumns.indexOf(targetRowColumn) == targetColumnIndex) {
 						// target row and column combination identified
 						// find cell
@@ -220,7 +220,7 @@ public class DameGameState extends GameState implements
 		// Only if both cells found
 		if (null != sourceCell && null != targetCell) {
 			targetCell.setCellValue(sourceCell.getCellValue());
-			sourceCell.setCellValue(DameConstants.Piece.EMPTY);
+			sourceCell.setCellValue(Piece.EMPTY);
 
 			// Notify view for update
 			setChanged();

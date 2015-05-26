@@ -8,4 +8,5 @@ public class DameConstants {
 	public enum Piece {
 		BLACK, WHITE, EMPTY;
 	}
+	public static final int SQUARESIDESIZE = 5;
 }

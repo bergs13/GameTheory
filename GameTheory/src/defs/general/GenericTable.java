@@ -5,50 +5,51 @@ import java.util.List;
 
 public class GenericTable<T> {
 
-    // Members
+	// Members
 
-    private List<GenericRow<T>> rows = null;
+	private List<GenericRow<T>> rows = null;
 
-    // Constructors
-    public GenericTable() {
-        this.rows = new ArrayList<GenericRow<T>>();
-    }
+	// Constructors
+	public GenericTable() {
+		this.rows = new ArrayList<GenericRow<T>>();
+	}
 
-    // Methods
-    public void addRow(GenericRow<T> row) {
-        this.rows.add(row);
-    }
+	// Methods
+	public void addRow(GenericRow<T> row) {
+		row.setTable(this);
+		this.rows.add(row);
+	}
 
-    public void removeRow(GenericRow<T> row) {
-        if (null == row) {
-            return;
-        }
+	public void removeRow(GenericRow<T> row) {
+		if (null == row) {
+			return;
+		}
 
-        if (this.rows.contains(row)) {
-            this.rows.remove(row);
-        }
-    }
+		if (this.rows.contains(row)) {
+			this.rows.remove(row);
+		}
+	}
 
-    public void clearRows() {
-        this.rows.clear();
-    }
+	public void clearRows() {
+		this.rows.clear();
+	}
 
-    public List<GenericRow<T>> getRows() {
-        return this.rows;
-    }
+	public List<GenericRow<T>> getRows() {
+		return this.rows;
+	}
 
-    public GenericCell<T> getCellByRowAndColumn(int rowIndex, int columnIndex) {
-        for (GenericRow<T> row : rows) {
-            if (rows.indexOf(row) == rowIndex) {
-                List<GenericColumn<T>> columns = row.getColumns();
-                for (GenericColumn<T> column : columns) {
-                    if (columns.indexOf(column) == columnIndex) {
-                        return row.getCellByColumn(column);
-                    }
-                }
+	public GenericCell<T> getCellByRowAndColumn(int rowIndex, int columnIndex) {
+		for (GenericRow<T> row : rows) {
+			if (rows.indexOf(row) == rowIndex) {
+				List<GenericColumn<T>> columns = row.getColumns();
+				for (GenericColumn<T> column : columns) {
+					if (columns.indexOf(column) == columnIndex) {
+						return row.getCellByColumn(column);
+					}
+				}
 
-            }
-        }
-        return null;
-    }
+			}
+		}
+		return null;
+	}
 }
