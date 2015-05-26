@@ -14,8 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import defs.dame.DameGameState;
-import defs.dame.DameConstants;
-import defs.dame.DameConstants.Piece;
+import defs.dame.DameConstants.*;
 import defs.general.GenericCell;
 import defs.general.GenericColumn;
 import defs.general.GenericRow;
@@ -129,9 +128,8 @@ public class DameComponent extends JComponent implements Observer {
 	public void update(Observable observable, Object args) {
 		if (String.class.isInstance(args)) {
 			String eventConstant = (String) args;
-			if (eventConstant.equals(DameConstants.STONEMOVED)
-					|| eventConstant
-							.equals(DameConstants.STARTSTATESET)) {
+			if (eventConstant.equals(DameEventConstants.STONEMOVED)
+					|| eventConstant.equals(DameEventConstants.STARTSTATESET)) {
 				// Refresh the game field
 				refreshGameField();
 			}
