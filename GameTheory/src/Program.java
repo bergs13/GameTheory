@@ -1,15 +1,15 @@
 import defs.dame.DameGame;
-import defs.general.Row;
-import defs.general.Table;
+import defs.general.GenericRow;
+import defs.general.GenericTable;
 import views.dame.DameComponent;
 import views.dame.DameFrame;
 
 public class Program {
 	public static void main(String[] args) {
 		DameGame dameGame = new DameGame();
-                Table<Integer> table = new Table<Integer>();
+                GenericTable<Integer> table = new GenericTable<Integer>();
                 for (int i =0; i<8;i++){
-                    Row<Integer> row = new Row<Integer>(table);
+                    GenericRow<Integer> row = new GenericRow<Integer>(table);
                     table.addRow(row);
                     for(int j = 0; j>8; j++){
                         //row.addColumn(null, table);

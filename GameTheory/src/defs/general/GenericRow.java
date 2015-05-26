@@ -3,26 +3,26 @@ package defs.general;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Row<T> {
+public class GenericRow<T> {
 	// Members
-	private Table<T> table = null;
-	private List<Column<T>> columns = null;
-	private List<Cell<T>> cells = null;
+	private GenericTable<T> table = null;
+	private List<GenericColumn<T>> columns = null;
+	private List<GenericCell<T>> cells = null;
 
 	// Constructors
-	public Row(Table<T> table) {
+	public GenericRow(GenericTable<T> table) {
 		this.table = table;
-		this.columns = new ArrayList<Column<T>>();
-		this.cells = new ArrayList<Cell<T>>();
+		this.columns = new ArrayList<GenericColumn<T>>();
+		this.cells = new ArrayList<GenericCell<T>>();
 	}
 
 	// Methods
-	public void addColumn(Column<T> column, T cellValue) {
+	public void addColumn(GenericColumn<T> column, T cellValue) {
 		this.columns.add(column);
-		this.cells.add(new Cell<T>(this, column, cellValue));
+		this.cells.add(new GenericCell<T>(this, column, cellValue));
 	}
 
-	public void removeColumn(Column<T> column) {
+	public void removeColumn(GenericColumn<T> column) {
 		if (null == column) {
 			return;
 		}
@@ -33,8 +33,8 @@ public class Row<T> {
 		}
 
 		// Find cell for row and column and remove it
-		Cell<T> foundCell = null;
-		for (Cell<T> cell : this.cells) {
+		GenericCell<T> foundCell = null;
+		for (GenericCell<T> cell : this.cells) {
 			if (cell.getRow() == this && cell.getColumn() == column) {
 				foundCell = cell;
 				break;
@@ -51,27 +51,27 @@ public class Row<T> {
 		this.cells.clear();
 	}
 
-	public Table<T> getTable() {
+	public GenericTable<T> getTable() {
 		return this.table;
 	}
 
-	public List<Column<T>> getColumns() {
+	public List<GenericColumn<T>> getColumns() {
 		return this.columns;
 	}
 
-	public List<Cell<T>> getCells() {
+	public List<GenericCell<T>> getCells() {
 		return this.cells;
 	}
 	
-	public Cell<T> getCellByColumn(Column<T> column)
+	public GenericCell<T> getCellByColumn(GenericColumn<T> column)
 	{
 		if(null == column)
 		{
 			return null;
 		}
 		
-		Cell<T> foundCell = null;
-		for(Cell<T> cell : this.cells)
+		GenericCell<T> foundCell = null;
+		for(GenericCell<T> cell : this.cells)
 		{
 			if(cell.getColumn() == column)
 			{

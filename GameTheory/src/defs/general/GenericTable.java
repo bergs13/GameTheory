@@ -3,23 +3,23 @@ package defs.general;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Table<T> {
+public class GenericTable<T> {
 
     // Members
 
-    private List<Row<T>> rows = null;
+    private List<GenericRow<T>> rows = null;
 
     // Constructors
-    public Table() {
-        this.rows = new ArrayList<Row<T>>();
+    public GenericTable() {
+        this.rows = new ArrayList<GenericRow<T>>();
     }
 
     // Methods
-    public void addRow(Row<T> row) {
+    public void addRow(GenericRow<T> row) {
         this.rows.add(row);
     }
 
-    public void removeRow(Row<T> row) {
+    public void removeRow(GenericRow<T> row) {
         if (null == row) {
             return;
         }
@@ -33,15 +33,15 @@ public class Table<T> {
         this.rows.clear();
     }
 
-    public List<Row<T>> getRows() {
+    public List<GenericRow<T>> getRows() {
         return this.rows;
     }
 
-    public Cell<T> getCellByRowAndColumn(int rowIndex, int columnIndex) {
-        for (Row<T> row : rows) {
+    public GenericCell<T> getCellByRowAndColumn(int rowIndex, int columnIndex) {
+        for (GenericRow<T> row : rows) {
             if (rows.indexOf(row) == rowIndex) {
-                List<Column<T>> columns = row.getColumns();
-                for (Column<T> column : columns) {
+                List<GenericColumn<T>> columns = row.getColumns();
+                for (GenericColumn<T> column : columns) {
                     if (columns.indexOf(column) == columnIndex) {
                         return row.getCellByColumn(column);
                     }

@@ -7,7 +7,7 @@ package defs.dame;
 
 import defs.dame.DameGameStateEventConstants.Piece;
 import defs.general.Game;
-import defs.general.Table;
+import defs.general.GenericTable;
 
 /**
  *
@@ -26,7 +26,7 @@ public class DameGame extends Game {
 	@Override
 	public boolean setupGame() {
 		// initialize table and set as start state
-		Table<Piece> table = new Table<Piece>();
+		GenericTable<Piece> table = new GenericTable<Piece>();
 		this.dameGameState.setStartState(firstPlayer, table);
 		return true;
 	}
