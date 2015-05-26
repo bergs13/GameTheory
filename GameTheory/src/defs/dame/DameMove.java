@@ -7,7 +7,7 @@ package defs.dame;
 
 import defs.general.GenericCell;
 import defs.general.GenericColumn;
-import defs.dame.DameGameStateEventConstants.Piece;
+import defs.dame.DameConstants.Piece;
 import defs.general.Move;
 import defs.general.GenericRow;
 import defs.general.GenericTable;

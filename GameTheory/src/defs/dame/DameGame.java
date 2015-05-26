@@ -5,7 +5,7 @@
  */
 package defs.dame;
 
-import defs.dame.DameGameStateEventConstants.Piece;
+import defs.dame.DameConstants.Piece;
 import defs.general.Game;
 import defs.general.GenericTable;
 

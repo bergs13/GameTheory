@@ -14,8 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import defs.dame.DameGameState;
-import defs.dame.DameGameStateEventConstants;
-import defs.dame.DameGameStateEventConstants.Piece;
+import defs.dame.DameConstants;
+import defs.dame.DameConstants.Piece;
+import defs.general.GenericCell;
+import defs.general.GenericColumn;
+import defs.general.GenericRow;
 import defs.general.GenericTable;
 
 @SuppressWarnings("serial")
@@ -42,35 +45,13 @@ public class DameComponent extends JComponent implements Observer {
 		super.paintComponent(g);
 
 		// paint own stuff
-		// move panel with input boxes and button for move
 		this.setLayout(new GridLayout(0, 1));
-		JPanel panel = new JPanel(new GridLayout(0, 2));
-		panel.add(new JLabel("Source Row:"));
-		JTextField rowSourceTF = new JTextField("1");
-		panel.add(rowSourceTF);
-		panel.add(new JLabel("Source Column:"));
-		JTextField columnSourceTF = new JTextField("1");
-		panel.add(columnSourceTF);
-		panel.add(new JLabel("Target Row:"));
-		JTextField rowTargetTF = new JTextField("1");
-		panel.add(rowTargetTF);
-		panel.add(new JLabel("Target Column:"));
-		JTextField columnTargetTF = new JTextField("1");
-		panel.add(columnTargetTF);
-		JButton moveButton = new JButton("Move");
-		moveButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				moveStone(Integer.parseInt(rowSourceTF.getText()),
-						Integer.parseInt(columnSourceTF.getText()),
-						Integer.parseInt(rowTargetTF.getText()),
-						Integer.parseInt(columnTargetTF.getText()));
-			};
-		});
-		panel.add(moveButton);
-		this.add(panel);
-		// game field
-		GenericTable<Piece> table = this.dameGameState.getGameTable();
+		JPanel contentPanel = new JPanel(new GridLayout(0, 1));
+		// move panel with input boxes and button for move
+		contentPanel.add(getMovePanel());
+		// game field panel for displaying the game field
+		contentPanel.add(getGameFieldPanel());
+		this.add(contentPanel);
 		// // paint vertex components
 		// Dimension size;
 		// Point p;
@@ -96,14 +77,61 @@ public class DameComponent extends JComponent implements Observer {
 		// }
 	}
 
+	private JPanel getMovePanel() {
+		JPanel movePanel = new JPanel(new GridLayout(0, 2));
+		movePanel.add(new JLabel("Source Row:"));
+		JTextField rowSourceTF = new JTextField("1");
+		movePanel.add(rowSourceTF);
+		movePanel.add(new JLabel("Source Column:"));
+		JTextField columnSourceTF = new JTextField("1");
+		movePanel.add(columnSourceTF);
+		movePanel.add(new JLabel("Target Row:"));
+		JTextField rowTargetTF = new JTextField("1");
+		movePanel.add(rowTargetTF);
+		movePanel.add(new JLabel("Target Column:"));
+		JTextField columnTargetTF = new JTextField("1");
+		movePanel.add(columnTargetTF);
+		JButton moveButton = new JButton("Move");
+		moveButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				moveStone(Integer.parseInt(rowSourceTF.getText()),
+						Integer.parseInt(columnSourceTF.getText()),
+						Integer.parseInt(rowTargetTF.getText()),
+						Integer.parseInt(columnTargetTF.getText()));
+			};
+		});
+		movePanel.add(moveButton);
+		return movePanel;
+	}
+
+	private JPanel getGameFieldPanel() {
+		JPanel gameFieldPanel = new JPanel(new GridLayout(0, 1));
+		GenericTable<Piece> table = this.dameGameState.getGameTable();
+		for (GenericRow<Piece> row : table.getRows()) {
+			for (GenericColumn<Piece> column : row.getColumns()) {
+				GenericCell<Piece> columnCell = row.getCellByColumn(column);
+				Piece cellValue = columnCell.getCellValue();
+				if (cellValue == Piece.BLACK) {
+
+				} else if (cellValue == Piece.WHITE) {
+
+				} else if (cellValue == Piece.EMPTY) {
+
+				}
+			}
+		}
+		return gameFieldPanel;
+	}
+
 	// Observer methods
 	@Override
 	public void update(Observable observable, Object args) {
 		if (String.class.isInstance(args)) {
 			String eventConstant = (String) args;
-			if (eventConstant.equals(DameGameStateEventConstants.STONEMOVED)
+			if (eventConstant.equals(DameConstants.STONEMOVED)
 					|| eventConstant
-							.equals(DameGameStateEventConstants.STARTSTATESET)) {
+							.equals(DameConstants.STARTSTATESET)) {
 				// Refresh the game field
 				refreshGameField();
 			}
