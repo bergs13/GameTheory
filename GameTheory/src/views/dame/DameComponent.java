@@ -14,9 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import defs.dame.DameConstants.DameEventConstants;
-import defs.dame.DameConstants.Piece;
 import defs.dame.DameGameState;
-import defs.general.GenericTable;
 
 @SuppressWarnings("serial")
 public class DameComponent extends JComponent implements Observer {
@@ -27,6 +25,8 @@ public class DameComponent extends JComponent implements Observer {
 	// Constructors
 	public DameComponent(DameGameState dameGameState) {
 		this.dameGameState = dameGameState;
+		// gui is observer of model
+		this.dameGameState.addObserver(this);
 	}
 
 	// Painting methods

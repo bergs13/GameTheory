@@ -1,6 +1,4 @@
 import defs.dame.DameGame;
-import defs.general.GenericRow;
-import defs.general.GenericTable;
 import views.dame.DameComponent;
 import views.dame.DameFrame;
 

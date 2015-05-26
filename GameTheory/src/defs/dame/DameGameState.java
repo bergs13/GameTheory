@@ -51,8 +51,7 @@ public class DameGameState extends GameState implements
 						GenericCell<Piece> cell = gameTable
 								.getCellByRowAndColumn(rows.indexOf(row) + i,
 										columns.indexOf(column) + j);
-						if (cell != null
-								&& cell.getCellValue() == Piece.EMPTY) {
+						if (cell != null && cell.getCellValue() == Piece.EMPTY) {
 							int[] movement = { rows.indexOf(row),
 									rows.indexOf(column), i, j };
 							super.getChildMoves().add(new Move(movement));
@@ -195,8 +194,7 @@ public class DameGameState extends GameState implements
 		List<GenericRow<Piece>> rows = this.gameTable.getRows();
 		for (GenericRow<Piece> row : rows) {
 			if (rows.indexOf(row) == sourceRowIndex) {
-				List<GenericColumn<Piece>> sourceRowColumns = row
-						.getColumns();
+				List<GenericColumn<Piece>> sourceRowColumns = row.getColumns();
 				for (GenericColumn<Piece> sourceRowColumn : sourceRowColumns) {
 					if (sourceRowColumns.indexOf(sourceRowColumn) == sourceColumnIndex) {
 						// source row and column combination identified
@@ -205,8 +203,7 @@ public class DameGameState extends GameState implements
 					}
 				}
 			} else if (rows.indexOf(row) == targetRowIndex) {
-				List<GenericColumn<Piece>> targetRowColumns = row
-						.getColumns();
+				List<GenericColumn<Piece>> targetRowColumns = row.getColumns();
 				for (GenericColumn<Piece> targetRowColumn : targetRowColumns) {
 					if (targetRowColumns.indexOf(targetRowColumn) == targetColumnIndex) {
 						// target row and column combination identified
