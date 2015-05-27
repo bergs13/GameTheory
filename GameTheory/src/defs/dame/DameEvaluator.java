@@ -5,13 +5,12 @@
  */
 package defs.dame;
 
-import defs.general.Cell;
-import defs.general.Column;
+import defs.dame.DameConstants.Piece;
+import defs.general.GenericCell;
 import defs.general.Evaluator;
 import defs.general.GameState;
-import defs.general.Row;
-import defs.general.Table;
-import java.util.ArrayList;
+import defs.general.GenericRow;
+import defs.general.GenericTable;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ import java.util.List;
  */
 public class DameEvaluator extends Evaluator {
 
-    private Table table = null;
+    private GenericTable<Piece> table = null;
 
     @Override
     public int evaluate(GameState gameState) {
@@ -31,10 +30,10 @@ public class DameEvaluator extends Evaluator {
     }
 
     private int getOwnPieces() {
-        List<Row> rows = table.getRows();
-        for (Row row : rows) {
-            List<Cell> cells = row.getCells();
-            for (Cell cell : cells) {
+        List<GenericRow<Piece>> rows = table.getRows();
+        for (GenericRow<Piece> row : rows) {
+            List<GenericCell<Piece>> cells = row.getCells();
+            for (GenericCell<Piece> cell : cells) {
                 cell.getCellValue();
             }
         }
@@ -42,10 +41,10 @@ public class DameEvaluator extends Evaluator {
     }
 
     private int getOpponentsPieces() {
-        List<Row> rows = table.getRows();
-        for (Row row : rows) {
-            List<Cell> cells = row.getCells();
-            for (Cell cell : cells) {
+        List<GenericRow<Piece>> rows = table.getRows();
+        for (GenericRow<Piece> row : rows) {
+            List<GenericCell<Piece>> cells = row.getCells();
+            for (GenericCell<Piece> cell : cells) {
                 cell.getCellValue();
             }
         }

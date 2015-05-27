@@ -1,8 +1,8 @@
 package interfaces;
 
-import defs.general.Table;
+import defs.general.GenericTable;
 
 public interface UsableAsDameViewModel<T> {
-	Table<T> getGameTable();
+	GenericTable<T> getGameTable();
 	void moveStone(int sourceRowIndex, int sourceColumnIndex, int targetRowIndex, int targetColumnIndex);
 }

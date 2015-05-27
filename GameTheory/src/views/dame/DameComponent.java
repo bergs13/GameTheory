@@ -13,17 +13,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import defs.dame.DameConstants.DameEventConstants;
 import defs.dame.DameGameState;
-import defs.dame.DameGameStateEventConstants;
 
 @SuppressWarnings("serial")
 public class DameComponent extends JComponent implements Observer {
 	// Members
 	DameGameState dameGameState = null;
+	DameGameFieldPanel dameGameFieldPanel = new DameGameFieldPanel();
 
 	// Constructors
 	public DameComponent(DameGameState dameGameState) {
 		this.dameGameState = dameGameState;
+		// gui is observer of model
+		this.dameGameState.addObserver(this);
 	}
 
 	// Painting methods
@@ -40,21 +43,36 @@ public class DameComponent extends JComponent implements Observer {
 		super.paintComponent(g);
 
 		// paint own stuff
-		// move panel with input boxes and button for move
+
+		// set layout and create content panel
 		this.setLayout(new GridLayout(0, 1));
-		JPanel panel = new JPanel(new GridLayout(0, 2));
-		panel.add(new JLabel("Source Row:"));
+		JPanel contentPanel = new JPanel(new GridLayout(0, 2));
+
+		// add move panel with input boxes and button for move to content panel
+		contentPanel.add(getMovePanel());
+
+		// add game field panel for displaying the game field to content panel
+		dameGameFieldPanel.setTable(this.dameGameState.getGameTable());
+		contentPanel.add(dameGameFieldPanel);
+		// dameGameFieldPanel.repaint();
+		// add content panel to component
+		this.add(contentPanel);
+	}
+
+	private JPanel getMovePanel() {
+		JPanel movePanel = new JPanel(new GridLayout(0, 2));
+		movePanel.add(new JLabel("Source Row:"));
 		JTextField rowSourceTF = new JTextField("1");
-		panel.add(rowSourceTF);
-		panel.add(new JLabel("Source Column:"));
+		movePanel.add(rowSourceTF);
+		movePanel.add(new JLabel("Source Column:"));
 		JTextField columnSourceTF = new JTextField("1");
-		panel.add(columnSourceTF);
-		panel.add(new JLabel("Target Row:"));
+		movePanel.add(columnSourceTF);
+		movePanel.add(new JLabel("Target Row:"));
 		JTextField rowTargetTF = new JTextField("1");
-		panel.add(rowTargetTF);
-		panel.add(new JLabel("Target Column:"));
+		movePanel.add(rowTargetTF);
+		movePanel.add(new JLabel("Target Column:"));
 		JTextField columnTargetTF = new JTextField("1");
-		panel.add(columnTargetTF);
+		movePanel.add(columnTargetTF);
 		JButton moveButton = new JButton("Move");
 		moveButton.addActionListener(new ActionListener() {
 			@Override
@@ -65,33 +83,8 @@ public class DameComponent extends JComponent implements Observer {
 						Integer.parseInt(columnTargetTF.getText()));
 			};
 		});
-		panel.add(moveButton);
-		this.add(panel);
-		// game field
-
-		// // paint vertex components
-		// Dimension size;
-		// Point p;
-		// for (VertexComponent<V> comp : this.vertexVertexComponents.values())
-		// {
-		// size = comp.getPreferredSize();
-		// p = comp.getCircleCenterLocation();
-		// comp.setBounds(p.x - GraphFormat.LOCATIONCENTERMODIFIER, p.y
-		// - GraphFormat.LOCATIONCENTERMODIFIER, size.width,
-		// size.height);
-		// comp.getVertexComponentModel().updateGraphFormat(
-		// model.getGraphFormat());
-		// this.add(comp);
-		// }
-		// // paint edges
-		// Graphics2D graphPanelGraphics = (Graphics2D) g;
-		// Iterator<Edge<E>> itE = model.getGraph().edges();
-		// while (itE.hasNext()) {
-		// if (null != graphPanelGraphics) {
-		// EdgePainter.paintEdge(model.getGraphFormat(), itE.next(),
-		// (Graphics2D) g);
-		// }
-		// }
+		movePanel.add(moveButton);
+		return movePanel;
 	}
 
 	// Observer methods
@@ -99,9 +92,8 @@ public class DameComponent extends JComponent implements Observer {
 	public void update(Observable observable, Object args) {
 		if (String.class.isInstance(args)) {
 			String eventConstant = (String) args;
-			if (eventConstant.equals(DameGameStateEventConstants.STONEMOVED)
-					|| eventConstant
-							.equals(DameGameStateEventConstants.STARTSTATESET)) {
+			if (eventConstant.equals(DameEventConstants.STONEMOVED)
+					|| eventConstant.equals(DameEventConstants.STARTSTATESET)) {
 				// Refresh the game field
 				refreshGameField();
 			}

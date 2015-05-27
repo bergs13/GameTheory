@@ -7,7 +7,7 @@ public class DameFrame extends JFrame {
 	// Constructors
 	public DameFrame(DameComponent dameComponent) {
 		super("Dame-Spiel");
-	    this.setSize(200,200);
+		this.setSize(1040,550);
 		this.getContentPane().add(dameComponent);
 	}
 }

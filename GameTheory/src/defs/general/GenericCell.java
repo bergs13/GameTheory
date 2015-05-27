@@ -1,24 +1,24 @@
 package defs.general;
 
-public class Cell<T> {
+public class GenericCell<T> {
 	// Members
-	private Row<T> row = null;
-	private Column<T> column = null;
+	private GenericRow<T> row = null;
+	private GenericColumn<T> column = null;
 	private T cellValue = null;
 
 	// Constructors
-	public Cell(Row<T> row, Column<T> column, T cellValue) {
+	public GenericCell(GenericRow<T> row, GenericColumn<T> column, T cellValue) {
 		this.row = row;
 		this.column = column;
 		this.cellValue = cellValue;
 	}
 
 	// Methods
-	public Row<T> getRow() {
+	public GenericRow<T> getRow() {
 		return this.row;
 	}
 
-	public Column<T> getColumn() {
+	public GenericColumn<T> getColumn() {
 		return this.column;
 	}
 
