@@ -5,6 +5,7 @@
  */
 package defs.dame;
 
+import defs.dame.DameConstants.Piece;
 import defs.dame.DameConstants.*;
 import defs.general.GenericCell;
 import defs.general.GenericColumn;
@@ -182,46 +183,113 @@ public class DameGameState extends GameState implements
 	@Override
 	public void moveStone(int sourceRowIndex, int sourceColumnIndex,
 			int targetRowIndex, int targetColumnIndex) {
+		// Find the two cells
+		GenericCell<Piece> sourceCell = findCell(sourceRowIndex,
+				sourceColumnIndex);
+		GenericCell<Piece> targetCell = findCell(targetRowIndex,
+				targetColumnIndex);
 
-		// Testausgabe
-		System.out.println("" + sourceRowIndex + ";" + sourceColumnIndex + ";"
-				+ targetRowIndex + ";" + targetColumnIndex);
-		// Testausgabe
+		// Set the horizontal and vertical difference for checks
+		int rowDifference = Math.abs(sourceRowIndex - targetRowIndex);
+		int columnDifference = Math.abs(sourceColumnIndex - targetColumnIndex);
 
-		// Move the value of the source cell to the target cell
-		GenericCell<Piece> sourceCell = null;
-		GenericCell<Piece> targetCell = null;
-		List<GenericRow<Piece>> rows = this.gameTable.getRows();
-		for (GenericRow<Piece> row : rows) {
-			if (rows.indexOf(row) == sourceRowIndex) {
-				List<GenericColumn<Piece>> sourceRowColumns = row.getColumns();
-				for (GenericColumn<Piece> sourceRowColumn : sourceRowColumns) {
-					if (sourceRowColumns.indexOf(sourceRowColumn) == sourceColumnIndex) {
-						// source row and column combination identified
-						// find cell for column in source row
-						sourceCell = row.getCellByColumn(sourceRowColumn);
-					}
-				}
-			} else if (rows.indexOf(row) == targetRowIndex) {
-				List<GenericColumn<Piece>> targetRowColumns = row.getColumns();
-				for (GenericColumn<Piece> targetRowColumn : targetRowColumns) {
-					if (targetRowColumns.indexOf(targetRowColumn) == targetColumnIndex) {
-						// target row and column combination identified
-						// find cell
-						targetCell = row.getCellByColumn(targetRowColumn);
-					}
-				}
-			}
-		}
+		// Move only if move is allowed
+		if (moveAllowed(rowDifference, columnDifference, sourceCell, targetCell)) {
 
-		// Only if both cells found
-		if (null != sourceCell && null != targetCell) {
+			// Move the cell value to the new cell
 			targetCell.setCellValue(sourceCell.getCellValue());
+
+			// Clear the cell value of the old cell
 			sourceCell.setCellValue(Piece.EMPTY);
+
+			// Remove stone between if there is one
+			int rowIndexForRemove = Integer.MIN_VALUE;
+			int columnIndexForRemove = Integer.MIN_VALUE;
+			// case 1: stone between in same row
+			if (sourceRowIndex == targetRowIndex && columnDifference == 2) {
+				// one of both rows
+				rowIndexForRemove = sourceRowIndex;
+				// index between columns
+				columnIndexForRemove = sourceColumnIndex < targetColumnIndex ? sourceColumnIndex + 1
+						: targetColumnIndex + 1;
+			}
+			// case 2: stone between in same column
+			else if (sourceColumnIndex == targetColumnIndex
+					&& Math.abs(sourceRowIndex - targetRowIndex) == 2) {
+				// one of both columns
+				columnIndexForRemove = sourceColumnIndex;
+				// index between rows
+				rowIndexForRemove = sourceRowIndex < targetRowIndex ? sourceRowIndex + 1
+						: targetRowIndex + 1;
+			}
+			// Remove stone if stone identified
+			if (rowIndexForRemove >= 0 && columnIndexForRemove >= 0) {
+				/* Piece removedPiece = */removeStone(rowIndexForRemove,
+						columnIndexForRemove);
+			}
 
 			// Notify view for update
 			setChanged();
 			notifyObservers(DameEventConstants.STONEMOVED);
 		}
+	}
+
+	private boolean moveAllowed(int rowIndexDifference,
+			int columnIndexDifference, GenericCell<Piece> sourceCell,
+			GenericCell<Piece> targetCell) {
+
+		// Base check: cells set, source piece not empty and target piece empty
+		if (null != sourceCell && null != targetCell
+				&& sourceCell.getCellValue() != Piece.EMPTY
+				&& targetCell.getCellValue() == Piece.EMPTY) {
+
+			// Case 1: Same row with valid column difference
+			if (rowIndexDifference == 0
+					&& (columnIndexDifference == 1 || columnIndexDifference == 2)) {
+				return true;
+			}
+
+			// Case 2: Same column with valid row difference
+			else if (columnIndexDifference == 0
+					&& (rowIndexDifference == 1 || rowIndexDifference == 2)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private Piece removeStone(int rowIndex, int columnIndex) {
+		// Find the cell for remove
+		GenericCell<Piece> foundCell = findCell(rowIndex, columnIndex);
+		if (null != foundCell) {
+			// Capture the removed piece
+			Piece removedPiece = foundCell.getCellValue();
+
+			// Clear the cell value of the removed piece
+			foundCell.setCellValue(Piece.EMPTY);
+
+			// Return the removed piece
+			return removedPiece;
+		}
+		return null;
+	}
+
+	private GenericCell<Piece> findCell(int rowIndex, int columnIndex) {
+		// find row of table
+		List<GenericRow<Piece>> rows = this.gameTable.getRows();
+		for (GenericRow<Piece> row : rows) {
+			if (rows.indexOf(row) == rowIndex) {
+				// find column of row
+				List<GenericColumn<Piece>> rowColumns = row.getColumns();
+				for (GenericColumn<Piece> rowColumn : rowColumns) {
+					if (rowColumns.indexOf(rowColumn) == columnIndex) {
+						// return cell of column
+						return row.getCellByColumn(rowColumn);
+					}
+				}
+			}
+		}
+		return null;
 	}
 }
