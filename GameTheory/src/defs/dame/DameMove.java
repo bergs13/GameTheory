@@ -20,53 +20,25 @@ import java.util.List;
  */
 public class DameMove extends Move {
 
-    int[] movement;
-    private GenericCell<Piece> pieceToCapture = null;
+	int[] movement;
+	private GenericCell<Piece> pieceToCapture = null;
 
-    public DameMove(Object move) {
-        super(move);
-        movement = (int[])move;
-    }
+	public DameMove(Object move) {
+		super(move);
+		movement = (int[]) move;
+	}
+	@Override
+	public void executeMove(Object state) {
+		DameTable dameTable = (DameTable) state;
+		dameTable.moveValue(movement[0], movement[1], movement[2], movement[3],
+				Piece.EMPTY);
+	}
 
-    public void executeMove(GenericTable<Character> stateTable) {
-        
-        // Move the movement of the source cell to the target cell
-        GenericCell<Character> sourceCell = null;
-        GenericCell<Character> targetCell = null;
-        List<GenericRow<Character>> rows =  stateTable.getRows();
-        for (GenericRow<Character> row : rows) {
-            if (rows.indexOf(row) == movement[0]) {
-                List<GenericColumn<Character>> sourceRowColumns = row.getColumns();
-                for (GenericColumn<Character> sourceRowColumn : sourceRowColumns) {
-                    if (sourceRowColumns.indexOf(sourceRowColumn) == movement[1]) {
-                        // source row and column combination identified
-                        // find cell for column in source row
-                        sourceCell = row.getCellByColumn(sourceRowColumn);
-                    }
-                }
-            } else if (rows.indexOf(row) == movement[2]) {
-                List<GenericColumn<Character>> targetRowColumns = row.getColumns();
-                for (GenericColumn<Character> targetRowColumn : targetRowColumns) {
-                    if (targetRowColumns.indexOf(targetRowColumn) == movement[3]) {
-                        // target row and column combination identified
-                        // find cell
-                        targetCell = row.getCellByColumn(targetRowColumn);
-                    }
-                }
-            }
-        }
+	public void capturePiece(GenericCell<Piece> cell) {
+		this.pieceToCapture = cell;
+	}
 
-        // Only if both cells found
-        if (null != sourceCell && null != targetCell) {
-            targetCell.setCellValue(sourceCell.getCellValue());
-            sourceCell.setCellValue(' ');
-        }
-    }
-
-    public void capturePiece(GenericCell<Piece> cell) {
-        this.pieceToCapture = cell;
-    }
-    public boolean capturePiece(){
-        return (pieceToCapture != null);
-    }
+	public boolean capturePiece() {
+		return (pieceToCapture != null);
+	}
 }
