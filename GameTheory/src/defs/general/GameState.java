@@ -1,6 +1,7 @@
 package defs.general;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -10,9 +11,9 @@ import java.util.Observable;
 public class GameState extends Observable {
 
 	private Move playedMove;
-	private ArrayList<Move> childMoves;
+	private List<Move> childMoves;
 	private GameState parentState;
-	private ArrayList<GameState> childStates;
+	private List<GameState> childStates;
 	private Player playerToMove;
 
 	public GameState() {
@@ -32,7 +33,7 @@ public class GameState extends Observable {
 	}
 
 	// all valid moves
-	public ArrayList<Move> getAllMoves() {
+	public List<Move> getAllMoves() {
 		if (childMoves == null) {
 			findPossibleMoves();
 		}
@@ -56,7 +57,7 @@ public class GameState extends Observable {
 	}
 
 	//
-	public ArrayList<GameState> getChildStates() {
+	public List<GameState> getChildStates() {
 		if (childStates == null) {
 			createChildStates();
 		}
@@ -96,14 +97,14 @@ public class GameState extends Observable {
 	}
 
 	public void findPossibleMoves() {
-		childMoves = new ArrayList<Move>();
+		setChildMoves(new ArrayList<Move>());
 	}
 
-	public ArrayList<Move> getChildMoves() {
+	public List<Move> getChildMoves() {
 		return childMoves;
 	}
 
-	public void setChildMoves(ArrayList<Move> childMoves) {
+	public void setChildMoves(List<Move> childMoves) {
 		this.childMoves = childMoves;
 	}
 

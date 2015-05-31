@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package defs.dame;
 
 import defs.general.GenericCell;
-import defs.general.GenericColumn;
 import defs.dame.DameConstants.Piece;
 import defs.general.Move;
-import defs.general.GenericRow;
-import defs.general.GenericTable;
-
-import java.util.List;
 
 /**
  *
@@ -27,6 +17,7 @@ public class DameMove extends Move {
 		super(move);
 		movement = (int[]) move;
 	}
+
 	@Override
 	public void executeMove(Object state) {
 		DameTable dameTable = (DameTable) state;

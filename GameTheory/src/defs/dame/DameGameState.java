@@ -14,7 +14,6 @@ import defs.general.Player;
 import defs.general.GenericRow;
 import interfaces.UsableAsDameViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,13 +30,13 @@ public class DameGameState extends GameState implements
 
 	public DameGameState(GameState parentState, Move move) {
 		super(parentState, move);
-
 	}
 
 	// Methods
 	// Base overrides
 	@Override
 	public void findPossibleMoves() {
+		//super.setChildMoves(this.dameTable.getAllPossibleMoves());
 		boolean canCapturePiece = false;
 		List<GenericRow<Piece>> rows = dameTable.getRows();
 		for (GenericRow<Piece> row : rows) {
@@ -84,7 +83,7 @@ public class DameGameState extends GameState implements
 
 	@Override
 	public void createChildStates() {
-		for (Move move : this.getAllMoves()) {
+		for (Move move : getAllMoves()) {
 			super.getChildStates().add(new GameState(this, move));
 		}
 	}
@@ -133,12 +132,6 @@ public class DameGameState extends GameState implements
 	}
 
 	@Override
-	public ArrayList<GameState> getChildStates() {
-		return super.getChildStates(); // To change body of generated methods,
-		// choose Tools | Templates.
-	}
-
-	@Override
 	public GameState undoMove() {
 		return super.undoMove();
 	}
@@ -153,14 +146,6 @@ public class DameGameState extends GameState implements
 	public boolean possibleMove(Move move) {
 		return super.possibleMove(move); // To change body of generated methods,
 		// choose Tools | Templates.
-	}
-
-	@Override
-	public ArrayList<Move> getAllMoves() {
-		if (super.getAllMoves() == null) {
-			this.findPossibleMoves();
-		}
-		return super.getAllMoves();
 	}
 
 	public void setStartState(Player firstPlayer, DameTable dameTable) {

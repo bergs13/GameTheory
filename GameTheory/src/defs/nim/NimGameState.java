@@ -9,7 +9,7 @@ import defs.general.GameState;
 import defs.general.Move;
 import defs.general.Player;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -79,7 +79,7 @@ public class NimGameState extends GameState {
     }
 
     @Override
-    public ArrayList<GameState> getChildStates() {
+    public List<GameState> getChildStates() {
         return super.getChildStates(); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -99,7 +99,7 @@ public class NimGameState extends GameState {
     }
 
     @Override
-    public ArrayList<Move> getAllMoves() {
+    public List<Move> getAllMoves() {
         return super.getAllMoves();
     }
 
