@@ -9,7 +9,6 @@ import defs.dame.DameConstants.Piece;
 import defs.general.Game;
 import defs.general.GenericColumn;
 import defs.general.GenericRow;
-import defs.general.GenericTable;
 
 /**
  *
@@ -28,7 +27,7 @@ public class DameGame extends Game {
 	@Override
 	public boolean setupGame() {
 		// initialize table and set as start state
-		GenericTable<Piece> table = new GenericTable<Piece>();
+		DameTable table = new DameTable();
 		// Alle leer
 		for (int i = 0; i < 5; i++) {
 			GenericRow<Piece> row = new GenericRow<Piece>();
