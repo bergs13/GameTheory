@@ -36,7 +36,7 @@ public class DameGameState extends GameState implements
 	// Base overrides
 	@Override
 	public void findPossibleMoves() {
-		//super.setChildMoves(this.dameTable.getAllPossibleMoves());
+		// super.setChildMoves(this.dameTable.getAllPossibleMoves());
 		boolean canCapturePiece = false;
 		List<GenericRow<Piece>> rows = dameTable.getRows();
 		for (GenericRow<Piece> row : rows) {
@@ -84,67 +84,14 @@ public class DameGameState extends GameState implements
 	@Override
 	public void createChildStates() {
 		for (Move move : getAllMoves()) {
-			super.getChildStates().add(new GameState(this, move));
+			getChildStates().add(new GameState(this, move));
 		}
-	}
-
-	@Override
-	public void draw() {
-		super.draw(); // To change body of generated methods, choose Tools |
-		// Templates.
-	}
-
-	@Override
-	public void secondPlayerToWin() {
-		super.secondPlayerToWin(); // To change body of generated methods,
-		// choose Tools | Templates.
-	}
-
-	@Override
-	public void firstPlayerToWin() {
-		super.firstPlayerToWin(); // To change body of generated methods, choose
-		// Tools | Templates.
 	}
 
 	@Override
 	public boolean isTerminal() {
 		return (this.getAllMoves().isEmpty()); // To change body of generated
 												// methods,
-		// choose Tools | Templates.
-	}
-
-	@Override
-	public void secondPlayerToMove() {
-		super.secondPlayerToMove(); // To change body of generated methods,
-		// choose Tools | Templates.
-	}
-
-	@Override
-	public void firstPlayerToMove() {
-		super.firstPlayerToMove(); // To change body of generated methods,
-		// choose Tools | Templates.
-	}
-
-	@Override
-	public void getChild() {
-		super.getChild(); // To change body of generated methods, choose Tools |
-		// Templates.
-	}
-
-	@Override
-	public GameState undoMove() {
-		return super.undoMove();
-	}
-
-	@Override
-	public GameState doMove(Move move) {
-		return super.doMove(move); // To change body of generated methods,
-		// choose Tools | Templates.
-	}
-
-	@Override
-	public boolean possibleMove(Move move) {
-		return super.possibleMove(move); // To change body of generated methods,
 		// choose Tools | Templates.
 	}
 
@@ -164,7 +111,7 @@ public class DameGameState extends GameState implements
 	}
 
 	@Override
-	public void moveStone(int sourceRowIndex, int sourceColumnIndex,
+	public void movePiece(int sourceRowIndex, int sourceColumnIndex,
 			int targetRowIndex, int targetColumnIndex) {
 		this.dameTable.moveValue(sourceRowIndex, sourceColumnIndex,
 				targetRowIndex, targetColumnIndex, Piece.EMPTY);

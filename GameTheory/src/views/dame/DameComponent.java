@@ -103,7 +103,7 @@ public class DameComponent extends JComponent implements Observer {
 	// Control methods and events
 	public void moveStone(int sourceRowIndex, int sourceColumnIndex,
 			int targetRowIndex, int targetColumnIndex) {
-		dameGameState.moveStone(sourceRowIndex, sourceColumnIndex,
+		dameGameState.movePiece(sourceRowIndex, sourceColumnIndex,
 				targetRowIndex, targetColumnIndex);
 	}
 }
