@@ -10,7 +10,7 @@ import defs.general.GenericCell;
 import defs.general.Evaluator;
 import defs.general.GameState;
 import defs.general.GenericRow;
-import defs.general.GenericTable;
+
 import java.util.List;
 
 /**
@@ -18,36 +18,37 @@ import java.util.List;
  * @author Thunderchild
  */
 public class DameEvaluator extends Evaluator {
+	// Members
+	Piece ownPiece;
+	Piece oponentPiece;
 
-    private GenericTable<Piece> table = null;
+	// Constructors
+	public DameEvaluator(Piece ownPiece, Piece oponentPiece) {
+		this.ownPiece = ownPiece;
+		this.oponentPiece = oponentPiece;
+	}
 
-    @Override
-    public int evaluate(GameState gameState) {
-        table = ((DameGameState) gameState).getGameTable();
-        int result = 0;
-        result = this.getOwnPieces() - this.getOpponentsPieces();
-        return result;
-    }
+	// Methods
+	@Override
+	public int evaluate(GameState gameState) {
+		DameTable table = ((DameGameState) gameState).getGameTable();
+		int ownPieceCount = countPieces(table, ownPiece);
+		int oponentPieceCount = countPieces(table, oponentPiece);
+		return ownPieceCount - oponentPieceCount;
+	}
 
-    private int getOwnPieces() {
-        List<GenericRow<Piece>> rows = table.getRows();
-        for (GenericRow<Piece> row : rows) {
-            List<GenericCell<Piece>> cells = row.getCells();
-            for (GenericCell<Piece> cell : cells) {
-                cell.getCellValue();
-            }
-        }
-        return 0;
-    }
-
-    private int getOpponentsPieces() {
-        List<GenericRow<Piece>> rows = table.getRows();
-        for (GenericRow<Piece> row : rows) {
-            List<GenericCell<Piece>> cells = row.getCells();
-            for (GenericCell<Piece> cell : cells) {
-                cell.getCellValue();
-            }
-        }
-        return 0;
-    }
+	private static int countPieces(DameTable table, Piece pieceToCount) {
+		int pieceCount = 0;
+		List<GenericRow<Piece>> rows = table.getRows();
+		for (GenericRow<Piece> row : rows) {
+			List<GenericCell<Piece>> cells = row.getCells();
+			for (GenericCell<Piece> cell : cells) {
+				Piece cellValue = cell.getCellValue();
+				if (pieceToCount == cellValue) {
+					pieceCount++;
+				}
+			}
+		}
+		return pieceCount;
+	}
 }

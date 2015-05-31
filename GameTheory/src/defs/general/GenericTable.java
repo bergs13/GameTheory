@@ -40,21 +40,6 @@ public class GenericTable<T> {
 		return this.rows;
 	}
 
-	public GenericCell<T> getCellByRowAndColumn(int rowIndex, int columnIndex) {
-		for (GenericRow<T> row : rows) {
-			if (rows.indexOf(row) == rowIndex) {
-				List<GenericColumn<T>> columns = row.getColumns();
-				for (GenericColumn<T> column : columns) {
-					if (columns.indexOf(column) == columnIndex) {
-						return row.getCellByColumn(column);
-					}
-				}
-
-			}
-		}
-		return null;
-	}
-
 	public GenericCell<T> findCell(int rowIndex, int columnIndex) {
 		// find row of table
 		List<GenericRow<T>> rows = this.getRows();
@@ -96,6 +81,13 @@ public class GenericTable<T> {
 		}
 
 		return false;
+	}
+
+	public void moveValue(GenericCell<T> sourceCell, GenericCell<T> targetCell,
+			T emptyValue) {
+		moveValue(sourceCell.getRowIndex(), sourceCell.getColumnIndex(),
+				targetCell.getRowIndex(), targetCell.getColumnIndex(),
+				emptyValue);
 	}
 
 	public void moveValue(int sourceRowIndex, int sourceColumnIndex,
@@ -143,6 +135,11 @@ public class GenericTable<T> {
 						columnIndexForRemove, emptyValue);
 			}
 		}
+	}
+
+	public T removeValue(GenericCell<Piece> cell, T emptyValue) {
+		return removeValue(cell.getRowIndex(), cell.getColumnIndex(),
+				emptyValue);
 	}
 
 	public T removeValue(int rowIndex, int columnIndex, T emptyValue) {

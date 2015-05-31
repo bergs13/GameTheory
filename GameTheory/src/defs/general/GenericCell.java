@@ -1,5 +1,7 @@
 package defs.general;
 
+import java.util.List;
+
 public class GenericCell<T> {
 	// Members
 	private GenericRow<T> row = null;
@@ -18,8 +20,24 @@ public class GenericCell<T> {
 		return this.row;
 	}
 
+	public int getRowIndex() {
+		List<GenericRow<T>> rows = this.row.getTable().getRows();
+		if (rows.contains(this.row)) {
+			return rows.indexOf(this.row);
+		}
+		return Integer.MIN_VALUE;
+	}
+
 	public GenericColumn<T> getColumn() {
 		return this.column;
+	}
+
+	public int getColumnIndex() {
+		List<GenericColumn<T>> columns = this.row.getColumns();
+		if (columns.contains(this.column)) {
+			return columns.indexOf(this.column);
+		}
+		return Integer.MIN_VALUE;
 	}
 
 	public T getCellValue() {

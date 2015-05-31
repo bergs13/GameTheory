@@ -47,9 +47,9 @@ public class DameGameState extends GameState implements
 				// if(currentCell.getCellValue() == ownpiec)
 				for (int i = -1; i <= 1; i++) {
 					for (int j = -1; j <= 1; j++) {
-						GenericCell<Piece> cell = dameTable
-								.getCellByRowAndColumn(rows.indexOf(row) + i,
-										columns.indexOf(column) + j);
+						GenericCell<Piece> cell = dameTable.findCell(
+								rows.indexOf(row) + i, columns.indexOf(column)
+										+ j);
 						if (cell != null && cell.getCellValue() == Piece.EMPTY) {
 							int[] movement = { rows.indexOf(row),
 									rows.indexOf(column), i, j };

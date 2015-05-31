@@ -16,7 +16,7 @@ import defs.general.GenericRow;
  */
 public class DameGame extends Game {
 	DameGameState dameGameState = null;
-	DameEvaluator evaluator = new DameEvaluator();
+	DameEvaluator evaluator = new DameEvaluator(Piece.BLACK, Piece.WHITE);
 
 	public DameGame() {
 		super("Dame-Spiel");
