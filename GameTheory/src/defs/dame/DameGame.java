@@ -28,7 +28,11 @@ public class DameGame extends Game {
 	public boolean setupGame() {
 		// initialize table and set as start state
 		DameTable table = new DameTable();
-		// Alle leer
+		// S S S S S
+		// S S S S S
+		// S S . W W
+		// W W W W W
+		// W W W W W
 		for (int i = 0; i < 5; i++) {
 			GenericRow<Piece> row = new GenericRow<Piece>();
 			for (int j = 0; j < 5; j++) {
@@ -49,11 +53,6 @@ public class DameGame extends Game {
 			}
 			table.addRow(row);
 		}
-		// S S S S S
-		// S S S S S
-		// S S . W W
-		// W W W W W
-		// W W W W W
 
 		this.dameGameState.setStartState(firstPlayer, table);
 		return true;
