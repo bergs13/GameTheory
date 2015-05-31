@@ -29,7 +29,6 @@ public class GameState extends Observable {
 	public void setStartState(Player firstPlayer) {
 		this.parentState = null;
 		this.playerToMove = firstPlayer;
-
 	}
 
 	// all valid moves

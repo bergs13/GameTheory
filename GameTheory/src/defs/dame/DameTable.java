@@ -1,8 +1,14 @@
 package defs.dame;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import defs.dame.DameConstants.Piece;
 import defs.general.GenericCell;
+import defs.general.GenericColumn;
+import defs.general.GenericRow;
 import defs.general.GenericTable;
+import defs.general.Move;
 
 public class DameTable extends GenericTable<Piece> {
 
@@ -80,5 +86,44 @@ public class DameTable extends GenericTable<Piece> {
 			/* Piece removedPiece = */removeValue(rowIndexForRemove,
 					columnIndexForRemove, emptyValue);
 		}
+	}
+
+	public List<Move> getAllPossibleMoves() {
+		List<Move> allPossibleMoves = new ArrayList<Move>();
+		List<GenericRow<Piece>> rows = getRows();
+		for (GenericRow<Piece> row : rows) {
+			List<GenericColumn<Piece>> columns = row.getColumns();
+			for (GenericColumn<Piece> column : columns) {
+				GenericCell<Piece> sourceCell = row.getCellByColumn(column);
+				// if(currentCell.getCellValue() == ownpiec)
+				for (int i = -1; i <= 1; i++) {
+					for (int j = -1; j <= 1; j++) {
+						GenericCell<Piece> targetCell = findCell(
+								rows.indexOf(row) + i, columns.indexOf(column)
+										+ j);
+						if (targetCell != null
+								&& moveAllowed(sourceCell, targetCell)) {
+							int[] movement = { rows.indexOf(row),
+									rows.indexOf(column), i, j };
+							allPossibleMoves.add(new DameMove(movement));
+						}
+						// else if(cell != null && cell.getCellValue() ==
+						// opponentscolor &&
+						// getCellByRowAndColumn(rows.indexOf(row) + i+i,
+						// columns.indexOf(column) + j +j).getCellValue ==
+						// DameGameStateEventConstants.Piece.EMPTY){
+						// if(getCellByRowAndColumn(rows.indexOf(row) + i+i,
+						// columns.indexOf(column) + j +j).getCellValue ==
+						// DameGameStateEventConstants.Piece.EMPTY){
+						// Move move(rows.indexOf(row), rows.indexOf(column),
+						// i+i, j+j);
+						// move.capturePiece(cell);
+						// canCapturePiece = true;
+						// getChildMoves().add(move);
+					}
+				}
+			}
+		}
+		return allPossibleMoves;
 	}
 }

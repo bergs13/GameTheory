@@ -10,9 +10,19 @@ package defs.general;
  * @author Thunderchild
  */
 public class Move {
+	// Members
+	Object move = null;
+
+	// Constructors
 	public Move(Object move) {
+		this.move = move;
 	}
 
+	// Methods
 	public void executeMove(Object state) {
+	}
+	protected Object getMove()
+	{
+		return this.move;
 	}
 }

@@ -6,15 +6,10 @@
 package defs.dame;
 
 import defs.dame.DameConstants.*;
-import defs.general.GenericCell;
-import defs.general.GenericColumn;
 import defs.general.GameState;
 import defs.general.Move;
 import defs.general.Player;
-import defs.general.GenericRow;
 import interfaces.UsableAsDameViewModel;
-
-import java.util.List;
 
 /**
  *
@@ -36,48 +31,19 @@ public class DameGameState extends GameState implements
 	// Base overrides
 	@Override
 	public void findPossibleMoves() {
-		// super.setChildMoves(this.dameTable.getAllPossibleMoves());
-		boolean canCapturePiece = false;
-		List<GenericRow<Piece>> rows = dameTable.getRows();
-		for (GenericRow<Piece> row : rows) {
-			List<GenericColumn<Piece>> columns = row.getColumns();
-			for (GenericColumn<Piece> column : columns) {
-				GenericCell<Piece> currentCell = row.getCellByColumn(column);
-				// if(currentCell.getCellValue() == ownpiec)
-				for (int i = -1; i <= 1; i++) {
-					for (int j = -1; j <= 1; j++) {
-						GenericCell<Piece> cell = dameTable.findCell(
-								rows.indexOf(row) + i, columns.indexOf(column)
-										+ j);
-						if (cell != null && cell.getCellValue() == Piece.EMPTY) {
-							int[] movement = { rows.indexOf(row),
-									rows.indexOf(column), i, j };
-							super.getChildMoves().add(new Move(movement));
-						}
-						// else if(cell != null && cell.getCellValue() ==
-						// opponentscolor &&
-						// getCellByRowAndColumn(rows.indexOf(row) + i+i,
-						// columns.indexOf(column) + j +j).getCellValue ==
-						// DameGameStateEventConstants.Piece.EMPTY){
-						// if(getCellByRowAndColumn(rows.indexOf(row) + i+i,
-						// columns.indexOf(column) + j +j).getCellValue ==
-						// DameGameStateEventConstants.Piece.EMPTY){
-						// Move move(rows.indexOf(row), rows.indexOf(column),
-						// i+i, j+j);
-						// move.capturePiece(cell);
-						// canCapturePiece = true;
-						// super.getChildMoves().add(move);
-					}
-				}
-			}
-		}
-		if (canCapturePiece) {
-			for (Move move : super.getAllMoves()) {
-				if (!((DameMove) move).capturePiece()) {
-					super.getAllMoves().remove(move);
-				}
-			}
-		}
+		//??
+		// boolean canCapturePiece = false;
+
+		setChildMoves(this.dameTable.getAllPossibleMoves());
+
+		//??
+		// if (canCapturePiece) {
+		// for (Move move : getAllMoves()) {
+		// if (!((DameMove) move).capturePiece()) {
+		// getAllMoves().remove(move);
+		// }
+		// }
+		// }
 
 	}
 
@@ -90,8 +56,8 @@ public class DameGameState extends GameState implements
 
 	@Override
 	public boolean isTerminal() {
-		return (this.getAllMoves().isEmpty()); // To change body of generated
-												// methods,
+		return (getAllMoves().isEmpty()); // To change body of generated
+											// methods,
 		// choose Tools | Templates.
 	}
 
