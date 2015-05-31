@@ -101,8 +101,7 @@ public class DameTable extends GenericTable<Piece> {
 						GenericCell<Piece> targetCell = findCell(
 								rows.indexOf(row) + i, columns.indexOf(column)
 										+ j);
-						if (targetCell != null
-								&& moveAllowed(sourceCell, targetCell)) {
+						if (moveAllowed(sourceCell, targetCell)) {
 							int[] movement = { rows.indexOf(row),
 									rows.indexOf(column), i, j };
 							allPossibleMoves.add(new DameMove(movement));
