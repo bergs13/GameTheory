@@ -9,7 +9,6 @@ import defs.dame.DameConstants.Piece;
 import defs.general.Game;
 import defs.general.GenericColumn;
 import defs.general.GenericRow;
-import defs.general.GenericTable;
 
 /**
  *
@@ -17,7 +16,7 @@ import defs.general.GenericTable;
  */
 public class DameGame extends Game {
 	DameGameState dameGameState = null;
-	DameEvaluator evaluator = new DameEvaluator();
+	DameEvaluator evaluator = new DameEvaluator(Piece.BLACK, Piece.WHITE);
 
 	public DameGame() {
 		super("Dame-Spiel");
@@ -28,8 +27,12 @@ public class DameGame extends Game {
 	@Override
 	public boolean setupGame() {
 		// initialize table and set as start state
-		GenericTable<Piece> table = new GenericTable<Piece>();
-		// Alle leer
+		DameTable table = new DameTable();
+		// S S S S S
+		// S S S S S
+		// S S . W W
+		// W W W W W
+		// W W W W W
 		for (int i = 0; i < 5; i++) {
 			GenericRow<Piece> row = new GenericRow<Piece>();
 			for (int j = 0; j < 5; j++) {
@@ -50,11 +53,6 @@ public class DameGame extends Game {
 			}
 			table.addRow(row);
 		}
-		// S S S S S
-		// S S S S S
-		// S S . W W
-		// W W W W W
-		// W W W W W
 
 		this.dameGameState.setStartState(firstPlayer, table);
 		return true;

@@ -11,19 +11,15 @@ import defs.general.Move;
  *
  * @author Thunderchild
  */
-public class NimMove extends Move{
-    int value;
+public class NimMove extends Move {
+	int value;
 
-    public NimMove(Object move) {
-        super(move);
-        value = (int)move;
-    }
+	public NimMove(Object move) {
+		super(move);
+		value = (int) move;
+	}
 
-    public void executeMove(int state) {
-        state =- value;
-    }
-    
-    
-    
-    
+	public void executeMove(int state) {
+		state = -value;
+	}
 }
