@@ -20,12 +20,12 @@ import java.util.List;
 public class DameEvaluator extends Evaluator {
 	// Members
 	Piece ownPiece;
-	Piece oponentPiece;
+	Piece opponentPiece;
 
 	// Constructors
-	public DameEvaluator(Piece ownPiece, Piece oponentPiece) {
+	public DameEvaluator(Piece ownPiece, Piece opponentPiece) {
 		this.ownPiece = ownPiece;
-		this.oponentPiece = oponentPiece;
+		this.opponentPiece = opponentPiece;
 	}
 
 	// Methods
@@ -33,8 +33,8 @@ public class DameEvaluator extends Evaluator {
 	public int evaluate(GameState gameState) {
 		DameTable table = ((DameGameState) gameState).getGameTable();
 		int ownPieceCount = countPieces(table, ownPiece);
-		int oponentPieceCount = countPieces(table, oponentPiece);
-		return ownPieceCount - oponentPieceCount;
+		int opponentPieceCount = countPieces(table, opponentPiece);
+		return ownPieceCount - opponentPieceCount;
 	}
 
 	private static int countPieces(DameTable table, Piece pieceToCount) {

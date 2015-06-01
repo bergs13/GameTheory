@@ -31,20 +31,7 @@ public class DameGameState extends GameState implements
 	// Base overrides
 	@Override
 	public void findPossibleMoves() {
-		//??
-		// boolean canCapturePiece = false;
-
 		setChildMoves(this.dameTable.getAllPossibleMoves());
-
-		//??
-		// if (canCapturePiece) {
-		// for (Move move : getAllMoves()) {
-		// if (!((DameMove) move).capturePiece()) {
-		// getAllMoves().remove(move);
-		// }
-		// }
-		// }
-
 	}
 
 	@Override

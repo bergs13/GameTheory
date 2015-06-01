@@ -34,15 +34,15 @@ public class DameTable extends GenericTable<Piece> {
 			if (sourceCell.getCellValue() != Piece.EMPTY
 					&& targetCell.getCellValue() == Piece.EMPTY) {
 
-				// Case 1: Same row with valid column difference
-				if (rowIndexDifference == 0
-						&& (columnIndexDifference == 1 || columnIndexDifference == 2)) {
+				// Case 1: Move one space
+				if (rowIndexDifference <= 1
+						&& columnIndexDifference <= 1) {
 					return true;
 				}
-
-				// Case 2: Same column with valid row difference
-				else if (columnIndexDifference == 0
-						&& (rowIndexDifference == 1 || rowIndexDifference == 2)) {
+                                    
+				// Case 2: capture piece
+				else if (Math.abs(columnIndexDifference%2) == 0
+						&& Math.abs(rowIndexDifference%2) == 0 ) {
 					return true;
 				}
 			}
@@ -95,7 +95,6 @@ public class DameTable extends GenericTable<Piece> {
 			List<GenericColumn<Piece>> columns = row.getColumns();
 			for (GenericColumn<Piece> column : columns) {
 				GenericCell<Piece> sourceCell = row.getCellByColumn(column);
-				// if(currentCell.getCellValue() == ownpiec)
 				for (int i = -1; i <= 1; i++) {
 					for (int j = -1; j <= 1; j++) {
 						GenericCell<Piece> targetCell = findCell(
