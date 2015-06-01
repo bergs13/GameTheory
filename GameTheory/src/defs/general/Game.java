@@ -1,9 +1,11 @@
 package defs.general;
 
+import java.util.Observable;
+
 /* 
  * Basisklasse für alle Spiele 
  */
-public class Game {
+public class Game extends Observable {
 	// Members
 	private String name = "";
 	protected Player firstPlayer = new HumanPlayer();

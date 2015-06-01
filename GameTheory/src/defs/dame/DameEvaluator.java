@@ -31,7 +31,7 @@ public class DameEvaluator extends Evaluator {
 	// Methods
 	@Override
 	public int evaluate(GameState gameState) {
-		DameTable table = ((DameGameState) gameState).getGameTable();
+		DameTable table = ((DameGameState) gameState).getDameTable();
 		int ownPieceCount = countPieces(table, ownPiece);
 		int opponentPieceCount = countPieces(table, opponentPiece);
 		return ownPieceCount - opponentPieceCount;

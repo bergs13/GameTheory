@@ -5,26 +5,24 @@
  */
 package defs.dame;
 
-import defs.dame.DameConstants.*;
 import defs.general.GameState;
 import defs.general.Move;
 import defs.general.Player;
-import interfaces.UsableAsDameViewModel;
 
 /**
  *
  * @author Thunderchild
  */
-public class DameGameState extends GameState implements
-		UsableAsDameViewModel<Piece> {
+public class DameGameState extends GameState {
 
 	private DameTable dameTable = null;
 
 	public DameGameState() {
 	}
 
-	public DameGameState(GameState parentState, Move move) {
+	public DameGameState(GameState parentState, Move move, DameTable dameTable) {
 		super(parentState, move);
+		this.dameTable = dameTable;
 	}
 
 	// Methods
@@ -48,29 +46,18 @@ public class DameGameState extends GameState implements
 		// choose Tools | Templates.
 	}
 
+	@Override
+	public GameState doMove(Move move) {
+		DameGameState gstate = new DameGameState(this, move, this.dameTable);
+		return gstate;
+	}
+
 	public void setStartState(Player firstPlayer, DameTable dameTable) {
 		super.setStartState(firstPlayer);
 		this.dameTable = dameTable;
-
-		// Notify view for update
-		setChanged();
-		notifyObservers(DameEventConstants.STARTSTATESET);
 	}
 
-	// UsableAsDameViewModel<Character> (interface) methods
-	@Override
-	public DameTable getGameTable() {
+	public DameTable getDameTable() {
 		return this.dameTable;
-	}
-
-	@Override
-	public void movePiece(int sourceRowIndex, int sourceColumnIndex,
-			int targetRowIndex, int targetColumnIndex) {
-		this.dameTable.moveValue(sourceRowIndex, sourceColumnIndex,
-				targetRowIndex, targetColumnIndex, Piece.EMPTY);
-
-		// Notify view for update
-		setChanged();
-		notifyObservers(DameEventConstants.STONEMOVED);
 	}
 }

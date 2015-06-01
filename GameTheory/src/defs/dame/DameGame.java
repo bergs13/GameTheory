@@ -5,6 +5,8 @@
  */
 package defs.dame;
 
+import interfaces.UsableAsDameViewModel;
+import defs.dame.DameConstants.DameEventConstants;
 import defs.dame.DameConstants.Piece;
 import defs.general.Game;
 import defs.general.GenericColumn;
@@ -14,7 +16,7 @@ import defs.general.GenericRow;
  *
  * @author Thunderchild
  */
-public class DameGame extends Game {
+public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 	DameGameState dameGameState = null;
 	DameEvaluator evaluator = new DameEvaluator(Piece.BLACK, Piece.WHITE);
 
@@ -33,9 +35,9 @@ public class DameGame extends Game {
 		// S S . W W
 		// W W W W W
 		// W W W W W
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < DameConstants.SQUARESPERSIDE; i++) {
 			GenericRow<Piece> row = new GenericRow<Piece>();
-			for (int j = 0; j < 5; j++) {
+			for (int j = 0; j < DameConstants.SQUARESPERSIDE; j++) {
 				GenericColumn<Piece> column = new GenericColumn<Piece>();
 				Piece cellValue = Piece.EMPTY;
 				if (i < 2) {
@@ -55,10 +57,31 @@ public class DameGame extends Game {
 		}
 
 		this.dameGameState.setStartState(firstPlayer, table);
+
+		// Notify view for update
+		setChanged();
+		notifyObservers(DameEventConstants.STARTSTATESET);
+
 		return true;
 	}
 
-	public DameGameState getDameGameState() {
-		return this.dameGameState;
+	// UsableAsDameViewModel<Character> (interface) methods
+	@Override
+	public DameTable getDameTable() {
+		return this.dameGameState.getDameTable();
+	}
+
+	@Override
+	public void movePiece(int sourceRowIndex, int sourceColumnIndex,
+			int targetRowIndex, int targetColumnIndex) {
+		int[] movement = { sourceRowIndex, sourceColumnIndex, targetRowIndex,
+				targetColumnIndex };
+		DameMove dMove = new DameMove(movement);
+		this.dameGameState = (DameGameState) this.dameGameState.doMove(dMove);
+		dMove.executeMove(this.dameGameState.getDameTable());
+
+		// Notify view for update
+		setChanged();
+		notifyObservers(DameEventConstants.STONEMOVED);
 	}
 }

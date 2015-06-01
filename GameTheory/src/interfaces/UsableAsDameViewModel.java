@@ -1,8 +1,10 @@
 package interfaces;
 
-import defs.general.GenericTable;
+import defs.dame.DameTable;
 
 public interface UsableAsDameViewModel<T> {
-	GenericTable<T> getGameTable();
-	void movePiece(int sourceRowIndex, int sourceColumnIndex, int targetRowIndex, int targetColumnIndex);
+	DameTable getDameTable();
+
+	void movePiece(int sourceRowIndex, int sourceColumnIndex,
+			int targetRowIndex, int targetColumnIndex);
 }

@@ -4,9 +4,7 @@ import views.dame.DameFrame;
 
 public class Program {
 	public static void main(String[] args) {
-		DameGame dameGame = new DameGame();
-		DameFrame dameFrame = new DameFrame(new DameComponent(
-				dameGame.getDameGameState()));
+		DameFrame dameFrame = new DameFrame(new DameComponent(new DameGame()));
 		dameFrame.setVisible(true);
 	}
 }

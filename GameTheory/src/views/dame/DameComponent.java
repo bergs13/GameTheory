@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,19 +16,19 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import defs.dame.DameConstants.DameEventConstants;
-import defs.dame.DameGameState;
+import defs.dame.DameGame;
 
 @SuppressWarnings("serial")
 public class DameComponent extends JComponent implements Observer {
 	// Members
-	DameGameState dameGameState = null;
+	DameGame dameGame = null;
 	DameGameFieldPanel dameGameFieldPanel = new DameGameFieldPanel();
 
 	// Constructors
-	public DameComponent(DameGameState dameGameState) {
-		this.dameGameState = dameGameState;
+	public DameComponent(DameGame dameGame) {
+		this.dameGame = dameGame;
 		// gui is observer of model
-		this.dameGameState.addObserver(this);
+		this.dameGame.addObserver(this);
 	}
 
 	// Painting methods
@@ -52,7 +54,7 @@ public class DameComponent extends JComponent implements Observer {
 		contentPanel.add(getMovePanel());
 
 		// add game field panel for displaying the game field to content panel
-		dameGameFieldPanel.setTable(this.dameGameState.getGameTable());
+		dameGameFieldPanel.setTable(this.dameGame.getDameTable());
 		contentPanel.add(dameGameFieldPanel);
 		// dameGameFieldPanel.repaint();
 		// add content panel to component
@@ -62,7 +64,7 @@ public class DameComponent extends JComponent implements Observer {
 	private JPanel getMovePanel() {
 		JPanel movePanel = new JPanel(new GridLayout(0, 2));
 		movePanel.add(new JLabel("Source Row:"));
-		JTextField rowSourceTF = new JTextField("1");
+		JTextField rowSourceTF = GetDameTextField();
 		movePanel.add(rowSourceTF);
 		movePanel.add(new JLabel("Source Column:"));
 		JTextField columnSourceTF = new JTextField("1");
@@ -77,6 +79,7 @@ public class DameComponent extends JComponent implements Observer {
 		moveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+
 				moveStone(Integer.parseInt(rowSourceTF.getText()),
 						Integer.parseInt(columnSourceTF.getText()),
 						Integer.parseInt(rowTargetTF.getText()),
@@ -85,6 +88,17 @@ public class DameComponent extends JComponent implements Observer {
 		});
 		movePanel.add(moveButton);
 		return movePanel;
+	}
+
+	private JTextField GetDameTextField() {
+		JTextField f = new JTextField("1");
+		f.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				checkAndFixDameInput(f);
+			}
+		});
+		return f;
 	}
 
 	// Observer methods
@@ -101,9 +115,31 @@ public class DameComponent extends JComponent implements Observer {
 	}
 
 	// Control methods and events
-	public void moveStone(int sourceRowIndex, int sourceColumnIndex,
-			int targetRowIndex, int targetColumnIndex) {
-		dameGameState.movePiece(sourceRowIndex, sourceColumnIndex,
-				targetRowIndex, targetColumnIndex);
+	public void moveStone(int sourceRowNumber, int sourceColumnNumber,
+			int targetRowNumber, int targetColumnNumber) {
+		dameGame.movePiece(sourceRowNumber - 1, sourceColumnNumber - 1,
+				targetRowNumber - 1, targetColumnNumber - 1);
+	}
+
+	public void checkAndFixDameInput(JTextField inputField) {
+		// String text = inputField.getText();
+		// if (null != text) {
+		// boolean textIsDigits = true;
+		// for (char c : text.toCharArray()) {
+		// if (!Character.isDigit(c)) {
+		// textIsDigits = false;
+		// break;
+		// }
+		// }
+		// if (textIsDigits) {
+		// int number = Integer.parseInt(text);
+		// if (number <= 0) {
+		// number = 1;
+		// } else if (number > DameConstants.SQUARESPERSIDE) {
+		// number = DameConstants.SQUARESPERSIDE;
+		// }
+		// inputField.setText("" + number);
+		// }
+		// }
 	}
 }

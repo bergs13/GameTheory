@@ -52,8 +52,8 @@ public class DameGameFieldPanel extends JPanel {
 				Piece cellValue = columnCell.getCellValue();
 
 				// Position für das Quadrat der aktuellen Zelle setzen
-				x = 0 + colIndex * DameConstants.SQUARESIDESIZE;
-				y = 0 + rowIndex * DameConstants.SQUARESIDESIZE;
+				x = 0 + colIndex * DameConstants.SINGLESQUARESIDESIZE;
+				y = 0 + rowIndex * DameConstants.SINGLESQUARESIDESIZE;
 
 				// Quadratfarbe für aktuelle Zelle ermitteln und Quadrat
 				// zeichnen
@@ -70,8 +70,8 @@ public class DameGameFieldPanel extends JPanel {
 						g2d.setColor(DameConstants.LIGHTFIELDCOLOR);
 					}
 				}
-				g2d.fillRect(x, y, DameConstants.SQUARESIDESIZE,
-						DameConstants.SQUARESIDESIZE);
+				g2d.fillRect(x, y, DameConstants.SINGLESQUARESIDESIZE,
+						DameConstants.SINGLESQUARESIDESIZE);
 				// Wert für aktuelle Zelle ermitteln und zeichnen (Wenn nicht
 				// leer)
 				if (cellValue != Piece.EMPTY) {
@@ -83,9 +83,9 @@ public class DameGameFieldPanel extends JPanel {
 					// Ausgfüllter Kreis (sowohl schwarz als auch weiss)
 					g2d.fillOval(
 							x
-									+ ((DameConstants.SQUARESIDESIZE - DameConstants.PIECEDIAMETER) / 2),
+									+ ((DameConstants.SINGLESQUARESIDESIZE - DameConstants.PIECEDIAMETER) / 2),
 							y
-									+ ((DameConstants.SQUARESIDESIZE - DameConstants.PIECEDIAMETER) / 2),
+									+ ((DameConstants.SINGLESQUARESIDESIZE - DameConstants.PIECEDIAMETER) / 2),
 							DameConstants.PIECEDIAMETER,
 							DameConstants.PIECEDIAMETER);
 				}
