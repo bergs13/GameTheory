@@ -8,8 +8,8 @@ import java.util.Observable;
 public class Game extends Observable {
 	// Members
 	private String name = "";
-	protected Player firstPlayer = new HumanPlayer();
-	protected Player secondPlayer = new COMPlayer();
+	protected Player firstPlayer = new Player();
+	protected Player secondPlayer = new Player();
 
 	// Konstruktoren
 	public Game(String name) {

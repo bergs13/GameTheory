@@ -1,17 +1,23 @@
 package defs.general;
 
-
-/*
- * Basisklasse f�r den Spieler
- */
 public class Player {
+	// Members
+	boolean isHuman = true;
 
-    public Player() {
-    }
+	// Constructors
+	public Player() {
+	}
 
-    public Move getMove(){
-        Object action = new Object();
-        Move move = new Move(action);
-        return move;        
-    }
+	public Player(boolean isHuman) {
+		this.isHuman = isHuman;
+	}
+
+	// Methods
+	public boolean getIsHuman() {
+		return this.isHuman;
+	}
+
+	public void setIsHuman(boolean isHuman) {
+		this.isHuman = isHuman;
+	}
 }
