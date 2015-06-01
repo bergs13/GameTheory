@@ -10,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -51,7 +52,7 @@ public class DameComponent extends JComponent implements Observer {
 		JPanel contentPanel = new JPanel(new GridLayout(0, 2));
 
 		// add move panel with input boxes and button for move to content panel
-		contentPanel.add(getMovePanel());
+		contentPanel.add(getSettingAndMovePanel());
 
 		// add game field panel for displaying the game field to content panel
 		dameGameFieldPanel.setTable(this.dameGame.getDameTable());
@@ -61,7 +62,7 @@ public class DameComponent extends JComponent implements Observer {
 		this.add(contentPanel);
 	}
 
-	private JPanel getMovePanel() {
+	private JPanel getSettingAndMovePanel() {
 		JPanel movePanel = new JPanel(new GridLayout(0, 2));
 		movePanel.add(new JLabel("Source Row:"));
 		JTextField rowSourceTF = GetDameTextField();
@@ -87,7 +88,17 @@ public class DameComponent extends JComponent implements Observer {
 			};
 		});
 		movePanel.add(moveButton);
+		movePanel.add(getPlayerSettingPanel());
 		return movePanel;
+	}
+
+	private JPanel getPlayerSettingPanel() {
+		JPanel playerSettingPanel = new JPanel(new GridLayout(0, 2));
+		JCheckBox cb1 = new JCheckBox("Player 1 human?");
+		playerSettingPanel.add(cb1);
+		JCheckBox cb2 = new JCheckBox("Player 2 human?");
+		playerSettingPanel.add(cb2);
+		return playerSettingPanel;
 	}
 
 	private JTextField GetDameTextField() {

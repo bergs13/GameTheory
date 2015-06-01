@@ -17,15 +17,17 @@ import defs.general.GenericRow;
  * @author Thunderchild
  */
 public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
+	// Members
 	DameGameState dameGameState = null;
 	DameEvaluator evaluator = new DameEvaluator(Piece.BLACK, Piece.WHITE);
 
+	// Constructors
 	public DameGame() {
 		super("Dame-Spiel");
-		this.dameGameState = new DameGameState();
-		setupGame();
+		restartGame();
 	}
 
+	// Methods
 	@Override
 	public boolean setupGame() {
 		// initialize table and set as start state
@@ -56,7 +58,7 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 			table.addRow(row);
 		}
 
-		this.dameGameState.setStartState(firstPlayer, table);
+		this.dameGameState.setStartState(getFirstPlayer(), table);
 
 		// Notify view for update
 		setChanged();
@@ -65,10 +67,22 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 		return true;
 	}
 
+	private void restartGame() {
+		this.dameGameState = new DameGameState();
+		setupGame();
+	}
+
 	// UsableAsDameViewModel<Character> (interface) methods
 	@Override
 	public DameTable getDameTable() {
 		return this.dameGameState.getDameTable();
+	}
+
+	@Override
+	public void setPlayerIsHuman(boolean firstPlayerIsHuman,
+			boolean secondPlayerIsHuman) {
+		getFirstPlayer().setIsHuman(firstPlayerIsHuman);
+		getSecondPlayer().setIsHuman(secondPlayerIsHuman);
 	}
 
 	@Override

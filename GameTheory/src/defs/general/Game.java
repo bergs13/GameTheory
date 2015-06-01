@@ -8,8 +8,8 @@ import java.util.Observable;
 public class Game extends Observable {
 	// Members
 	private String name = "";
-	protected Player firstPlayer = new Player();
-	protected Player secondPlayer = new Player();
+	private Player firstPlayer = new Player(true);
+	private Player secondPlayer = new Player(false);
 
 	// Konstruktoren
 	public Game(String name) {
@@ -32,10 +32,19 @@ public class Game extends Observable {
 
 	public boolean setupGame() {
 		GameState gameState = new GameState();
-		gameState.setStartState(firstPlayer);
+		gameState.setStartState(getFirstPlayer());
 		return true;
 	}
+
 	public void play() {
 
+	}
+
+	protected Player getFirstPlayer() {
+		return firstPlayer;
+	}
+
+	protected Player getSecondPlayer() {
+		return secondPlayer;
 	}
 }
