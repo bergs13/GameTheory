@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Observable;
@@ -16,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import defs.dame.DameConstants;
 import defs.dame.DameConstants.DameEventConstants;
 import defs.dame.DameGame;
 
@@ -68,13 +71,13 @@ public class DameComponent extends JComponent implements Observer {
 		JTextField rowSourceTF = GetDameTextField();
 		movePanel.add(rowSourceTF);
 		movePanel.add(new JLabel("Source Column:"));
-		JTextField columnSourceTF = new JTextField("1");
+		JTextField columnSourceTF = GetDameTextField();
 		movePanel.add(columnSourceTF);
 		movePanel.add(new JLabel("Target Row:"));
-		JTextField rowTargetTF = new JTextField("1");
+		JTextField rowTargetTF = GetDameTextField();
 		movePanel.add(rowTargetTF);
 		movePanel.add(new JLabel("Target Column:"));
-		JTextField columnTargetTF = new JTextField("1");
+		JTextField columnTargetTF = GetDameTextField();
 		movePanel.add(columnTargetTF);
 		JButton moveButton = new JButton("Move");
 		moveButton.addActionListener(new ActionListener() {
@@ -97,6 +100,14 @@ public class DameComponent extends JComponent implements Observer {
 		JCheckBox cb1 = new JCheckBox("Player 1 human?");
 		playerSettingPanel.add(cb1);
 		JCheckBox cb2 = new JCheckBox("Player 2 human?");
+		ItemListener cbListener = new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent itemEvent) {
+				dameGame.setPlayerIsHuman(cb1.isSelected(), cb2.isSelected());
+			}
+		};
+		cb1.addItemListener(cbListener);
+		cb2.addItemListener(cbListener);
 		playerSettingPanel.add(cb2);
 		return playerSettingPanel;
 	}
@@ -105,8 +116,33 @@ public class DameComponent extends JComponent implements Observer {
 		JTextField f = new JTextField("1");
 		f.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent arg0) {
-				checkAndFixDameInput(f);
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				/* Avoid invalid input */
+				if (c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE
+						&& !Character.isDigit(c)) {
+					getToolkit().beep();
+					e.consume();
+				}
+				/* check and fix result */
+				else {
+					String textBefore = f.getText();
+					String textAfter;
+					if (null == textBefore || "" == textBefore) {
+						textAfter = "" + c;
+					} else {
+						textAfter = textBefore + c;
+					}
+					int intTextAfter = null == textAfter || "" == textAfter ? 1
+							: Integer.parseInt(textAfter);
+					if (intTextAfter <= 0) {
+						f.setText("" + 1);
+						e.consume();
+					} else if (intTextAfter > DameConstants.SQUARESPERSIDE) {
+						f.setText("" + DameConstants.SQUARESPERSIDE);
+						e.consume();
+					}
+				}
 			}
 		});
 		return f;
@@ -130,27 +166,5 @@ public class DameComponent extends JComponent implements Observer {
 			int targetRowNumber, int targetColumnNumber) {
 		dameGame.movePiece(sourceRowNumber - 1, sourceColumnNumber - 1,
 				targetRowNumber - 1, targetColumnNumber - 1);
-	}
-
-	public void checkAndFixDameInput(JTextField inputField) {
-		// String text = inputField.getText();
-		// if (null != text) {
-		// boolean textIsDigits = true;
-		// for (char c : text.toCharArray()) {
-		// if (!Character.isDigit(c)) {
-		// textIsDigits = false;
-		// break;
-		// }
-		// }
-		// if (textIsDigits) {
-		// int number = Integer.parseInt(text);
-		// if (number <= 0) {
-		// number = 1;
-		// } else if (number > DameConstants.SQUARESPERSIDE) {
-		// number = DameConstants.SQUARESPERSIDE;
-		// }
-		// inputField.setText("" + number);
-		// }
-		// }
 	}
 }
