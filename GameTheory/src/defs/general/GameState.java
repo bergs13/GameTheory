@@ -10,101 +10,105 @@ import java.util.Observable;
  */
 public class GameState extends Observable {
 
-	private Move playedMove;
-	private List<Move> childMoves;
-	private GameState parentState;
-	private List<GameState> childStates;
-	private Player playerToMove;
+    private Move playedMove;
+    private List<Move> childMoves;
+    private GameState parentState;
+    private List<GameState> childStates;
+    private Player playerToMove;
 
-	public GameState() {
+    public GameState() {
 
-	}
+    }
 
-	public GameState(GameState parentState, Move move) {
-		this.parentState = parentState;
-		this.playedMove = move;
-	}
+    public GameState(GameState parentState, Move move) {
+        this.parentState = parentState;
+        this.playedMove = move;
+    }
 
-	// Set Startstate when start node
-	public void setStartState(Player firstPlayer) {
-		this.parentState = null;
-		this.playerToMove = firstPlayer;
-	}
+    // Set Startstate when start node
+    public void setStartState(Player firstPlayer) {
+        this.parentState = null;
+        this.playerToMove = firstPlayer;
+    }
 
-	// all valid moves
-	public List<Move> getAllMoves() {
-		if (childMoves == null) {
-			findPossibleMoves();
-		}
-		return childMoves;
-	}
+    // all valid moves
+    public List<Move> getAllMoves() {
+        if (childMoves == null) {
+            findPossibleMoves();
+        }
+        return childMoves;
+    }
 
-	// Is move valid
-	public boolean possibleMove(Move move) {
-		return getAllMoves().contains(move);
-	}
+    // Is move valid
+    public boolean possibleMove(Move move) {
+        return getAllMoves().contains(move);
+    }
 
-	// execute a move
-	public GameState doMove(Move move) {
-		GameState gstate = new GameState(this, move);
-		return gstate;
-	}
+    // execute a move
+    public GameState doMove(Move move) {
+        GameState gstate = new GameState(this, move);
+        return gstate;
+    }
 
-	// undo move that lead to this state
-	public GameState undoMove() {
-		return parentState;
-	}
+    // undo move that lead to this state
+    public GameState undoMove() {
+        return parentState;
+    }
 
-	//
-	public List<GameState> getChildStates() {
-		if (childStates == null) {
-			createChildStates();
-		}
-		return childStates;
-	}
+    //
+    public List<GameState> getChildStates() {
+        if (childStates == null) {
+            createChildStates();
+        }
+        return childStates;
+    }
 
-	public void getChild() {
+    public void getChild() {
 
-	}
+    }
 
-	public void firstPlayerToMove() {
+    public void firstPlayerToMove() {
 
-	}
+    }
 
-	public void secondPlayerToMove() {
+    public void secondPlayerToMove() {
 
-	}
+    }
 
-	public boolean isTerminal() {
-		return !getChildStates().isEmpty();
-	}
+    public boolean isTerminal() {
+        return !getChildStates().isEmpty();
+    }
 
-	public void firstPlayerToWin() {
+    public void firstPlayerToWin() {
 
-	}
+    }
 
-	public void secondPlayerToWin() {
+    public void secondPlayerToWin() {
 
-	}
+    }
 
-	public void draw() {
+    public void draw() {
 
-	}
+    }
 
-	public void createChildStates() {
-		childStates = new ArrayList<GameState>();
-	}
+    public void createChildStates() {
+        childStates = new ArrayList<GameState>();
+    }
 
-	public void findPossibleMoves() {
-		setChildMoves(new ArrayList<Move>());
-	}
+    public void findPossibleMoves() {
+        setChildMoves(new ArrayList<Move>());
+    }
 
-	public List<Move> getChildMoves() {
-		return childMoves;
-	}
+    public List<Move> getChildMoves() {
+        return childMoves;
+    }
 
-	public void setChildMoves(List<Move> childMoves) {
-		this.childMoves = childMoves;
-	}
+    public void setChildMoves(List<Move> childMoves) {
+        this.childMoves = childMoves;
+    }
+
+    public Player getPlayerToMove() {
+        return playerToMove;
+    }
 
 }

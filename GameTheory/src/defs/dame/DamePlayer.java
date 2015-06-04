@@ -17,4 +17,8 @@ public class DamePlayer extends Player {
 		super();
 		this.playersPiece = playersPiece;
 	}
+                
+        public Piece getPlayersPiece(){
+            return playersPiece;
+        }
 }

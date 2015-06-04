@@ -6,45 +6,57 @@ import java.util.Observable;
  * Basisklasse für alle Spiele 
  */
 public class Game extends Observable {
-	// Members
-	private String name = "";
-	private Player firstPlayer = new Player(true);
-	private Player secondPlayer = new Player(false);
 
-	// Konstruktoren
-	public Game(String name) {
-		this.name = name;
-	}
+    // Members
 
-	// Methoden
-	public String getName() {
-		return name;
-	}
+    private String name = "";
+    private Player firstPlayer;
+    private Player secondPlayer;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    // Konstruktoren
+    public Game(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public String toString() {
-		return this.name;
-	}
+    // Methoden
+    public String getName() {
+        return name;
+    }
 
-	public boolean setupGame() {
-		GameState gameState = new GameState();
-		gameState.setStartState(getFirstPlayer());
-		return true;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void play() {
+    @Override
+    public String toString() {
+        return this.name;
+    }
 
-	}
+    public boolean setupGame() {
+        setFirstPlayer(new Player(true));
+        setSecondPlayer(new Player(false));
+        GameState gameState = new GameState();
+        gameState.setStartState(getFirstPlayer());
+        return true;
+    }
 
-	protected Player getFirstPlayer() {
-		return firstPlayer;
-	}
+    protected void setFirstPlayer(Player firstPlayer) {
+        this.firstPlayer = firstPlayer;
+    }
 
-	protected Player getSecondPlayer() {
-		return secondPlayer;
-	}
+    protected void setSecondPlayer(Player secondPlayer) {
+        this.secondPlayer = secondPlayer;
+    }
+
+    public void play() {
+
+    }
+
+    protected Player getFirstPlayer() {
+        return firstPlayer;
+    }
+
+    protected Player getSecondPlayer() {
+        return secondPlayer;
+    }
 }

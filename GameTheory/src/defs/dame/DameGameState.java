@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package defs.dame;
 
 import defs.general.GameState;
 import defs.general.Move;
 import defs.general.Player;
+import defs.dame.DamePlayer;
 
 /**
  *
@@ -23,13 +20,13 @@ public class DameGameState extends GameState {
 	public DameGameState(GameState parentState, Move move, DameTable dameTable) {
 		super(parentState, move);
 		this.dameTable = dameTable;
-	}
+        }
 
 	// Methods
 	// Base overrides
 	@Override
 	public void findPossibleMoves() {
-		setChildMoves(this.dameTable.getAllPossibleMoves());
+		setChildMoves(this.dameTable.getAllPossibleMoves(((DamePlayer)super.getPlayerToMove()).getPlayersPiece()));
 	}
 
 	@Override
@@ -41,9 +38,7 @@ public class DameGameState extends GameState {
 
 	@Override
 	public boolean isTerminal() {
-		return (getAllMoves().isEmpty()); // To change body of generated
-											// methods,
-		// choose Tools | Templates.
+		return (getAllMoves().isEmpty()); 
 	}
 
 	@Override
