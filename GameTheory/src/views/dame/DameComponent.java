@@ -83,11 +83,46 @@ public class DameComponent extends JComponent implements Observer {
 		moveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				// Input vor dem Move validieren und ggf. anpassen
+				moveStone(getFixedNumber(rowSourceTF),
+						getFixedNumber(columnSourceTF),
+						getFixedNumber(rowTargetTF),
+						getFixedNumber(columnTargetTF));
+			}
 
-				moveStone(Integer.parseInt(rowSourceTF.getText()),
-						Integer.parseInt(columnSourceTF.getText()),
-						Integer.parseInt(rowTargetTF.getText()),
-						Integer.parseInt(columnTargetTF.getText()));
+			private int getFixedNumber(JTextField numberTF) {
+				String numberText = numberTF.getText();
+				char[] numberTextChars = numberText.toCharArray();
+				boolean setNumberForInvalidInput = false;
+				if (numberTextChars.length == 0) {
+					setNumberForInvalidInput = true;
+				} else {
+					for (Character c : numberTextChars) {
+						if (!Character.isDigit(c)) {
+							setNumberForInvalidInput = true;
+							break;
+						}
+					}
+				}
+				int number;
+				if (setNumberForInvalidInput) {
+					number = 1;
+					numberText = "" + number;
+					numberTF.setText(numberText);
+				} else {
+					number = Integer.parseInt(numberText);
+					// Min row/column = 1
+					if (number < 1) {
+						number = 1;
+						numberTF.setText("" + number);
+					}
+					// Max row/column = Anzahl Quadrate pro Seite
+					else if (number > DameConstants.SQUARESPERSIDE) {
+						number = DameConstants.SQUARESPERSIDE;
+						numberTF.setText("" + DameConstants.SQUARESPERSIDE);
+					}
+				}
+				return number;
 			};
 		});
 		movePanel.add(moveButton);
@@ -123,25 +158,6 @@ public class DameComponent extends JComponent implements Observer {
 						&& !Character.isDigit(c)) {
 					getToolkit().beep();
 					e.consume();
-				}
-				/* check and fix result */
-				else {
-					String textBefore = f.getText();
-					String textAfter;
-					if (null == textBefore || "" == textBefore) {
-						textAfter = "" + c;
-					} else {
-						textAfter = textBefore + c;
-					}
-					int intTextAfter = null == textAfter || "" == textAfter ? 1
-							: Integer.parseInt(textAfter);
-					if (intTextAfter <= 0) {
-						f.setText("" + 1);
-						e.consume();
-					} else if (intTextAfter > DameConstants.SQUARESPERSIDE) {
-						f.setText("" + DameConstants.SQUARESPERSIDE);
-						e.consume();
-					}
 				}
 			}
 		});

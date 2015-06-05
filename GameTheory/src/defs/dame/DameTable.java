@@ -9,8 +9,7 @@ import defs.general.GenericColumn;
 import defs.general.GenericRow;
 import defs.general.GenericTable;
 import defs.general.Move;
-import defs.general.Player;
-import defs.dame.DamePlayer;
+
 public class DameTable extends GenericTable<Piece> {
 
 	public DameTable() {
@@ -36,14 +35,13 @@ public class DameTable extends GenericTable<Piece> {
 					&& targetCell.getCellValue() == Piece.EMPTY) {
 
 				// Case 1: Move one space
-				if (rowIndexDifference <= 1
-						&& columnIndexDifference <= 1) {
+				if (rowIndexDifference <= 1 && columnIndexDifference <= 1) {
 					return true;
 				}
-                                    
+
 				// Case 2: capture piece
-				else if (columnIndexDifference%2 == 0
-						&& rowIndexDifference%2 == 0) {
+				else if (columnIndexDifference % 2 == 0
+						&& rowIndexDifference % 2 == 0) {
 					return true;
 				}
 			}
@@ -96,7 +94,8 @@ public class DameTable extends GenericTable<Piece> {
 			List<GenericColumn<Piece>> columns = row.getColumns();
 			for (GenericColumn<Piece> column : columns) {
 				GenericCell<Piece> sourceCell = row.getCellByColumn(column);
-                                System.out.print((sourceCell.getCellValue() == playerToMovePieces));
+				System.out
+						.print((sourceCell.getCellValue() == playerToMovePieces));
 				for (int i = -1; i <= 1; i++) {
 					for (int j = -1; j <= 1; j++) {
 						GenericCell<Piece> targetCell = findCell(
