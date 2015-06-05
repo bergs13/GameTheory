@@ -70,7 +70,7 @@ public class GenericTable<T> {
 				emptyValue);
 	}
 
-	public void moveValue(int sourceRowIndex, int sourceColumnIndex,
+	public boolean moveValue(int sourceRowIndex, int sourceColumnIndex,
 			int targetRowIndex, int targetColumnIndex, T emptyValue) {
 		// Find the two cells
 		GenericCell<T> sourceCell = findCell(sourceRowIndex, sourceColumnIndex);
@@ -84,7 +84,10 @@ public class GenericTable<T> {
 
 			// Clear the cell value of the old cell
 			sourceCell.setCellValue(emptyValue);
+
+			return true;
 		}
+		return false;
 	}
 
 	public T removeValue(GenericCell<Piece> cell, T emptyValue) {

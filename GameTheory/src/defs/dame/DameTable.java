@@ -52,39 +52,43 @@ public class DameTable extends GenericTable<Piece> {
 	}
 
 	@Override
-	public void moveValue(int sourceRowIndex, int sourceColumnIndex,
+	public boolean moveValue(int sourceRowIndex, int sourceColumnIndex,
 			int targetRowIndex, int targetColumnIndex, Piece emptyValue) {
 		// Perform move from base
-		super.moveValue(sourceRowIndex, sourceColumnIndex, targetRowIndex,
-				targetColumnIndex, emptyValue);
-
-		// Perform remove (stones in between)
-		int rowIndexForRemove = Integer.MIN_VALUE;
-		int columnIndexForRemove = Integer.MIN_VALUE;
-		// Set the horizontal and vertical difference for checks
-		int rowDifference = Math.abs(sourceRowIndex - targetRowIndex);
-		int columnDifference = Math.abs(sourceColumnIndex - targetColumnIndex);
-		// case 1: stone between in same row
-		if (sourceRowIndex == targetRowIndex && columnDifference == 2) {
-			// one of both rows
-			rowIndexForRemove = sourceRowIndex;
-			// index between columns
-			columnIndexForRemove = sourceColumnIndex < targetColumnIndex ? sourceColumnIndex + 1
-					: targetColumnIndex + 1;
+		if (super.moveValue(sourceRowIndex, sourceColumnIndex, targetRowIndex,
+				targetColumnIndex, emptyValue)) {
+			// Perform remove (stones in between)
+			int rowIndexForRemove = Integer.MIN_VALUE;
+			int columnIndexForRemove = Integer.MIN_VALUE;
+			// Set the horizontal and vertical difference for checks
+			int rowDifference = Math.abs(sourceRowIndex - targetRowIndex);
+			int columnDifference = Math.abs(sourceColumnIndex
+					- targetColumnIndex);
+			// case 1: stone between in same row
+			if (sourceRowIndex == targetRowIndex && columnDifference == 2) {
+				// one of both rows
+				rowIndexForRemove = sourceRowIndex;
+				// index between columns
+				columnIndexForRemove = sourceColumnIndex < targetColumnIndex ? sourceColumnIndex + 1
+						: targetColumnIndex + 1;
+			}
+			// case 2: stone between in same column
+			else if (sourceColumnIndex == targetColumnIndex
+					&& rowDifference == 2) {
+				// one of both columns
+				columnIndexForRemove = sourceColumnIndex;
+				// index between rows
+				rowIndexForRemove = sourceRowIndex < targetRowIndex ? sourceRowIndex + 1
+						: targetRowIndex + 1;
+			}
+			// Remove piece if piece identified
+			if (rowIndexForRemove >= 0 && columnIndexForRemove >= 0) {
+				/* Piece removedPiece = */removeValue(rowIndexForRemove,
+						columnIndexForRemove, emptyValue);
+			}
+			return true;
 		}
-		// case 2: stone between in same column
-		else if (sourceColumnIndex == targetColumnIndex && rowDifference == 2) {
-			// one of both columns
-			columnIndexForRemove = sourceColumnIndex;
-			// index between rows
-			rowIndexForRemove = sourceRowIndex < targetRowIndex ? sourceRowIndex + 1
-					: targetRowIndex + 1;
-		}
-		// Remove piece if piece identified
-		if (rowIndexForRemove >= 0 && columnIndexForRemove >= 0) {
-			/* Piece removedPiece = */removeValue(rowIndexForRemove,
-					columnIndexForRemove, emptyValue);
-		}
+		return false;
 	}
 
 	public List<Move> getAllPossibleMoves(Piece playerToMovePieces) {
