@@ -42,7 +42,7 @@ public class NimGameState extends GameState {
 	}
 
 	public void setStartState(Player firstPlayer, int startMatches) {
-		super.setStartState(firstPlayer);
+		super.setStartState(firstPlayer, new Player());
 		this.matches = startMatches;
 	}
 

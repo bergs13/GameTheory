@@ -38,4 +38,28 @@ public class Algorithms {
         }
         return bestValue;
     }
+    
+        public static GameState alphaBeta2(Evaluator evaluator, GameState gstate, int depth, int alpha, int beta) {
+        GameState bestGameState = new GameState();
+        bestGameState.setValue(Integer.MIN_VALUE);
+        if (gstate.isTerminal()|| depth == 0) {
+            gstate.setValue(evaluator.evaluate(gstate));
+            return gstate;
+        }
+        else{
+            for(GameState childState : gstate.getChildStates())
+            { 
+                childState.setValue(-alphaBeta(evaluator, childState, depth-1, -beta, -alpha));
+                if (bestGameState.getValue() < childState.getValue() ){
+                    bestGameState = childState;
+                }
+                alpha = Math.max(childState.getValue(), alpha);
+                if (alpha >= beta){
+                    break;
+                }
+            }
+        }
+        return bestGameState;
+    }
+
 }

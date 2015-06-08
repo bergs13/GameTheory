@@ -53,7 +53,7 @@ public class DameTable extends GenericTable<Piece> {
     }
 
     @Override
-    public void moveValue(int sourceRowIndex, int sourceColumnIndex,
+    public boolean moveValue(int sourceRowIndex, int sourceColumnIndex,
             int targetRowIndex, int targetColumnIndex, Piece emptyValue) {
         // Perform move from base
         super.moveValue(sourceRowIndex, sourceColumnIndex, targetRowIndex,
@@ -86,6 +86,7 @@ public class DameTable extends GenericTable<Piece> {
             removeValue(rowIndexForRemove,
                     columnIndexForRemove, emptyValue);
         }
+        return true;
     }
 
     public List<Move> getAllPossibleMoves(Piece playerToMovePieces) {

@@ -15,10 +15,14 @@ public class GameState extends Observable {
     private GameState parentState;
     private List<GameState> childStates;
     private Player playerToMove;
+    private Player playerToWait;
+    private int value;
 
     public GameState() {
 
     }
+
+   
 
     public GameState(GameState parentState, Move move) {
         this.parentState = parentState;
@@ -26,9 +30,10 @@ public class GameState extends Observable {
     }
 
     // Set Startstate when start node
-    public void setStartState(Player firstPlayer) {
+    public void setStartState(Player firstPlayer, Player secondPlayer) {
         this.parentState = null;
         this.playerToMove = firstPlayer;
+        this.playerToWait = secondPlayer;
     }
 
     // all valid moves
@@ -110,5 +115,20 @@ public class GameState extends Observable {
     public Player getPlayerToMove() {
         return playerToMove;
     }
+    public void setPlayerToMove(Player player){
+        playerToMove = player;
+    }
+    public Player getPlayerToWait() {
+        return playerToWait;
+    }
+    public void setPlayerToWait(Player player){
+        playerToWait = player;
+    }
+     public int getValue() {
+        return value;
+    }
 
+    public void setValue(int value) {
+        this.value = value;
+    }
 }

@@ -2,6 +2,7 @@ package defs.dame;
 
 import defs.dame.DameConstants.Piece;
 import defs.general.Player;
+import defs.general.Algorithms;
 
 public class DamePlayer extends Player {
 	// Mermbers
@@ -20,5 +21,13 @@ public class DamePlayer extends Player {
                 
         public Piece getPlayersPiece(){
             return playersPiece;
+        }
+        public void getMove(DameGameState gameState){
+            if(this.getIsHuman()){
+                //let the player choose his next move
+            }
+            else{
+                Algorithms.alphaBeta2(new DameEvaluator(this.playersPiece, ((DamePlayer)gameState.getPlayerToWait()).playersPiece), gameState, 4, -100, 100);
+        }
         }
 }

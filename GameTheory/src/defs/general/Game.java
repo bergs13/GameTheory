@@ -36,7 +36,7 @@ public class Game extends Observable {
         setFirstPlayer(new Player(true));
         setSecondPlayer(new Player(false));
         GameState gameState = new GameState();
-        gameState.setStartState(getFirstPlayer());
+        gameState.setStartState(getFirstPlayer(), getSecondPlayer());
         return true;
     }
 

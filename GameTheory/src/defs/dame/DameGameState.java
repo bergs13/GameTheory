@@ -13,13 +13,15 @@ import defs.dame.DamePlayer;
 public class DameGameState extends GameState {
 
 	private DameTable dameTable = null;
-
+        
 	public DameGameState() {
 	}
 
 	public DameGameState(GameState parentState, Move move, DameTable dameTable) {
 		super(parentState, move);
 		this.dameTable = dameTable;
+                super.setPlayerToMove(parentState.getPlayerToWait());
+                super.setPlayerToWait(parentState.getPlayerToMove());
         }
 
 	// Methods
@@ -32,7 +34,7 @@ public class DameGameState extends GameState {
 	@Override
 	public void createChildStates() {
 		for (Move move : getAllMoves()) {
-			getChildStates().add(new GameState(this, move));
+			getChildStates().add(new DameGameState(this, move, dameTable));
 		}
 	}
 
@@ -47,8 +49,8 @@ public class DameGameState extends GameState {
 		return gstate;
 	}
 
-	public void setStartState(Player firstPlayer, DameTable dameTable) {
-		super.setStartState(firstPlayer);
+	public void setStartState(Player firstPlayer, Player secondPlayer ,DameTable dameTable) {
+		super.setStartState(firstPlayer, secondPlayer);
 		this.dameTable = dameTable;
 	}
 

@@ -59,7 +59,7 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 		}
 		super.setFirstPlayer(new DamePlayer(true, Piece.WHITE));
 		super.setSecondPlayer(new DamePlayer(false, Piece.BLACK));
-		this.dameGameState.setStartState(getFirstPlayer(), table);
+		this.dameGameState.setStartState(getFirstPlayer(), getSecondPlayer(), table);
 		this.dameGameState.findPossibleMoves();
 
 		// Notify view for update
