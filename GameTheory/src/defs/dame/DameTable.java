@@ -103,8 +103,8 @@ public class DameTable extends GenericTable<Piece> {
                                     rows.indexOf(row) + i, columns.indexOf(column)
                                     + j);
                             if (moveAllowed(sourceCell, targetCell)) {
-                                int[] movement = {rows.indexOf(row),
-                                    columns.indexOf(column), i, j};
+                                int[] movement = {sourceCell.getRowIndex(),
+                                    sourceCell.getColumnIndex(), targetCell.getRowIndex() , targetCell.getColumnIndex()};
                                 allPossibleMoves.add(new DameMove(movement));
                                 System.out.println("from " + movement[0] + " , " + movement[1] + " to " + movement[2] + " , " + movement[3]);
                             } else if (targetCell != null && targetCell.getCellValue() != Piece.EMPTY && targetCell.getCellValue() != playerToMovePieces) {
@@ -113,7 +113,7 @@ public class DameTable extends GenericTable<Piece> {
                                         + j + j);
                                 if (moveAllowed(sourceCell, targetCell)) {
                                     int[] movement = {rows.indexOf(row),
-                                        columns.indexOf(column), i+i, j+j};
+                                        columns.indexOf(column),targetCell.getRowIndex(), targetCell.getColumnIndex()};
                                     allPossibleMoves.add(new DameMove(movement));
                                     System.out.println("from " + movement[0] + " , " + movement[1] + " to " + movement[2] + " , " + movement[3]);
                                 }

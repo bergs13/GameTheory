@@ -22,8 +22,6 @@ public class GameState extends Observable {
 
     }
 
-   
-
     public GameState(GameState parentState, Move move) {
         this.parentState = parentState;
         this.playedMove = move;
@@ -130,5 +128,9 @@ public class GameState extends Observable {
 
     public void setValue(int value) {
         this.value = value;
+    }
+    
+    public Move getPlayedMove(){
+        return playedMove;
     }
 }
