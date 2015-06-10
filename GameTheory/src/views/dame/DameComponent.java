@@ -67,19 +67,22 @@ public class DameComponent extends JComponent implements Observer {
 	}
 
 	private JPanel getSettingAndMovePanel() {
+		// Set Layout to move panel
 		JPanel movePanel = new JPanel(new GridLayout(0, 2));
-		movePanel.add(new JLabel("Source Row:"));
+
+		// Create components of move panel
+		JPanel playerSettingPanel = getPlayerSettingPanel();
+		JButton restartButton = new JButton("Restart");
+		restartButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				restartGame();
+			}
+		});
 		JTextField rowSourceTF = GetDameTextField();
-		movePanel.add(rowSourceTF);
-		movePanel.add(new JLabel("Source Column:"));
 		JTextField columnSourceTF = GetDameTextField();
-		movePanel.add(columnSourceTF);
-		movePanel.add(new JLabel("Target Row:"));
 		JTextField rowTargetTF = GetDameTextField();
-		movePanel.add(rowTargetTF);
-		movePanel.add(new JLabel("Target Column:"));
 		JTextField columnTargetTF = GetDameTextField();
-		movePanel.add(columnTargetTF);
 		JButton moveButton = new JButton("Move");
 		moveButton.addActionListener(new ActionListener() {
 			@Override
@@ -126,12 +129,25 @@ public class DameComponent extends JComponent implements Observer {
 				return number;
 			};
 		});
+
+		// Add created components to move panel
+		movePanel.add(playerSettingPanel);
+		movePanel.add(restartButton);
+		movePanel.add(new JLabel("Source Row:"));
+		movePanel.add(rowSourceTF);
+		movePanel.add(new JLabel("Source Column:"));
+		movePanel.add(columnSourceTF);
+		movePanel.add(new JLabel("Target Row:"));
+		movePanel.add(rowTargetTF);
+		movePanel.add(new JLabel("Target Column:"));
+		movePanel.add(columnTargetTF);
 		movePanel.add(moveButton);
-		movePanel.add(getPlayerSettingPanel());
+
 		return movePanel;
 	}
 
 	private JPanel getPlayerSettingPanel() {
+		// Set layout to game setting panel
 		JPanel playerSettingPanel = new JPanel(new GridLayout(0, 2));
 		JCheckBox cb1 = new JCheckBox("Player 1 human?");
 		JCheckBox cb2 = new JCheckBox("Player 2 human?");
@@ -145,6 +161,7 @@ public class DameComponent extends JComponent implements Observer {
 		cb2.addItemListener(cbListener);
 		playerSettingPanel.add(cb1);
 		playerSettingPanel.add(cb2);
+
 		return playerSettingPanel;
 	}
 
@@ -179,6 +196,10 @@ public class DameComponent extends JComponent implements Observer {
 	}
 
 	// Control methods and events
+	public void restartGame() {
+		dameGame.restartGame();
+	}
+
 	public void moveStone(int sourceRowNumber, int sourceColumnNumber,
 			int targetRowNumber, int targetColumnNumber) {
 		dameGame.movePiece(sourceRowNumber - 1, sourceColumnNumber - 1,

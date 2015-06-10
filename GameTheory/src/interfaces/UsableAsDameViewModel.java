@@ -5,6 +5,8 @@ import defs.dame.DameTable;
 public interface UsableAsDameViewModel<T> {
 	DameTable getDameTable();
 
+	void restartGame();
+
 	void setPlayerIsHuman(boolean firstPlayerIsHuman,
 			boolean secondPlayerIsHuman);
 
