@@ -1,4 +1,3 @@
-
 package defs.dame;
 
 import defs.general.GameState;
@@ -13,22 +12,24 @@ import defs.dame.DamePlayer;
 public class DameGameState extends GameState {
 
 	private DameTable dameTable = null;
-        
+
 	public DameGameState() {
 	}
 
 	public DameGameState(GameState parentState, Move move, DameTable dameTable) {
 		super(parentState, move);
 		this.dameTable = dameTable;
-                super.setPlayerToMove(parentState.getPlayerToWait());
-                super.setPlayerToWait(parentState.getPlayerToMove());
-        }
+		super.setPlayerToMove(parentState.getPlayerToWait());
+		super.setPlayerToWait(parentState.getPlayerToMove());
+	}
 
 	// Methods
 	// Base overrides
 	@Override
 	public void findPossibleMoves() {
-		setChildMoves(this.dameTable.getAllPossibleMoves(((DamePlayer)super.getPlayerToMove()).getPlayersPiece()));
+		setChildMoves(this.dameTable
+				.getAllPossibleMoves(((DamePlayer) getPlayerToMove())
+						.getPlayersPiece()));
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class DameGameState extends GameState {
 
 	@Override
 	public boolean isTerminal() {
-		return (getAllMoves().isEmpty()); 
+		return (getAllMoves().isEmpty());
 	}
 
 	@Override
@@ -49,7 +50,8 @@ public class DameGameState extends GameState {
 		return gstate;
 	}
 
-	public void setStartState(Player firstPlayer, Player secondPlayer ,DameTable dameTable) {
+	public void setStartState(Player firstPlayer, Player secondPlayer,
+			DameTable dameTable) {
 		super.setStartState(firstPlayer, secondPlayer);
 		this.dameTable = dameTable;
 	}

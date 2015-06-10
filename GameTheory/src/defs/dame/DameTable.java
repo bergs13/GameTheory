@@ -9,8 +9,6 @@ import defs.general.GenericColumn;
 import defs.general.GenericRow;
 import defs.general.GenericTable;
 import defs.general.Move;
-import defs.general.Player;
-import defs.dame.DamePlayer;
 
 public class DameTable extends GenericTable<Piece> {
 

@@ -25,8 +25,8 @@ import defs.dame.DameGame;
 @SuppressWarnings("serial")
 public class DameComponent extends JComponent implements Observer {
 	// Members
-	DameGame dameGame = null;
 	DameGameFieldPanel dameGameFieldPanel = new DameGameFieldPanel();
+	DameGame dameGame = null;
 
 	// Constructors
 	public DameComponent(DameGame dameGame) {
@@ -37,6 +37,7 @@ public class DameComponent extends JComponent implements Observer {
 
 	// Painting methods
 	private void refreshGameField() {
+		this.dameGameFieldPanel.setTable(this.dameGame.getDameTable());
 		this.repaint();
 	}
 
@@ -133,7 +134,6 @@ public class DameComponent extends JComponent implements Observer {
 	private JPanel getPlayerSettingPanel() {
 		JPanel playerSettingPanel = new JPanel(new GridLayout(0, 2));
 		JCheckBox cb1 = new JCheckBox("Player 1 human?");
-		playerSettingPanel.add(cb1);
 		JCheckBox cb2 = new JCheckBox("Player 2 human?");
 		ItemListener cbListener = new ItemListener() {
 			@Override
@@ -143,6 +143,7 @@ public class DameComponent extends JComponent implements Observer {
 		};
 		cb1.addItemListener(cbListener);
 		cb2.addItemListener(cbListener);
+		playerSettingPanel.add(cb1);
 		playerSettingPanel.add(cb2);
 		return playerSettingPanel;
 	}

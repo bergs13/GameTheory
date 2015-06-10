@@ -2,13 +2,12 @@ package defs.general;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 /**
  *
  * @author Thunderchild
  */
-public class GameState extends Observable {
+public class GameState {
 
     private Move playedMove;
     private List<Move> childMoves;
