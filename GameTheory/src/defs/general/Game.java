@@ -7,56 +7,56 @@ import java.util.Observable;
  */
 public class Game extends Observable {
 
-    // Members
+	// Members
 
-    private String name = "";
-    private Player firstPlayer;
-    private Player secondPlayer;
+	private String name = "";
+	private Player firstPlayer;
+	private Player secondPlayer;
 
-    // Konstruktoren
-    public Game(String name) {
-        this.name = name;
-    }
+	// Konstruktoren
+	public Game(String name) {
+		this.name = name;
+	}
 
-    // Methoden
-    public String getName() {
-        return name;
-    }
+	// Methoden
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Override
-    public String toString() {
-        return this.name;
-    }
+	@Override
+	public String toString() {
+		return this.name;
+	}
 
-    public boolean setupGame() {
-        setFirstPlayer(new Player(true));
-        setSecondPlayer(new Player(false));
-        GameState gameState = new GameState();
-        gameState.setStartState(getFirstPlayer(), getSecondPlayer());
-        return true;
-    }
+	public boolean setupGame() {
+		setFirstPlayer(new Player(true));
+		setSecondPlayer(new Player(false));
+		GameState gameState = new GameState();
+		gameState.setStartState(getFirstPlayer(), getSecondPlayer());
+		return true;
+	}
 
-    protected void setFirstPlayer(Player firstPlayer) {
-        this.firstPlayer = firstPlayer;
-    }
+	protected void setFirstPlayer(Player firstPlayer) {
+		this.firstPlayer = firstPlayer;
+	}
 
-    protected void setSecondPlayer(Player secondPlayer) {
-        this.secondPlayer = secondPlayer;
-    }
+	protected void setSecondPlayer(Player secondPlayer) {
+		this.secondPlayer = secondPlayer;
+	}
 
-    public void play() {
+	public void play() {
 
-    }
+	}
 
-    protected Player getFirstPlayer() {
-        return firstPlayer;
-    }
+	public Player getFirstPlayer() {
+		return firstPlayer;
+	}
 
-    protected Player getSecondPlayer() {
-        return secondPlayer;
-    }
+	public Player getSecondPlayer() {
+		return secondPlayer;
+	}
 }

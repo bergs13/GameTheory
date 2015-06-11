@@ -150,7 +150,9 @@ public class DameComponent extends JComponent implements Observer {
 		// Set layout to game setting panel
 		JPanel playerSettingPanel = new JPanel(new GridLayout(0, 2));
 		JCheckBox cb1 = new JCheckBox("Player 1 human?");
+		cb1.setSelected(dameGame.getFirstPlayer().getIsHuman());
 		JCheckBox cb2 = new JCheckBox("Player 2 human?");
+		cb2.setSelected(dameGame.getSecondPlayer().getIsHuman());
 		ItemListener cbListener = new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent itemEvent) {
