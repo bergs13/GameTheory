@@ -1,5 +1,7 @@
 package defs.dame;
 
+import java.util.List;
+
 import defs.general.GameState;
 import defs.general.Move;
 import defs.general.Player;
@@ -34,8 +36,10 @@ public class DameGameState extends GameState {
 
 	@Override
 	public void createChildStates() {
+		super.createChildStates();
+		List<GameState> childStates = getChildStates();
 		for (Move move : getAllMoves()) {
-			getChildStates().add(new DameGameState(this, move, dameTable));
+			childStates.add(new DameGameState(this, move, this.dameTable));
 		}
 	}
 
