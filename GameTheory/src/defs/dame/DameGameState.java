@@ -6,7 +6,6 @@ import java.util.List;
 import defs.general.GameState;
 import defs.general.Move;
 import defs.general.Player;
-import defs.dame.DamePlayer;
 import defs.general.GenericCell;
 import defs.general.GenericRow;
 
@@ -75,7 +74,8 @@ public class DameGameState extends GameState {
             String moveString = "from " + ((DameMove) move).getMovement()[0]
                     + " , " + ((DameMove) move).getMovement()[1]
                     + " to " + ((DameMove) move).getMovement()[2]
-                    + " , " + ((DameMove) move).getMovement()[3] + "\n";
+                    + " , " + ((DameMove) move).getMovement()[3] 
+                    + " : " + ((DameMove) move).canCapture() + "\n";
             allMoves = allMoves.concat(moveString);
         }
         return allMoves;

@@ -1,12 +1,8 @@
 
-import defs.dame.DameConstants;
 import defs.dame.DameGame;
 import defs.dame.DameGameState;
 import defs.dame.DameMove;
 import defs.dame.DamePlayer;
-import defs.general.GameState;
-import defs.general.GenericCell;
-import defs.general.GenericRow;
 import views.dame.DameComponent;
 import views.dame.DameFrame;
 
@@ -42,8 +38,9 @@ public class Program {
                         + " , " + move.getMovement()[3]);
 //                System.out.println(((DamePlayer)gameState.getPlayerToMove()).getPlayersPiece());
                 gameState = (DameGameState) gameState.doMove(move);
-                gameState.createChildStates();
+//                gameState.createChildStates();
                 System.out.println(gameState.tableToString());
+//                System.out.println(gameState.allPossibleMovesToString());
 //                System.out.println(((DamePlayer)gameState.getPlayerToMove()).getPlayersPiece());
             } while (!gameState.isTerminal());
             System.out.println("finished");

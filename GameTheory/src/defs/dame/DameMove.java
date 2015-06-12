@@ -15,7 +15,10 @@ public class DameMove extends Move {
 	public DameMove(Object move) {
 		super(move);
 	}
-
+        public DameMove(Object move, GenericCell<Piece> toCapture){
+            super(move);
+            this.pieceToCapture = toCapture; 
+        }
 	@Override
 	public void executeMove(Object state) {
 		DameTable dameTable = (DameTable) state;
