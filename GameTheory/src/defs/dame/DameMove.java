@@ -28,7 +28,10 @@ public class DameMove extends Move {
 		this.pieceToCapture = cell;
 	}
 
-	public boolean capturePiece() {
+	public boolean canCapture() {
 		return (pieceToCapture != null);
 	}
+        public int[] getMovement(){
+            return (int[]) getMove();
+        }
 }

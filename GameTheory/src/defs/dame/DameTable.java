@@ -12,9 +12,9 @@ import defs.general.Move;
 
 public class DameTable extends GenericTable<Piece> {
 
-	public DameTable() {
-		super();
-	}
+    public DameTable() {
+        super();
+    }
 
 	@Override
 	public boolean moveAllowed(GenericCell<Piece> sourceCell,
@@ -34,18 +34,18 @@ public class DameTable extends GenericTable<Piece> {
 			if (sourceCell.getCellValue() != Piece.EMPTY
 					&& targetCell.getCellValue() == Piece.EMPTY) {
 
-				// Case 1: Move one space
-				if (rowIndexDifference <= 1 && columnIndexDifference <= 1) {
-					return true;
-				} // Case 2: capture piece
-				else if (columnIndexDifference % 2 == 0
-						&& rowIndexDifference % 2 == 0) {
-					return true;
-				}
-			}
-			return false;
-		}
-
+                // Case 1: Move one space
+                if (rowIndexDifference <= 1
+                        && columnIndexDifference <= 1) {
+                    return true;
+                } // Case 2: capture piece
+                else if (columnIndexDifference % 2 == 0
+                        && rowIndexDifference % 2 == 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
 		return false;
 	}
 
@@ -104,10 +104,10 @@ public class DameTable extends GenericTable<Piece> {
 										targetCell.getRowIndex(),
 										targetCell.getColumnIndex() };
 								allPossibleMoves.add(new DameMove(movement));
-								System.out.println("from " + (movement[0] + 1)
-										+ " , " + (movement[1] + 1) + " to "
-										+ (movement[2] + 1) + " , "
-										+ (movement[3] + 1));
+//								System.out.println("from " + (movement[0] + 1)
+//										+ " , " + (movement[1] + 1) + " to "
+//										+ (movement[2] + 1) + " , "
+//										+ (movement[3] + 1));
 							} else if (targetCell != null
 									&& targetCell.getCellValue() != Piece.EMPTY
 									&& targetCell.getCellValue() != playerToMovePieces) {
@@ -121,11 +121,11 @@ public class DameTable extends GenericTable<Piece> {
 											targetCell.getColumnIndex() };
 									allPossibleMoves
 											.add(new DameMove(movement));
-									System.out
-											.println("from " + movement[0]
-													+ " , " + movement[1]
-													+ " to " + movement[2]
-													+ " , " + movement[3]);
+//									System.out
+//											.println("from " + movement[0]
+//													+ " , " + movement[1]
+//													+ " to " + movement[2]
+//													+ " , " + movement[3]);
 								}
 
 							}
