@@ -24,7 +24,8 @@ public class DameGameState extends GameState {
     public DameGameState(GameState parentState, Move move, DameTable dameTable) {
         super(parentState, move);
         this.dameTable = dameTable;
-        move.executeMove(this.dameTable);
+        this.dameTable.moveValue(((DameMove)move).getMovement()[0], ((DameMove)move).getMovement()[1], 
+                ((DameMove)move).getMovement()[2], ((DameMove)move).getMovement()[3], Piece.EMPTY);
         super.setPlayerToMove(parentState.getPlayerToWait());
         super.setPlayerToWait(parentState.getPlayerToMove());
     }
@@ -43,7 +44,7 @@ public class DameGameState extends GameState {
         super.createChildStates();
         List<GameState> childStates = getChildStates();
         for (Move move : getAllMoves()) {
-            childStates.add(new DameGameState(this, move, this.dameTable));
+            childStates.add(new DameGameState(this, move, new DameTable(this.dameTable)));
         }
     }
 
@@ -53,9 +54,9 @@ public class DameGameState extends GameState {
     }
 
     @Override
-    public GameState doMove(Move move) {
-        DameGameState gstate = new DameGameState(this, move, this.dameTable);
-        return gstate;
+    public DameGameState doMove(Move move) {
+        return new DameGameState(this, move, this.dameTable);
+        
     }
 
     public void setStartState(Player firstPlayer, Player secondPlayer,

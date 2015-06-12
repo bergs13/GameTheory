@@ -15,6 +15,19 @@ public class DameTable extends GenericTable<Piece> {
     public DameTable() {
         super();
     }
+    
+    public DameTable(DameTable tableToCopy){
+        super();
+        		for (int i = 0; i < DameConstants.SQUARESPERSIDE; i++) {
+			GenericRow<Piece> row = new GenericRow<Piece>();
+			for (int j = 0; j < DameConstants.SQUARESPERSIDE; j++) {
+				GenericColumn<Piece> column = new GenericColumn<Piece>();
+				Piece cellValue = tableToCopy.getRows().get(i).getCells().get(j).getCellValue();
+				row.addColumn(column, cellValue);
+			}
+			this.addRow(row);
+		}
+    }
 
 	@Override
 	public boolean moveAllowed(GenericCell<Piece> sourceCell,
