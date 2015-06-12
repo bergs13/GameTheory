@@ -19,16 +19,10 @@ public class Program {
             gameState.getPlayerToMove().setIsHuman(false);
             gameState.getPlayerToWait().setIsHuman(false);
             System.out.println(gameState.tableToString());
+            int i = 0;
             do {
-//                for (GameState childState : gameState.getChildStates()){
-//                    System.out.println(((DameGameState)childState).tableToString());
-//                }
-//                int[] movement = {1,2, 2,2};
-                //DameMove move = new DameMove(movement);//((DamePlayer) gameState.getPlayerToMove()).getMove(gameState);
                 DameMove move = ((DamePlayer) gameState.getPlayerToMove()).getMove(gameState);
 //                System.out.println("PossibleMoves are: " + gameState.allPossibleMovesToString());
-//                System.out.println("Table:");
-//                System.out.println(gameState.tableToString());
                 System.out.println("Player "
                         + ((DamePlayer) gameState.getPlayerToMove()).getPlayersPiece()
                         + " did Move "
@@ -39,11 +33,10 @@ public class Program {
 //                System.out.println(((DamePlayer)gameState.getPlayerToMove()).getPlayersPiece());
                 gameState = (DameGameState) gameState.doMove(move);
 //                gameState.createChildStates();
-                System.out.println(gameState.tableToString());
-//                System.out.println(gameState.allPossibleMovesToString());
-//                System.out.println(((DamePlayer)gameState.getPlayerToMove()).getPlayersPiece());
+                System.out.println("Table:\n" + gameState.tableToString());
+                i++;
             } while (!gameState.isTerminal());
-            System.out.println("finished");
+            System.out.println("finished in " + i + " rounds");
         }
     }
 }

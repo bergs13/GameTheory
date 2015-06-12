@@ -118,10 +118,6 @@ public class DameTable extends GenericTable<Piece> {
                                     targetCell.getRowIndex(),
                                     targetCell.getColumnIndex()};
                                 allPossibleMoves.add(new DameMove(movement));
-//								System.out.println("from " + (movement[0] + 1)
-//										+ " , " + (movement[1] + 1) + " to "
-//										+ (movement[2] + 1) + " , "
-//										+ (movement[3] + 1));
                             } 
                             else if (targetCell != null
                                     && targetCell.getCellValue() != Piece.EMPTY
@@ -138,11 +134,6 @@ public class DameTable extends GenericTable<Piece> {
                                     allPossibleMoves
                                             .add(new DameMove(movement, cellToCapture));
                                     canCapture = true;
-//									System.out
-//											.println("from " + movement[0]
-//													+ " , " + movement[1]
-//													+ " to " + movement[2]
-//													+ " , " + movement[3]);
                                 }
 
                             }
@@ -153,11 +144,6 @@ public class DameTable extends GenericTable<Piece> {
         }
         if (canCapture) {
             allPossibleMoves.removeIf(e-> !e.canCapture());
-//            for (int i = 0; i < allPossibleMoves.size(); i++) {
-//                if (!((DameMove) allPossibleMoves.get(i)).canCapture()) {
-//                    allPossibleMoves.remove(i);
-//                }
-//            }
         }
         return (List) allPossibleMoves;
     }
