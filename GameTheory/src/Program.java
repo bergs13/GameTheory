@@ -9,7 +9,7 @@ import views.dame.DameFrame;
 public class Program {
 
     public static void main(String[] args) {
-        boolean consoleMode = true;
+        boolean consoleMode = false;
         if (!consoleMode) {
             DameFrame dameFrame = new DameFrame(new DameComponent(new DameGame()));
             dameFrame.setVisible(true);

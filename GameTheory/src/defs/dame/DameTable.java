@@ -89,13 +89,21 @@ public class DameTable extends GenericTable<Piece> {
 			// index between rows
 			rowIndexForRemove = sourceRowIndex < targetRowIndex ? sourceRowIndex + 1
 					: targetRowIndex + 1;
-		}
+		}// case 3: stone between  diagonal
+                else if (rowDifference == 2 && columnDifference == 2){
+                    // index between rows
+			rowIndexForRemove = sourceRowIndex < targetRowIndex ? sourceRowIndex + 1
+					: targetRowIndex + 1;
+                        // index between columns
+			columnIndexForRemove = sourceColumnIndex < targetColumnIndex ? sourceColumnIndex + 1
+					: targetColumnIndex + 1;
+                }
 		// Remove piece if piece identified
 		if (rowIndexForRemove >= 0 && columnIndexForRemove >= 0) {
 			/* Piece removedPiece = */
 			removeValue(rowIndexForRemove, columnIndexForRemove, emptyValue);
 		}
-		return true;
+                return true;
 	}
 
 	public List<Move> getAllPossibleMoves(Piece playerToMovePieces) {
