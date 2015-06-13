@@ -9,7 +9,7 @@ import views.dame.DameFrame;
 public class Program {
 
     public static void main(String[] args) {
-        boolean consoleMode = false;
+        boolean consoleMode = true;
         if (!consoleMode) {
             DameFrame dameFrame = new DameFrame(new DameComponent(new DameGame()));
             dameFrame.setVisible(true);
@@ -18,24 +18,28 @@ public class Program {
             DameGameState gameState = game.getGameState();
             gameState.getPlayerToMove().setIsHuman(false);
             gameState.getPlayerToWait().setIsHuman(false);
+            ((DamePlayer)gameState.getPlayerToMove()).setDepthToEvaluate(4);
+            
             System.out.println(gameState.tableToString());
             int i = 0;
+            int movesSinceCapture=0;
             do {
                 DameMove move = ((DamePlayer) gameState.getPlayerToMove()).getMove(gameState);
+               gameState = (DameGameState) gameState.doMove(move);
+               if (move.canCapture()) movesSinceCapture = 0;
+               else movesSinceCapture++;
+               i++;
 //                System.out.println("PossibleMoves are: " + gameState.allPossibleMovesToString());
-                System.out.println("Player "
+                System.out.println("Move " + i+ ":\nPlayer "
                         + ((DamePlayer) gameState.getPlayerToMove()).getPlayersPiece()
                         + " did Move "
                         + "from " + move.getMovement()[0]
                         + " , " + move.getMovement()[1]
                         + " to " + move.getMovement()[2]
                         + " , " + move.getMovement()[3]);
-//                System.out.println(((DamePlayer)gameState.getPlayerToMove()).getPlayersPiece());
-                gameState = (DameGameState) gameState.doMove(move);
-//                gameState.createChildStates();
                 System.out.println("Table:\n" + gameState.tableToString());
-                i++;
-            } while (!gameState.isTerminal());
+                System.out.println(movesSinceCapture +" Moves since last capture");
+            } while (!gameState.isTerminal() && movesSinceCapture <= 100);
             System.out.println("finished in " + i + " rounds");
         }
     }

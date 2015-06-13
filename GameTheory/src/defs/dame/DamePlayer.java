@@ -9,7 +9,7 @@ public class DamePlayer extends Player {
 
     // Members
     Piece playersPiece = Piece.EMPTY;
-
+    private int depthToEvaluate = 4;
     // Constructors
     public DamePlayer(boolean isHuman, Piece playersPiece) {
         super(isHuman);
@@ -37,8 +37,11 @@ public class DamePlayer extends Player {
             bestChildState.setValue(-101);
             int alpha = -100;
             int beta = 100;
-            int depht = 4;
-
+            int depht = this.depthToEvaluate;
+            
+            if (this.getDepthToEvaluate()<=1){
+                return (DameMove) gameState.getChildMoves().get(0);
+            }
             for (GameState childState : gameState.getChildStates()) {
                 int value = -Algorithms.alphaBeta(new DameEvaluator(
                         this.playersPiece,
@@ -52,6 +55,20 @@ public class DamePlayer extends Player {
             }
         }
         DameMove bestmove = (DameMove) bestChildState.getPlayedMove();
-        return (DameMove) gameState.getChildMoves().get(0);
+        return bestmove;
+    }
+
+    public int getDepthToEvaluate() {
+        return depthToEvaluate;
+    }
+
+    public void setDepthToEvaluate(int depthToSet) {
+        if(depthToSet >= 20){
+            this.depthToEvaluate = 20;
+        }
+        else{
+            this.depthToEvaluate = depthToSet;
+
+        }
     }
 }

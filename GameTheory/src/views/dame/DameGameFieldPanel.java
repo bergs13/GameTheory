@@ -31,7 +31,7 @@ public class DameGameFieldPanel extends JPanel {
 	// Painting Methods
 	@Override
 	public void paintComponent(Graphics g) {
-		// Layout und Variablen für ganzes Spielfeld
+		// Layout und Variablen fÃ¼r ganzes Spielfeld
 		Graphics2D g2d = (Graphics2D) g;
 		int rowIndex;
 		int colIndex;
@@ -51,11 +51,11 @@ public class DameGameFieldPanel extends JPanel {
 				GenericCell<Piece> columnCell = row.getCellByColumn(column);
 				Piece cellValue = columnCell.getCellValue();
 
-				// Position für das Quadrat der aktuellen Zelle setzen
+				// Position fÃ¼r das Quadrat der aktuellen Zelle setzen
 				x = 0 + colIndex * DameConstants.SINGLESQUARESIDESIZE;
 				y = 0 + rowIndex * DameConstants.SINGLESQUARESIDESIZE;
 
-				// Quadratfarbe für aktuelle Zelle ermitteln und Quadrat
+				// Quadratfarbe fÃ¼r aktuelle Zelle ermitteln und Quadrat
 				// zeichnen
 				if (rowIndex % 2 == 0) {
 					if (colIndex % 2 == 0) {
@@ -72,7 +72,7 @@ public class DameGameFieldPanel extends JPanel {
 				}
 				g2d.fillRect(x, y, DameConstants.SINGLESQUARESIDESIZE,
 						DameConstants.SINGLESQUARESIDESIZE);
-				// Wert für aktuelle Zelle ermitteln und zeichnen (Wenn nicht
+				// Wert fÃ¼r aktuelle Zelle ermitteln und zeichnen (Wenn nicht
 				// leer)
 				if (cellValue != Piece.EMPTY) {
 					if (cellValue == Piece.WHITE) {
@@ -80,7 +80,7 @@ public class DameGameFieldPanel extends JPanel {
 					} else if (cellValue == Piece.BLACK) {
 						g2d.setColor(Color.BLACK);
 					}
-					// Ausgfüllter Kreis (sowohl schwarz als auch weiss)
+					// AusgfÃ¼llter Kreis (sowohl schwarz als auch weiss)
 					g2d.fillOval(
 							x
 									+ ((DameConstants.SINGLESQUARESIDESIZE - DameConstants.PIECEDIAMETER) / 2),
