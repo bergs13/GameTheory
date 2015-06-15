@@ -57,10 +57,16 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 			}
 			table.addRow(row);
 		}
-                super.setFirstPlayer(new DamePlayer(true, Piece.WHITE));
-		super.setSecondPlayer(new DamePlayer(false, Piece.BLACK));
+
+		// Set the players to the game
+		setFirstPlayer(new DamePlayer(false, Piece.WHITE));
+		setSecondPlayer(new DamePlayer(false, Piece.BLACK));
+		((DamePlayer) getFirstPlayer()).setDepthToEvaluate(4);
+		((DamePlayer) getSecondPlayer()).setDepthToEvaluate(4);
+
 		this.dameGameState.setStartState(getFirstPlayer(), getSecondPlayer(),
 				table);
+
 		this.dameGameState.findPossibleMoves();
 
 		// Notify view for update
@@ -83,7 +89,7 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 	}
 
 	@Override
-	public void setPlayerIsHuman(boolean firstPlayerIsHuman,
+	public void applyPlayerSettings(boolean firstPlayerIsHuman,
 			boolean secondPlayerIsHuman) {
 		getFirstPlayer().setIsHuman(firstPlayerIsHuman);
 		getSecondPlayer().setIsHuman(secondPlayerIsHuman);
@@ -91,7 +97,7 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 	}
 
 	@Override
-	public void movePiece(int sourceRowIndex, int sourceColumnIndex,
+	public void performManualMove(int sourceRowIndex, int sourceColumnIndex,
 			int targetRowIndex, int targetColumnIndex) {
 		int[] movement = { sourceRowIndex, sourceColumnIndex, targetRowIndex,
 				targetColumnIndex };
@@ -103,7 +109,20 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 		setChanged();
 		notifyObservers(DameEventConstants.STONEMOVED);
 	}
-        public DameGameState getGameState(){
-            return this.dameGameState;
-        }
+
+	public void performCPUMove() {
+		// Get next move vor CPU
+		DameMove move = ((DamePlayer) this.dameGameState.getPlayerToMove())
+				.getMove(this.dameGameState);
+		// Perform move
+		this.dameGameState = (DameGameState) this.dameGameState.doMove(move);
+
+		// Notify view for update
+		setChanged();
+		notifyObservers(DameEventConstants.STONEMOVED);
+	}
+
+	public DameGameState getGameState() {
+		return this.dameGameState;
+	}
 }

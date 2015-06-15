@@ -7,9 +7,11 @@ public interface UsableAsDameViewModel<T> {
 
 	void restartGame();
 
-	void setPlayerIsHuman(boolean firstPlayerIsHuman,
+	void applyPlayerSettings(boolean firstPlayerIsHuman,
 			boolean secondPlayerIsHuman);
 
-	void movePiece(int sourceRowIndex, int sourceColumnIndex,
+	void performManualMove(int sourceRowIndex, int sourceColumnIndex,
 			int targetRowIndex, int targetColumnIndex);
+
+	void performCPUMove();
 }
