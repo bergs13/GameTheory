@@ -212,8 +212,8 @@ public class DameComponent extends JComponent implements Observer {
 
 	// Control methods and events
 	public void restartGame() {
-		dameGame.restartGame(dameGame.getFirstPlayer(),
-				dameGame.getSecondPlayer());
+		// use existing players as initial players in the game setup
+		dameGame.restartGame(false);
 	}
 
 	private void checkPerformCPUMove() {

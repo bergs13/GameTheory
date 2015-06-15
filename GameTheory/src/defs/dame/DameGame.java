@@ -11,7 +11,6 @@ import defs.dame.DameConstants.Piece;
 import defs.general.Game;
 import defs.general.GenericColumn;
 import defs.general.GenericRow;
-import defs.general.Player;
 
 /**
  *
@@ -25,7 +24,8 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 	// Constructors
 	public DameGame() {
 		super("Dame-Spiel");
-		restartGame();
+		// Set default players as initial players in game setup
+		restartGame(true);
 	}
 
 	// Methods
@@ -79,15 +79,10 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 	}
 
 	// UsableAsDameViewModel<Piece> (interface) methods
-	public void restartGame() {
-		this.dameGameState = new DameGameState();
-		setupGame(true);
-	}
-
 	@Override
-	public void restartGame(Player playerOne, Player playerTwo) {
+	public void restartGame(boolean setDefaultPlayers) {
 		this.dameGameState = new DameGameState();
-		setupGame(false);
+		setupGame(setDefaultPlayers);
 	}
 
 	@Override
@@ -98,11 +93,11 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 	@Override
 	public void applyPlayerSettings(boolean firstPlayerIsHuman,
 			boolean secondPlayerIsHuman) {
-		Player playerOne = getFirstPlayer();
-		Player playerTwo = getSecondPlayer();
-		playerOne.setIsHuman(firstPlayerIsHuman);
-		playerTwo.setIsHuman(secondPlayerIsHuman);
-		restartGame(playerOne, playerTwo);
+		// update player types
+		getFirstPlayer().setIsHuman(firstPlayerIsHuman);
+		getSecondPlayer().setIsHuman(secondPlayerIsHuman);
+		// use existing players as initial players in the game setup
+		restartGame(false);
 	}
 
 	@Override
