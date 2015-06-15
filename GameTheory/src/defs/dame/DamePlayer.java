@@ -10,7 +10,9 @@ public class DamePlayer extends Player {
     // Members
     Piece playersPiece = Piece.EMPTY;
     private int depthToEvaluate = 4;
+
     // Constructors
+
     public DamePlayer(boolean isHuman, Piece playersPiece) {
         super(isHuman);
         this.playersPiece = playersPiece;
@@ -21,10 +23,7 @@ public class DamePlayer extends Player {
         this.playersPiece = playersPiece;
     }
 
-    public Piece getPlayersPiece() {
-        return playersPiece;
-    }
-
+    //get the next move
     public DameMove getMove(DameGameState gameState) {
         DameMove move = null;
         DameGameState bestChildState = gameState;
@@ -38,8 +37,8 @@ public class DamePlayer extends Player {
             int alpha = -100;
             int beta = 100;
             int depht = this.depthToEvaluate;
-            
-            if (this.getDepthToEvaluate()<=1){
+
+            if (this.getDepthToEvaluate() <= 1) {
                 return (DameMove) gameState.getChildMoves().get(0);
             }
             for (GameState childState : gameState.getChildStates()) {
@@ -58,17 +57,20 @@ public class DamePlayer extends Player {
         return bestmove;
     }
 
+    //getters and setters
+    public Piece getPlayersPiece() {
+        return playersPiece;
+    }
+
     public int getDepthToEvaluate() {
         return depthToEvaluate;
     }
 
     public void setDepthToEvaluate(int depthToSet) {
-        if(depthToSet >= 20){
+        if (depthToSet >= 20) {
             this.depthToEvaluate = 20;
-        }
-        else{
+        } else {
             this.depthToEvaluate = depthToSet;
-
         }
     }
 }
