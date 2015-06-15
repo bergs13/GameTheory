@@ -17,6 +17,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import defs.dame.DameConstants;
 import defs.dame.DameConstants.DameEventConstants;
@@ -27,6 +28,12 @@ public class DameComponent extends JComponent implements Observer {
 	// Members
 	DameGameFieldPanel dameGameFieldPanel = new DameGameFieldPanel();
 	DameGame dameGame = null;
+	Runnable doWorkAfterRepaint = new Runnable() {
+		@Override
+		public void run() {
+			checkPerformCPUMove();
+		}
+	};
 
 	// Constructors
 	public DameComponent(DameGame dameGame) {
@@ -39,6 +46,7 @@ public class DameComponent extends JComponent implements Observer {
 	private void refreshGameField() {
 		this.dameGameFieldPanel.setTable(this.dameGame.getDameTable());
 		this.repaint();
+		SwingUtilities.invokeLater(doWorkAfterRepaint);
 	}
 
 	@Override
@@ -64,6 +72,8 @@ public class DameComponent extends JComponent implements Observer {
 		// dameGameFieldPanel.repaint();
 		// add content panel to component
 		this.add(contentPanel);
+
+		SwingUtilities.invokeLater(doWorkAfterRepaint);
 	}
 
 	private JPanel getSettingAndMovePanel() {
@@ -129,6 +139,9 @@ public class DameComponent extends JComponent implements Observer {
 				return number;
 			};
 		});
+		// only enabled if human has to move
+		moveButton.setEnabled(dameGame.getGameState().getPlayerToMove()
+				.getIsHuman());
 
 		// Add created components to move panel
 		movePanel.add(playerSettingPanel);
@@ -156,7 +169,7 @@ public class DameComponent extends JComponent implements Observer {
 		ItemListener cbListener = new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent itemEvent) {
-				dameGame.setPlayerIsHuman(cb1.isSelected(), cb2.isSelected());
+				dameGame.applyPlayerSettings(cb1.isSelected(), cb2.isSelected());
 			}
 		};
 		cb1.addItemListener(cbListener);
@@ -202,9 +215,21 @@ public class DameComponent extends JComponent implements Observer {
 		dameGame.restartGame();
 	}
 
+	private void checkPerformCPUMove() {
+		// Current playe is CPU?
+		if (!dameGame.getGameState().getPlayerToMove().getIsHuman()) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+			}
+			// Perform CPU move
+			dameGame.performCPUMove();
+		}
+	}
+
 	public void moveStone(int sourceRowNumber, int sourceColumnNumber,
 			int targetRowNumber, int targetColumnNumber) {
-		dameGame.movePiece(sourceRowNumber - 1, sourceColumnNumber - 1,
+		dameGame.performManualMove(sourceRowNumber - 1, sourceColumnNumber - 1,
 				targetRowNumber - 1, targetColumnNumber - 1);
 	}
 }
