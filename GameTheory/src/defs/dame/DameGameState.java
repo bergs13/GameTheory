@@ -20,16 +20,17 @@ public class DameGameState extends GameState {
 	public DameGameState() {
 	}
 
-	public DameGameState(GameState parentState, Move move, DameTable dameTable) {
+	public DameGameState(Move move, Player playerToMove, Player playerToWait,
+			DameTable dameTable) {
 		super(move);
 		this.dameTable = dameTable;
 		this.dameTable.moveValue(((DameMove) move).getMovement()[0],
 				((DameMove) move).getMovement()[1],
 				((DameMove) move).getMovement()[2],
 				((DameMove) move).getMovement()[3], Piece.EMPTY);
-                super.setPlayerToMove(parentState.getPlayerToWait());
-		super.setPlayerToWait(parentState.getPlayerToMove());
-                
+		setPlayerToMove(playerToMove);
+		setPlayerToWait(playerToWait);
+
 	}
 
 	// Methods
@@ -46,19 +47,20 @@ public class DameGameState extends GameState {
 		super.createChildStates();
 		List<GameState> childStates = getChildStates();
 		for (Move move : getAllMoves()) {
-			childStates.add(new DameGameState(this,move, new DameTable(
-					this.dameTable)));
+			childStates.add(new DameGameState(move, this.getPlayerToWait(),
+					this.getPlayerToMove(), new DameTable(this.dameTable)));
 		}
 	}
 
 	@Override
 	public boolean isTerminal() {
-                return (this.getAllMoves().isEmpty());
+		return (this.getAllMoves().isEmpty());
 	}
 
 	@Override
 	public DameGameState doMove(Move move) {
-		return new DameGameState(this, move, this.dameTable);
+		return new DameGameState(move, this.getPlayerToWait(),
+				this.getPlayerToMove(), this.dameTable);
 
 	}
 
