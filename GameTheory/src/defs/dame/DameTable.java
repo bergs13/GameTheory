@@ -154,4 +154,18 @@ public class DameTable extends GenericTable<Piece> {
 		}
 		return allPossibleMoves;
 	}
+    public int getNumberOfPieces(Piece pieceToCount){
+         int pieceCount = 0;
+        List<GenericRow<Piece>> rows = this.getRows();
+        for (GenericRow<Piece> row : rows) {
+            List<GenericCell<Piece>> cells = row.getCells();
+            for (GenericCell<Piece> cell : cells) {
+                Piece cellValue = cell.getCellValue();
+                if (pieceToCount == cellValue) {
+                    pieceCount++;
+                }
+            }
+        }
+        return pieceCount;
+    }
 }

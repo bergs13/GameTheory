@@ -52,7 +52,7 @@ public class DameGameState extends GameState {
 
 	@Override
 	public boolean isTerminal() {
-		return (getAllMoves().size() <=0);
+                return (this.getAllMoves().size()<1);
 	}
 
 	@Override

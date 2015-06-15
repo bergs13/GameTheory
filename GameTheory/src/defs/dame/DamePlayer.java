@@ -44,7 +44,7 @@ public class DamePlayer extends Player {
             for (GameState childState : gameState.getChildStates()) {
                 int value = -Algorithms.alphaBeta(new DameEvaluator(
                         this.playersPiece,
-                        ((DamePlayer) gameState.getPlayerToWait()).playersPiece), childState, depht, -beta, alpha);
+                        ((DamePlayer) gameState.getPlayerToWait()).playersPiece), childState, depht, -beta, -alpha);
                 childState.setValue(value);
                 bestChildState = childState.getValue() >= bestChildState.getValue() ? (DameGameState) childState : bestChildState;
             }
@@ -54,6 +54,7 @@ public class DamePlayer extends Player {
             }
         }
         DameMove bestmove = (DameMove) bestChildState.getPlayedMove();
+        //System.out.println("best Value is:" + bestChildState.getValue());
         return bestmove;
     }
 

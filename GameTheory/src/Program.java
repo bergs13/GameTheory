@@ -18,8 +18,8 @@ public class Program {
             DameGameState gameState = game.getGameState();
             gameState.getPlayerToMove().setIsHuman(false);
             gameState.getPlayerToWait().setIsHuman(false);
-            ((DamePlayer) gameState.getPlayerToMove()).setDepthToEvaluate(4);
-            ((DamePlayer) gameState.getPlayerToWait()).setDepthToEvaluate(4);
+            ((DamePlayer) gameState.getPlayerToMove()).setDepthToEvaluate(5);
+            ((DamePlayer) gameState.getPlayerToWait()).setDepthToEvaluate(2);
 
             System.out.println(gameState.tableToString());
             int i = 0;

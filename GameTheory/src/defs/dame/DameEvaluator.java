@@ -39,15 +39,16 @@ public class DameEvaluator extends Evaluator {
             }
         } 
         else {
-            result += 4*countPieces(table, ownPiece);
-            result -= 2*countPieces(table, opponentPiece);
-            if(((DamePlayer)gameState.getPlayerToMove()).playersPiece == ownPiece){
-               result += gameState.getAllMoves().size(); 
-            }
-            else{
-                result -= gameState.getAllMoves().size();
-            }
-            result += this.evaluatePositions(table, ownPiece);
+            int factor = 5;
+            result += factor*countPieces(table, ownPiece);
+            result += (-factor)*countPieces(table, opponentPiece);
+//            if(((DamePlayer)gameState.getPlayerToMove()).playersPiece == ownPiece){
+//               result += gameState.getAllMoves().size()/10; 
+//            }
+//            else{
+//                result -= gameState.getAllMoves().size()/10;
+//            }
+            result += 0.5*(this.evaluatePositions(table, ownPiece)-this.evaluatePositions(table, opponentPiece));
         }
         return result;
     }
@@ -89,11 +90,11 @@ public class DameEvaluator extends Evaluator {
         //2 1 1 1 2
         //2 1 1 1 2
         //4 2 1 2 4
-        int[] rowA = {4,3,2,3,4};
-        int[] rowB = {3,2,1,2,3};
-        int[] rowC = {2,1,1,1,2};
-        int[] rowD = {2,1,1,1,2};
-        int[] rowE = {4,2,1,2,4};
+        int[] rowA = {5,4,4,4,5};
+        int[] rowB = {4,2,1,2,4};
+        int[] rowC = {4,1,1,1,4};
+        int[] rowD = {4,2,1,2,4};
+        int[] rowE = {5,3,3,3,5};
         
     
         if(ownPiece == Piece.BLACK){
