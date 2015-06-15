@@ -78,7 +78,7 @@ public class GameState {
     }
 
     public boolean isTerminal() {
-        return !getChildStates().isEmpty();
+        return getChildStates().isEmpty();
     }
 
     public void firstPlayerToWin() {
