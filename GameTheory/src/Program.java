@@ -18,8 +18,8 @@ public class Program {
             DameGameState gameState = game.getGameState();
             gameState.getPlayerToMove().setIsHuman(false);
             gameState.getPlayerToWait().setIsHuman(false);
-            ((DamePlayer) gameState.getPlayerToMove()).setDepthToEvaluate(5);
-            ((DamePlayer) gameState.getPlayerToWait()).setDepthToEvaluate(2);
+            ((DamePlayer) gameState.getPlayerToMove()).setDepthToEvaluate(6);
+            ((DamePlayer) gameState.getPlayerToWait()).setDepthToEvaluate(6);
 
             System.out.println(gameState.tableToString());
             int i = 0;
@@ -33,7 +33,6 @@ public class Program {
                     movesSinceCapture++;
                 }
                 i++;
-//                System.out.println("PossibleMoves are: " + gameState.allPossibleMovesToString());
                 System.out.println("Move " + i + ":\nPlayer "
                         + ((DamePlayer) gameState.getPlayerToMove()).getPlayersPiece()
                         + " did Move "
@@ -43,6 +42,7 @@ public class Program {
                         + " , " + move.getMovement()[3]);
                 System.out.println("Table:\n" + gameState.tableToString());
                 System.out.println(movesSinceCapture + " Moves since last capture");
+                
             } while (!gameState.isTerminal() && movesSinceCapture <= 100);
             System.out.println("finished in " + i + " rounds");
         }

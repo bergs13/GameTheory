@@ -20,9 +20,9 @@ public class NimGameState extends GameState {
 	public NimGameState() {
 	}
 
-	public NimGameState(GameState parentState, Move move) {
-		super(parentState, move);
-		this.matches = ((NimGameState) parentState).matches;
+	public NimGameState(Move move) {
+		super(move);
+		
 		((NimMove) move).executeMove(this.matches);
 	}
 
@@ -31,13 +31,12 @@ public class NimGameState extends GameState {
 		for (int i = 1; i <= Math.min(3, matches); i++) {
 			getChildMoves().add(new NimMove(i));
 		}
-
 	}
 
 	@Override
 	public void createChildStates() {
 		for (Move move : this.getAllMoves()) {
-			getChildStates().add(new GameState(this, move));
+			getChildStates().add(new GameState(move));
 		}
 	}
 

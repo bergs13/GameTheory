@@ -21,8 +21,7 @@ public class GameState {
 
     }
 
-    public GameState(GameState parentState, Move move) {
-        this.parentState = parentState;
+    public GameState(Move move) {
         this.playedMove = move;
     }
 
@@ -48,7 +47,7 @@ public class GameState {
 
     // execute a move
     public GameState doMove(Move move) {
-        GameState gstate = new GameState(this, move);
+        GameState gstate = new GameState(move);
         return gstate;
     }
 
@@ -64,7 +63,7 @@ public class GameState {
         }
         return childStates;
     }
-
+    
     public void getChild() {
 
     }
