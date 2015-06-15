@@ -22,6 +22,7 @@ public class DameEvaluator extends Evaluator {
     public DameEvaluator(Piece ownPiece, Piece opponentPiece) {
         this.ownPiece = ownPiece;
         this.opponentPiece = opponentPiece;
+        createEvaluatorTable();
         
     }
 
@@ -36,14 +37,19 @@ public class DameEvaluator extends Evaluator {
             } else {
                 result = -100;
             }
-        } else {
-            result += countPieces(table, ownPiece);
-            result -= countPieces(table, opponentPiece);
-            result += gameState.getAllMoves().size();
+        } 
+        else {
+            result += 4*countPieces(table, ownPiece);
+            result -= 2*countPieces(table, opponentPiece);
+            if(((DamePlayer)gameState.getPlayerToMove()).playersPiece == ownPiece){
+               result += gameState.getAllMoves().size(); 
+            }
+            else{
+                result -= gameState.getAllMoves().size();
+            }
             result += this.evaluatePositions(table, ownPiece);
         }
         return result;
-
     }
 
     private static int countPieces(DameTable table, Piece pieceToCount) {
@@ -82,12 +88,12 @@ public class DameEvaluator extends Evaluator {
         //3 2 1 2 3
         //2 1 1 1 2
         //2 1 1 1 2
-        //3 2 1 2 3
+        //4 2 1 2 4
         int[] rowA = {4,3,2,3,4};
         int[] rowB = {3,2,1,2,3};
         int[] rowC = {2,1,1,1,2};
         int[] rowD = {2,1,1,1,2};
-        int[] rowE = {3,2,1,2,3};
+        int[] rowE = {4,2,1,2,4};
         
     
         if(ownPiece == Piece.BLACK){
