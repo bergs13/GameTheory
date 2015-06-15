@@ -8,7 +8,7 @@ import views.dame.DameFrame;
 public class Program {
 
 	public static void main(String[] args) {
-		boolean consoleMode = true; // (args[0].equalsIgnoreCase("c"));
+		boolean consoleMode = false; // (args[0].equalsIgnoreCase("c"));
 		if (!consoleMode) {
 			DameFrame dameFrame = new DameFrame(new DameComponent(
 					new DameGame()));

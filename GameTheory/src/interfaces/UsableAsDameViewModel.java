@@ -1,11 +1,12 @@
 package interfaces;
 
 import defs.dame.DameTable;
+import defs.general.Player;
 
 public interface UsableAsDameViewModel<T> {
 	DameTable getDameTable();
 
-	void restartGame();
+	void restartGame(Player playerOne, Player playerTwo);
 
 	void applyPlayerSettings(boolean firstPlayerIsHuman,
 			boolean secondPlayerIsHuman);

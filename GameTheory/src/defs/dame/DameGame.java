@@ -11,6 +11,7 @@ import defs.dame.DameConstants.Piece;
 import defs.general.Game;
 import defs.general.GenericColumn;
 import defs.general.GenericRow;
+import defs.general.Player;
 
 /**
  *
@@ -28,8 +29,7 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 	}
 
 	// Methods
-	@Override
-	public boolean setupGame() {
+	public boolean setupGame(boolean defaultPlayers) {
 		// initialize table and set as start state
 		DameTable table = new DameTable();
 		// S S S S S
@@ -58,9 +58,11 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 			table.addRow(row);
 		}
 
-		// Set the players to the game
-		setFirstPlayer(new DamePlayer(false, Piece.WHITE));
-		setSecondPlayer(new DamePlayer(false, Piece.BLACK));
+		if (defaultPlayers) {
+			// Set the players to the game
+			setFirstPlayer(new DamePlayer(false, Piece.WHITE));
+			setSecondPlayer(new DamePlayer(false, Piece.BLACK));
+		}
 		((DamePlayer) getFirstPlayer()).setDepthToEvaluate(4);
 		((DamePlayer) getSecondPlayer()).setDepthToEvaluate(4);
 
@@ -77,10 +79,15 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 	}
 
 	// UsableAsDameViewModel<Piece> (interface) methods
-	@Override
 	public void restartGame() {
 		this.dameGameState = new DameGameState();
-		setupGame();
+		setupGame(true);
+	}
+
+	@Override
+	public void restartGame(Player playerOne, Player playerTwo) {
+		this.dameGameState = new DameGameState();
+		setupGame(false);
 	}
 
 	@Override
@@ -91,9 +98,11 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 	@Override
 	public void applyPlayerSettings(boolean firstPlayerIsHuman,
 			boolean secondPlayerIsHuman) {
-		getFirstPlayer().setIsHuman(firstPlayerIsHuman);
-		getSecondPlayer().setIsHuman(secondPlayerIsHuman);
-		restartGame();
+		Player playerOne = getFirstPlayer();
+		Player playerTwo = getSecondPlayer();
+		playerOne.setIsHuman(firstPlayerIsHuman);
+		playerTwo.setIsHuman(secondPlayerIsHuman);
+		restartGame(playerOne, playerTwo);
 	}
 
 	@Override
