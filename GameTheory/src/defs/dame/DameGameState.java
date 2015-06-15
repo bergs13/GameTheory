@@ -30,7 +30,6 @@ public class DameGameState extends GameState {
 				((DameMove) move).getMovement()[3], Piece.EMPTY);
 		setPlayerToMove(playerToMove);
 		setPlayerToWait(playerToWait);
-
 	}
 
 	// Methods
