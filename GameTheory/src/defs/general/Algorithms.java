@@ -19,10 +19,16 @@ public class Algorithms {
 				bestValue = Math.max(bestValue, value);
 				alpha = Math.max(value, alpha);
 				if (alpha >= beta) {
-					break;
+                                     for(GameState cState : gstate.getChildStates()){
+                                            cState = null;
+                                    }
+					return alpha;
 				}
 			}
 		}
+                for(GameState cState : gstate.getChildStates()){
+                    cState = null;
+                }
 		return bestValue;
 	}
 

@@ -61,7 +61,7 @@ public class DamePlayer extends Player {
 			}
 		}
 		DameMove bestmove = (DameMove) bestChildState.getPlayedMove();
-		System.out.println("best Value is:" + bestChildState.getValue());
+		//System.out.println("best Value is:" + bestChildState.getValue());
 		return bestmove;
 	}
 

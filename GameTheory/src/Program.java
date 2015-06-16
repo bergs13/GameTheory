@@ -8,7 +8,7 @@ import views.dame.DameFrame;
 public class Program {
 
 	public static void main(String[] args) {
-		boolean consoleMode = true; // (args[0].equalsIgnoreCase("c"));
+		boolean consoleMode = false; // (args[0].equalsIgnoreCase("c"));
 		if (!consoleMode) {
 			DameFrame dameFrame = new DameFrame(new DameComponent(
 					new DameGame()));
@@ -18,8 +18,8 @@ public class Program {
 			DameGameState gameState = game.getGameState();
 			gameState.getPlayerToMove().setIsHuman(false);
 			gameState.getPlayerToWait().setIsHuman(false);
-			((DamePlayer) gameState.getPlayerToMove()).setDepthToEvaluate(2);
-			((DamePlayer) gameState.getPlayerToWait()).setDepthToEvaluate(2);
+			((DamePlayer) gameState.getPlayerToMove()).setDepthToEvaluate(4);
+			((DamePlayer) gameState.getPlayerToWait()).setDepthToEvaluate(4);
 
 			System.out.println(gameState.tableToString());
 			int i = 0;

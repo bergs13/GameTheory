@@ -23,7 +23,6 @@ public class DameEvaluator extends Evaluator {
         this.ownPiece = ownPiece;
         this.opponentPiece = opponentPiece;
         createEvaluatorTable();
-        
     }
 
     // Methods
@@ -42,14 +41,6 @@ public class DameEvaluator extends Evaluator {
             int factor = 5;
             result += factor*countPieces(table, ownPiece);
             result -= factor*countPieces(table, opponentPiece);
-            //System.out.println("result1 " + result);
-            result += gameState.getAllMoves().size()/factor;
-//            if(((DamePlayer)gameState.getPlayerToMove()).playersPiece == ownPiece){
-//               result += gameState.getAllMoves().size()/factor; 
-//            }
-//            else{
-//                result -= gameState.getAllMoves().size()/factor;
-//            }
             result += this.evaluatePositions(table, ownPiece);
         }
         return result;
@@ -61,7 +52,6 @@ public class DameEvaluator extends Evaluator {
         for (GenericRow<Piece> row : rows) {
             List<GenericCell<Piece>> cells = row.getCells();
             for (GenericCell<Piece> cell : cells) {
-                Piece cellValue = cell.getCellValue();
                 if (pieceToCount == cell.getCellValue()) {
                     count++;
                 }
@@ -75,31 +65,23 @@ public class DameEvaluator extends Evaluator {
         for (GenericRow<Piece> row : rows) {
             List<GenericCell<Piece>> cells = row.getCells();
             for (GenericCell<Piece> cell : cells) {
-                Piece cellValue = cell.getCellValue();
-                if (pieceToEvaluate == cellValue) {
+                if (pieceToEvaluate == cell.getCellValue()) {
                     value += evaluatorTable[cell.getRowIndex()][cell.getColumnIndex()];
                 }
-                if (cellValue != pieceToEvaluate && cellValue != Piece.EMPTY){
+                if (cell.getCellValue() != pieceToEvaluate && cell.getCellValue() != Piece.EMPTY){
                     value -= evaluatorTable[cell.getRowIndex()][cell.getColumnIndex()];
                 }
             }
         }
-                    //System.out.println("result2 " + value);
-
         return value;
     }
     private void createEvaluatorTable(){
-        //4 3 2 3 4
-        //3 2 1 2 3
-        //2 1 1 1 2
-        //2 1 1 1 2
-        //4 2 1 2 4
-        int[] rowA = {4,4,4,4,4};
-        int[] rowB = {4,3,2,3,4};
-        int[] rowC = {4,2,1,2,4};
-        int[] rowD = {4,3,2,3,4};
-        int[] rowE = {4,4,4,4,4};
         
+        int[] rowA = {4,4,4,4,4};
+        int[] rowB = {4,3,3,3,4};
+        int[] rowC = {4,2,2,2,4};
+        int[] rowD = {4,3,3,3,4};
+        int[] rowE = {4,4,4,4,4};
     
         if(ownPiece == Piece.BLACK){
             this.evaluatorTable[0] = rowA;
