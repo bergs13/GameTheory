@@ -5,6 +5,8 @@
  */
 package defs.dame;
 
+import javax.swing.SwingUtilities;
+
 import interfaces.UsableAsDameViewModel;
 import defs.dame.DameConstants.DameEventConstants;
 import defs.dame.DameConstants.Piece;
@@ -60,7 +62,7 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 
 		if (defaultPlayers) {
 			// Set the players to the game
-			setFirstPlayer(new DamePlayer(false, Piece.WHITE));
+			setFirstPlayer(new DamePlayer(true, Piece.WHITE));
 			setSecondPlayer(new DamePlayer(false, Piece.BLACK));
 		}
 		((DamePlayer) getFirstPlayer()).setDepthToEvaluate(4);
@@ -107,13 +109,13 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 				targetColumnIndex };
 		DameMove dMove = new DameMove(movement);
 		this.dameGameState = (DameGameState) this.dameGameState.doMove(dMove);
-		dMove.executeMove(this.dameGameState.getDameTable());
 
 		// Notify view for update
 		setChanged();
 		notifyObservers(DameEventConstants.STONEMOVED);
 	}
 
+	@Override
 	public void performCPUMove() {
 		// Get next move vor CPU
 		DameMove move = ((DamePlayer) this.dameGameState.getPlayerToMove())

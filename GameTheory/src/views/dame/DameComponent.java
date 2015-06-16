@@ -86,7 +86,7 @@ public class DameComponent extends JComponent implements Observer {
 		restartButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				restartGame();
+				dameGame.restartGame(false);
 			}
 		});
 		JTextField rowSourceTF = GetDameTextField();
@@ -211,11 +211,6 @@ public class DameComponent extends JComponent implements Observer {
 	}
 
 	// Control methods and events
-	public void restartGame() {
-		// use existing players as initial players in the game setup
-		dameGame.restartGame(false);
-	}
-
 	private void checkPerformCPUMove() {
 		// Current playe is CPU?
 		if (!dameGame.getGameState().getPlayerToMove().getIsHuman()) {
