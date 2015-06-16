@@ -22,6 +22,7 @@ import javax.swing.SwingUtilities;
 import defs.dame.DameConstants;
 import defs.dame.DameConstants.DameEventConstants;
 import defs.dame.DameGame;
+import defs.dame.DamePlayer;
 
 @SuppressWarnings("serial")
 public class DameComponent extends JComponent implements Observer {
@@ -46,6 +47,8 @@ public class DameComponent extends JComponent implements Observer {
 	private void refreshGameField() {
 		this.dameGameFieldPanel.setTable(this.dameGame.getDameTable());
 		this.repaint();
+
+		// if there is work after a repaint (explicitly)
 		SwingUtilities.invokeLater(doWorkAfterRepaint);
 	}
 
@@ -69,10 +72,11 @@ public class DameComponent extends JComponent implements Observer {
 		// add game field panel for displaying the game field to content panel
 		dameGameFieldPanel.setTable(this.dameGame.getDameTable());
 		contentPanel.add(dameGameFieldPanel);
-		// dameGameFieldPanel.repaint();
+
 		// add content panel to component
 		this.add(contentPanel);
 
+		// if there is work after a repaint (explicitly)
 		SwingUtilities.invokeLater(doWorkAfterRepaint);
 	}
 
@@ -162,9 +166,28 @@ public class DameComponent extends JComponent implements Observer {
 	private JPanel getPlayerSettingPanel() {
 		// Set layout to game setting panel
 		JPanel playerSettingPanel = new JPanel(new GridLayout(0, 2));
-		JCheckBox cb1 = new JCheckBox("Player 1 human?");
+
+		// Display player names
+		JLabel playerOneLabel = new JLabel("Player 1");
+		playerSettingPanel.add(playerOneLabel);
+		JLabel playerTwoLabel = new JLabel("Player 2");
+		playerSettingPanel.add(playerTwoLabel);
+
+		// Display piece color of the players
+		DamePlayer dFirstPlayer = (DamePlayer) dameGame.getFirstPlayer();
+		JLabel playerOneInfoLabel = new JLabel(dFirstPlayer.getPlayersPiece()
+				.toString());
+		playerSettingPanel.add(playerOneInfoLabel);
+		DamePlayer dSecondPlayer = (DamePlayer) dameGame.getSecondPlayer();
+		JLabel playerTwoInfoLabel = new JLabel(dSecondPlayer.getPlayersPiece()
+				.toString());
+		playerSettingPanel.add(playerTwoInfoLabel);
+
+		// Display checkboxes for players to choos wheter it is human or not
+		// CPU controlled)
+		JCheckBox cb1 = new JCheckBox("Human?");
 		cb1.setSelected(dameGame.getFirstPlayer().getIsHuman());
-		JCheckBox cb2 = new JCheckBox("Player 2 human?");
+		JCheckBox cb2 = new JCheckBox("Human?");
 		cb2.setSelected(dameGame.getSecondPlayer().getIsHuman());
 		ItemListener cbListener = new ItemListener() {
 			@Override

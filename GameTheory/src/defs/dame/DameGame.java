@@ -5,8 +5,6 @@
  */
 package defs.dame;
 
-import javax.swing.SwingUtilities;
-
 import interfaces.UsableAsDameViewModel;
 import defs.dame.DameConstants.DameEventConstants;
 import defs.dame.DameConstants.Piece;
@@ -31,7 +29,7 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 	}
 
 	// Methods
-	public boolean setupGame(boolean defaultPlayers) {
+	public boolean setupGame(boolean setDefaultPlayers) {
 		// initialize table and set as start state
 		DameTable table = new DameTable();
 		// S S S S S
@@ -60,7 +58,7 @@ public class DameGame extends Game implements UsableAsDameViewModel<Piece> {
 			table.addRow(row);
 		}
 
-		if (defaultPlayers) {
+		if (setDefaultPlayers) {
 			// Set the players to the game
 			setFirstPlayer(new DamePlayer(true, Piece.WHITE));
 			setSecondPlayer(new DamePlayer(false, Piece.BLACK));
