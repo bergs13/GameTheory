@@ -2,27 +2,15 @@ package views.dame;
 
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import defs.dame.DameConstants;
 import defs.dame.DameConstants.DameEventConstants;
 import defs.dame.DameGame;
-import defs.dame.DamePlayer;
 
 @SuppressWarnings("serial")
 public class DameComponent extends JComponent implements Observer {

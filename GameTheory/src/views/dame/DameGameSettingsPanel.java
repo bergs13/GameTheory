@@ -7,6 +7,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -17,17 +18,23 @@ import javax.swing.JTextField;
 import defs.dame.DameConstants;
 import defs.dame.DameGame;
 import defs.dame.DamePlayer;
+import defs.general.Player;
 
 @SuppressWarnings("serial")
 public class DameGameSettingsPanel extends JPanel {
 	// Members
 	DameGame dameGame = null;
+	// Updatable control
+	JLabel playerOneInfoLabel = null;
+	JLabel playerTwoInfoLabel = null;
+	JButton moveButton = null;
+	ArrayList<JTextField> dameTextFields = new ArrayList<JTextField>();
 
 	// Constructors
 	public DameGameSettingsPanel(DameGame dameGame) {
 		super(new GridLayout(0, 2));
 
-		this.setDameGame(dameGame);
+		this.dameGame = dameGame;
 
 		// Create components of move panel
 		JPanel playerSettingPanel = getPlayerSettingPanel();
@@ -39,10 +46,14 @@ public class DameGameSettingsPanel extends JPanel {
 			}
 		});
 		JTextField rowSourceTF = GetDameTextField();
+		dameTextFields.add(rowSourceTF);
 		JTextField columnSourceTF = GetDameTextField();
+		dameTextFields.add(columnSourceTF);
 		JTextField rowTargetTF = GetDameTextField();
+		dameTextFields.add(rowTargetTF);
 		JTextField columnTargetTF = GetDameTextField();
-		JButton moveButton = new JButton("Move");
+		dameTextFields.add(columnTargetTF);
+		moveButton = new JButton("Move");
 		moveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -118,13 +129,16 @@ public class DameGameSettingsPanel extends JPanel {
 		playerSettingPanel.add(playerTwoLabel);
 
 		// Display piece color of the players
+		Player playerToMove = dameGame.getGameState().getPlayerToMove();
 		DamePlayer dFirstPlayer = (DamePlayer) dameGame.getFirstPlayer();
-		JLabel playerOneInfoLabel = new JLabel(dFirstPlayer.getPlayersPiece()
-				.toString());
+		playerOneInfoLabel = new JLabel(dFirstPlayer.getPlayersPiece()
+				.toString()
+				+ (playerToMove.equals(dFirstPlayer) ? " (Active)" : ""));
 		playerSettingPanel.add(playerOneInfoLabel);
 		DamePlayer dSecondPlayer = (DamePlayer) dameGame.getSecondPlayer();
-		JLabel playerTwoInfoLabel = new JLabel(dSecondPlayer.getPlayersPiece()
-				.toString());
+		playerTwoInfoLabel = new JLabel(dSecondPlayer.getPlayersPiece()
+				.toString()
+				+ (playerToMove.equals(dSecondPlayer) ? " (Active)" : ""));
 		playerSettingPanel.add(playerTwoInfoLabel);
 
 		// Display checkboxes for players to choos wheter it is human or not
@@ -170,6 +184,22 @@ public class DameGameSettingsPanel extends JPanel {
 	}
 
 	private void updateGameinformation() {
+		// update updatable controls
+		// infos
+		Player playerToMove = dameGame.getGameState().getPlayerToMove();
+		DamePlayer dFirstPlayer = (DamePlayer) dameGame.getFirstPlayer();
+		playerOneInfoLabel.setText(dFirstPlayer.getPlayersPiece().toString()
+				+ (playerToMove.equals(dFirstPlayer) ? " (Active)" : ""));
+		DamePlayer dSecondPlayer = (DamePlayer) dameGame.getSecondPlayer();
+		playerTwoInfoLabel.setText(dSecondPlayer.getPlayersPiece().toString()
+				+ (playerToMove.equals(dSecondPlayer) ? " (Active)" : ""));
+		// button and input fields enabled
+		boolean enabled = this.dameGame.getGameState().getPlayerToMove()
+				.getIsHuman();
+		for (JTextField f : dameTextFields) {
+			f.setEnabled(enabled);
+		}
+		moveButton.setEnabled(enabled);
 	}
 
 	public void moveStone(int sourceRowNumber, int sourceColumnNumber,
