@@ -32,7 +32,7 @@ public class DamePlayer extends Player {
 				return (DameMove) bestChildState.getPlayedMove();
 			}
 			bestChildState = (DameGameState) gameState.getChildStates().get(0);
-			bestChildState.setValue(-101);
+			bestChildState.setValue(Integer.MIN_VALUE);
 			int alpha = -100;
 			int beta = 100;
 			int depht = this.depthToEvaluate;
@@ -51,7 +51,7 @@ public class DamePlayer extends Player {
 				childState.setValue(value);
 				bestChildState = childState.getValue() >= bestChildState
 						.getValue() ? (DameGameState) childState
-						: bestChildState;
+						: (DameGameState)bestChildState;
 			}
 			for (GameState childState : gameState.getChildStates()) {
 
@@ -61,7 +61,7 @@ public class DamePlayer extends Player {
 			}
 		}
 		DameMove bestmove = (DameMove) bestChildState.getPlayedMove();
-		// System.out.println("best Value is:" + bestChildState.getValue());
+		System.out.println("best Value is:" + bestChildState.getValue());
 		return bestmove;
 	}
 

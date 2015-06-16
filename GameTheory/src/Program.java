@@ -8,7 +8,7 @@ import views.dame.DameFrame;
 public class Program {
 
 	public static void main(String[] args) {
-		boolean consoleMode = false; // (args[0].equalsIgnoreCase("c"));
+		boolean consoleMode = true; // (args[0].equalsIgnoreCase("c"));
 		if (!consoleMode) {
 			DameFrame dameFrame = new DameFrame(new DameComponent(
 					new DameGame()));
@@ -18,13 +18,13 @@ public class Program {
 			DameGameState gameState = game.getGameState();
 			gameState.getPlayerToMove().setIsHuman(false);
 			gameState.getPlayerToWait().setIsHuman(false);
-			((DamePlayer) gameState.getPlayerToMove()).setDepthToEvaluate(6);
-			((DamePlayer) gameState.getPlayerToWait()).setDepthToEvaluate(6);
+			((DamePlayer) gameState.getPlayerToMove()).setDepthToEvaluate(2);
+			((DamePlayer) gameState.getPlayerToWait()).setDepthToEvaluate(2);
 
 			System.out.println(gameState.tableToString());
 			int i = 0;
 			int movesSinceCapture = 0;
-			do {
+			while (!gameState.isTerminal() && movesSinceCapture <= 100) {
 				DameMove move = ((DamePlayer) gameState.getPlayerToMove())
 						.getMove(gameState);
 				gameState = (DameGameState) gameState.doMove(move);
@@ -37,7 +37,7 @@ public class Program {
 				System.out.println("Move "
 						+ i
 						+ ":\nPlayer "
-						+ ((DamePlayer) gameState.getPlayerToMove())
+						+ ((DamePlayer) gameState.getPlayerToWait())
 								.getPlayersPiece() + " did Move " + "from "
 						+ move.getMovement()[0] + " , " + move.getMovement()[1]
 						+ " to " + move.getMovement()[2] + " , "
@@ -45,8 +45,7 @@ public class Program {
 				System.out.println("Table:\n" + gameState.tableToString());
 				System.out.println(movesSinceCapture
 						+ " Moves since last capture");
-
-			} while (!gameState.isTerminal() && movesSinceCapture <= 100);
+			} 
 			System.out.println("finished in " + i + " rounds");
 		}
 	}

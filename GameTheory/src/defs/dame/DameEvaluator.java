@@ -41,31 +41,33 @@ public class DameEvaluator extends Evaluator {
         else {
             int factor = 5;
             result += factor*countPieces(table, ownPiece);
-            result += (-factor)*countPieces(table, opponentPiece);
+            result -= factor*countPieces(table, opponentPiece);
+            //System.out.println("result1 " + result);
+            result += gameState.getAllMoves().size()/factor;
 //            if(((DamePlayer)gameState.getPlayerToMove()).playersPiece == ownPiece){
-//               result += gameState.getAllMoves().size()/10; 
+//               result += gameState.getAllMoves().size()/factor; 
 //            }
 //            else{
-//                result -= gameState.getAllMoves().size()/10;
+//                result -= gameState.getAllMoves().size()/factor;
 //            }
-            result += 0.5*(this.evaluatePositions(table, ownPiece)-this.evaluatePositions(table, opponentPiece));
+            result += this.evaluatePositions(table, ownPiece);
         }
         return result;
     }
 
     private static int countPieces(DameTable table, Piece pieceToCount) {
-        int pieceCount = 0;
+        int count = 0;
         List<GenericRow<Piece>> rows = table.getRows();
         for (GenericRow<Piece> row : rows) {
             List<GenericCell<Piece>> cells = row.getCells();
             for (GenericCell<Piece> cell : cells) {
                 Piece cellValue = cell.getCellValue();
-                if (pieceToCount == cellValue) {
-                    pieceCount++;
+                if (pieceToCount == cell.getCellValue()) {
+                    count++;
                 }
             }
         }
-        return pieceCount;
+        return count;
     }
     private int evaluatePositions(DameTable table, Piece pieceToEvaluate){
         int value = 0;
@@ -82,6 +84,8 @@ public class DameEvaluator extends Evaluator {
                 }
             }
         }
+                    //System.out.println("result2 " + value);
+
         return value;
     }
     private void createEvaluatorTable(){
@@ -90,11 +94,11 @@ public class DameEvaluator extends Evaluator {
         //2 1 1 1 2
         //2 1 1 1 2
         //4 2 1 2 4
-        int[] rowA = {5,4,4,4,5};
-        int[] rowB = {4,2,1,2,4};
-        int[] rowC = {4,1,1,1,4};
-        int[] rowD = {4,2,1,2,4};
-        int[] rowE = {5,3,3,3,5};
+        int[] rowA = {4,4,4,4,4};
+        int[] rowB = {4,3,2,3,4};
+        int[] rowC = {4,2,1,2,4};
+        int[] rowD = {4,3,2,3,4};
+        int[] rowE = {4,4,4,4,4};
         
     
         if(ownPiece == Piece.BLACK){
